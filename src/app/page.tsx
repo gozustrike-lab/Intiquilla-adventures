@@ -25,38 +25,35 @@ const HERO_IMAGES = [
   { image: "/images/hero-slide-mountainlake.webp", imageMobile: "/images/hero-slide-mountainlake-sm.webp", imageFallback: "/images/hero-slide-mountainlake.png" },
 ];
 
-function TipsAccordion() {
+function InteractiveTipsModule() {
   const { t } = useI18n();
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
-
-  const tips = [
+  const [activeItem, setActiveItem] = useState(0);
+  const adviceData = [
     { title: t("tips.acclimation.title"), desc: t("tips.acclimation.desc") },
     { title: t("tips.safety.title"), desc: t("tips.safety.desc") },
     { title: t("tips.nature.title"), desc: t("tips.nature.desc") },
-    { title: t("tips.season.title"), desc: t("tips.season.desc") },
   ];
 
   return (
-    <div className="space-y-1">
-      {tips.map((tip, idx) => {
-        const isOpen = activeIndex === idx;
-        return (
-          <div key={idx} className="border-b border-white/[0.06]">
+    <div className="w-full mx-auto px-2 sm:px-4 md:px-0">
+      <div className="space-y-0">
+        {adviceData.map((item, idx) => (
+          <div key={idx} className="border-b border-white/[0.08]">
             <button
-              onClick={() => setActiveIndex(isOpen ? null : idx)}
-              className="w-full flex justify-between items-center text-left py-4 text-white hover:text-[#D4AF37] transition-colors focus:outline-none group"
+              onClick={() => setActiveItem(activeItem === idx ? -1 : idx)}
+              className="w-full flex justify-between items-center text-left py-4 sm:py-5 text-white hover:text-[#D4AF37] transition-colors focus:outline-none group"
             >
-              <span className="font-bold text-sm md:text-base tracking-wide uppercase">{tip.title}</span>
+              <span className="font-bold text-sm md:text-base uppercase tracking-wide pr-4">{item.title}</span>
               <motion.span
-                animate={{ rotate: isOpen ? 180 : 0 }}
+                animate={{ rotate: activeItem === idx ? 45 : 0 }}
                 transition={{ duration: 0.25 }}
-                className="text-[#D4AF37] text-sm ml-4 shrink-0"
+                className="text-[#D4AF37] text-lg sm:text-xl font-light shrink-0 ml-2"
               >
-                &#8595;
+                +
               </motion.span>
             </button>
             <AnimatePresence initial={false}>
-              {isOpen && (
+              {activeItem === idx && (
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -64,13 +61,13 @@ function TipsAccordion() {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <p className="text-gray-400 text-xs md:text-sm pb-4 leading-relaxed font-light">{tip.desc}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm pb-5 leading-[1.8] font-light max-w-3xl">{item.desc}</p>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   );
 }
@@ -189,58 +186,62 @@ export default function HomePage() {
       </section>
 
       {/* ═══ BOOKING WIDGET ═══ */}
-      <section className="relative z-30 -mt-14 sm:-mt-16 px-4">
+      <section className="relative z-30 -mt-14 sm:-mt-16 px-3 sm:px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="rounded-2xl bg-[#1A332B]/90 backdrop-blur-md border border-[#D4AF37]/20 p-4 sm:p-6 shadow-2xl shadow-black/40">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-end">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.experience")}</label>
+          <div className="rounded-2xl bg-[#1A332B]/90 backdrop-blur-md border border-[#D4AF37]/20 p-3 sm:p-5 md:p-6 shadow-2xl shadow-black/40">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 items-end">
+              {/* Experience — full width on mobile */}
+              <div className="col-span-2 sm:col-span-1 lg:col-span-1 flex flex-col gap-1">
+                <label className="text-[10px] sm:text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.experience")}</label>
                 <div className="relative">
                   <select
                     value={localTour}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setLocalTour(e.target.value)}
-                    className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
+                    className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer truncate pr-8"
                   >
                     <option value="">{t("booking.select")}</option>
                     {TOURS.map((tour) => (
                       <option key={tour.id} value={tour.id}>{tour.name} (S/ {tour.price})</option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                  <ChevronDown className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/60 pointer-events-none" />
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.date")}</label>
+              {/* Date */}
+              <div className="col-span-1 flex flex-col gap-1">
+                <label className="text-[10px] sm:text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.date")}</label>
                 <div className="relative">
-                  <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                  <CalendarDays className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/60 pointer-events-none" />
                   <input
                     type="date"
                     value={localDate}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setLocalDate(e.target.value)}
                     min={new Date().toISOString().split("T")[0]}
-                    className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors [color-scheme:dark]"
+                    className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-8 sm:pl-10 pr-2 sm:pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors [color-scheme:dark]"
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.travelers")}</label>
+              {/* Travelers */}
+              <div className="col-span-1 flex flex-col gap-1">
+                <label className="text-[10px] sm:text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.travelers")}</label>
                 <div className="relative">
-                  <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                  <Users className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/60 pointer-events-none" />
                   <select
                     value={localTravelers}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setLocalTravelers(parseInt(e.target.value, 10))}
-                    className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
+                    className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-8 sm:pl-10 pr-7 sm:pr-4 py-2.5 sm:py-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
                   >
                     {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>{n} {n === 1 ? t("booking.person") : t("booking.people")}</option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                  <ChevronDown className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/60 pointer-events-none" />
                 </div>
               </div>
+              {/* Search button — full width on mobile, spans on sm */}
               <button
                 onClick={handleSearchAdventure}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D4AF37]/20"
+                className="col-span-2 sm:col-span-2 lg:col-span-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-xs sm:text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D4AF37]/20 whitespace-nowrap"
               >
                 <Search className="w-4 h-4" />
                 {t("booking.search")}
@@ -346,7 +347,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ IMMERSIVE TESTIMONIAL MARQUEE ═══ */}
+      {/* ═══ IMMERSIVE TESTIMONIAL STRIP ═══ */}
       <section className="py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
         <div className="relative z-10">
@@ -354,7 +355,7 @@ export default function HomePage() {
             <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("testimonials.badge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">{t("testimonials.title")}</h2>
           </div>
-          <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-none px-4 masking-gradient">
+          <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-none masking-gradient">
             {testimonials.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -362,17 +363,20 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, delay: idx * 0.12 }}
-                className="min-w-[85vw] md:min-w-[420px] snap-center shrink-0 border-l-2 border-[#D4AF37]/40 pl-6 py-5 flex flex-col justify-between"
+                className="min-w-[82vw] sm:min-w-[380px] md:min-w-[400px] lg:min-w-[440px] snap-center shrink-0 pl-6 pr-4 py-6 flex flex-col justify-between relative"
               >
+                {/* elegant left accent border */}
+                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#D4AF37] via-[#D4AF37]/40 to-transparent rounded-full" />
                 <div>
-                  <div className="flex text-[#D4AF37] gap-0.5 mb-3 text-sm">
+                  <div className="flex text-[#D4AF37] gap-0.5 mb-4 text-sm">
                     {[...Array(5)].map((_, i) => (
                       <span key={i}>&#9733;</span>
                     ))}
                   </div>
-                  <p className="text-gray-300 italic text-sm md:text-base leading-relaxed font-light">&ldquo;{item.text}&rdquo;</p>
+                  <p className="text-gray-300 italic text-sm md:text-[15px] leading-[1.8] font-light">&ldquo;{item.text}&rdquo;</p>
                 </div>
-                <div className="mt-5">
+                <div className="mt-6 pl-1">
+                  <div className="w-6 h-px bg-[#D4AF37]/30 mb-3" />
                   <h4 className="text-white font-bold text-sm tracking-wide">{item.author}</h4>
                   <span className="text-gray-500 text-xs mt-0.5 block">{item.geo}</span>
                 </div>
@@ -382,13 +386,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ MINIMALIST ACCORDION TIPS ═══ */}
-      <section id="tips" className="py-20 md:py-28 px-6 max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("tips.badge")}</span>
-          <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">{t("tips.title")}</h2>
+      {/* ═══ INTERACTIVE TIPS MODULE ═══ */}
+      <section id="tips" className="py-20 md:py-28 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("tips.badge")}</span>
+            <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">{t("tips.title")}</h2>
+          </div>
+          <InteractiveTipsModule />
         </div>
-        <TipsAccordion />
       </section>
 
       {/* ═══ CINEMATIC CTA ═══ */}
