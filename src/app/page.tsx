@@ -1,24 +1,20 @@
 "use client";
 
-import { useState, useEffect, type ChangeEvent } from "react";
+import React, { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
   ChevronDown,
-  Star,
   Mountain,
   CalendarDays,
   Users,
   Search,
   Clock,
-  Shield,
-  Heart,
-  Compass,
   ArrowRight,
   CheckCircle,
   Sparkles,
-  MessageCircle,
   MapPin,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { TOURS } from "@/lib/tours-data";
 
@@ -49,28 +45,60 @@ const HERO_SLIDES = [
   },
 ];
 
-const TIPS_DATA = [
-  {
-    icon: Mountain,
-    title: "Aclimatacion",
-    text: "Llega a Huaraz al menos 2 dias antes de tu trek para aclimarte a la altitud. Bebe mucha agua y evita comidas pesadas.",
-  },
-  {
-    icon: Shield,
-    title: "Seguridad Primero",
-    text: "Todos nuestros tours incluyen guias certificados, botiquin de primeros auxilios y oxigeno medicinal para emergencias.",
-  },
-  {
-    icon: Heart,
-    title: "Respeta la Naturaleza",
-    text: "Practica el turismo responsable. No dejes basura en los senderos y respeta a las comunidades locales.",
-  },
-  {
-    icon: Compass,
-    title: "Mejor Epoca",
-    text: "La temporada ideal es de mayo a septiembre. Dias soleados y noches claras perfectas para la observacion astronomica.",
-  },
+const TESTIMONIALS = [
+  { text: "Una experiencia increible. El equipo de Intiquilla hace que todo sea facil y seguro, incluso para principiantes. La laguna es simplemente magica.", author: "Maria Fernandez", geo: "Argentina \u2022 Laguna 69" },
+  { text: "El mejor trekking de mi vida. Diez dias de paisajes que parecian de otro planeta. La logistica fue perfecta y el guia excepcional.", author: "Thomas Mueller", geo: "Alemania \u2022 Cordillera Huayhuash" },
+  { text: "Hice el tour de Santa Cruz con mi pareja y fue la mejor decision de nuestro viaje por Peru. Los campamentos, la comida y las vistas fueron de primera.", author: "Carolina Vega", geo: "Colombia \u2022 Santa Cruz" },
 ];
+
+const TIPS = [
+  { title: "Aclimatacion", desc: "Llega a Huaraz al menos 2 dias antes de tu trek para aclimatarte a la altitud. Bebe mucha agua y evita comidas pesadas durante los primeros dias." },
+  { title: "Seguridad Primero", desc: "Todos nuestros tours incluyen guias certificados, botiquin de primeros auxilios y oxigeno medicinal para emergencias en altitud." },
+  { title: "Respecta la Naturaleza", desc: "Practicamos turismo responsable. Todo residuo generado regresa con nosotros a la ciudad. No dejes rastro en los senderos." },
+  { title: "Mejor Epoca", desc: "La temporada ideal es de mayo a septiembre. Dias soleados y noches claras perfectas para la observacion astronomica y trekking." },
+];
+
+function TipsAccordion() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+  return (
+    <div className="space-y-1">
+      {TIPS.map((tip, idx) => {
+        const isOpen = activeIndex === idx;
+        return (
+          <div key={idx} className="border-b border-white/[0.06]">
+            <button
+              onClick={() => setActiveIndex(isOpen ? null : idx)}
+              className="w-full flex justify-between items-center text-left py-4 text-white hover:text-[#D4AF37] transition-colors focus:outline-none group"
+            >
+              <span className="font-bold text-sm md:text-base tracking-wide uppercase">{tip.title}</span>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.25 }}
+                className="text-[#D4AF37] text-sm ml-4 shrink-0"
+              >
+                &#8595;
+              </motion.span>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-gray-400 text-xs md:text-sm pb-4 leading-relaxed font-light">{tip.desc}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function HomePage() {
   const { bookingOpen, setBookingOpen, selectedTour, setSelectedTour, travelDate, setTravelDate, travelers, setTravelers } = useBooking();
@@ -323,82 +351,77 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.06] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Testimonios</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">Lo que Dicen Nuestros Viajeros</h2>
+      {/* ═══ IMMERSIVE TESTIMONIAL MARQUEE ═══ */}
+      <section className="py-20 md:py-28 px-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
+        <div className="relative z-10">
+          <div className="text-center mb-12">
+            <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">Testimonios</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">Lo que Dicen Nuestros Viajeros</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              { name: "Maria Fernandez", country: "Argentina", tour: "Laguna 69", text: "Una experiencia increible. El equipo de Intiquilla hace que todo sea facil y seguro, incluso para principiantes. La laguna es simplemente magica." },
-              { name: "Thomas Mueller", country: "Alemania", tour: "Circuito Huayhuash", text: "El mejor trekking de mi vida. Diez dias de paisajes que parecian de otro planeta. La logistica fue perfecta y el guide excepcional." },
-              { name: "Carolina Vega", country: "Colombia", tour: "Santa Cruz", text: "Hice el tour de Santa Cruz con mi pareja y fue la mejor decision de nuestro viaje por Peru. Los campamentos, la comida y las vistas fueron de primera." },
-            ].map((review) => (
-              <div key={review.name} className="p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/20 hover:border-[#D4AF37]/30 transition-all duration-300">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
-                  ))}
-                </div>
-                <p className="text-sm text-white/70 leading-relaxed italic">&ldquo;{review.text}&rdquo;</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#D4AF37]/20 flex items-center justify-center text-[#D4AF37] font-bold text-sm">{review.name.charAt(0)}</div>
-                  <div>
-                    <span className="text-sm font-semibold text-white block">{review.name}</span>
-                    <span className="text-xs text-white/40">{review.country} &middot; {review.tour}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="tips" className="py-20 md:py-28 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 md:mb-16">
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Tips de Viaje</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">Preparate para tu Aventura</h2>
-            <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Recomendaciones esenciales para que tu expedicion por los Andes sea segura, comoda y verdaderamente inolvidable.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TIPS_DATA.map((tip) => (
-              <div key={tip.title} className="group p-6 rounded-2xl bg-[#1A332B]/50 border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-300 hover:-translate-y-1">
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-4 group-hover:bg-[#D4AF37]/20 transition-colors">
-                  <tip.icon className="w-6 h-6 text-[#D4AF37]" />
-                </div>
-                <h3 className="text-base font-bold tracking-wide text-white">{tip.title}</h3>
-                <p className="mt-2 text-sm text-white/50 leading-relaxed">{tip.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 md:py-28 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="p-8 sm:p-12 md:p-16 rounded-3xl bg-[#1A332B] border border-[#D4AF37]/20 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5" />
-            <div className="relative z-10">
-              <Sparkles className="w-8 h-8 text-[#D4AF37] mx-auto mb-4" />
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide text-white">Tu Aventura en los Andes Comienza Aqui</h2>
-              <p className="mt-4 text-base text-white/60 max-w-xl mx-auto leading-relaxed">
-                Reserva directamente con nosotros y obtiene la mejor experiencia al mejor precio. Atencion personalizada y confirmacion inmediata por WhatsApp.
-              </p>
-              <button
-                onClick={() => setBookingOpen(true)}
-                className="mt-8 inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-105 shadow-lg shadow-[#D4AF37]/20"
+          <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-none px-4 masking-gradient">
+            {TESTIMONIALS.map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: idx * 0.12 }}
+                className="min-w-[85vw] md:min-w-[420px] snap-center shrink-0 border-l-2 border-[#D4AF37]/40 pl-6 py-5 flex flex-col justify-between"
               >
-                <MessageCircle className="w-5 h-5" />
-                Reservar por WhatsApp
-              </button>
-            </div>
+                <div>
+                  <div className="flex text-[#D4AF37] gap-0.5 mb-3 text-sm">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i}>&#9733;</span>
+                    ))}
+                  </div>
+                  <p className="text-gray-300 italic text-sm md:text-base leading-relaxed font-light">&ldquo;{item.text}&rdquo;</p>
+                </div>
+                <div className="mt-5">
+                  <h4 className="text-white font-bold text-sm tracking-wide">{item.author}</h4>
+                  <span className="text-gray-500 text-xs mt-0.5 block">{item.geo}</span>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
+      </section>
+
+      {/* ═══ MINIMALIST ACCORDION TIPS ═══ */}
+      <section id="tips" className="py-20 md:py-28 px-6 max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">Tips de Viaje</span>
+          <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">Preparate para tu Aventura</h2>
+        </div>
+        <TipsAccordion />
+      </section>
+
+      {/* ═══ CINEMATIC CTA ═══ */}
+      <section className="py-24 px-4 relative flex justify-center items-center overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          whileHover={{ scale: 1.008 }}
+          className="relative w-full max-w-3xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-3xl p-8 md:p-14 text-center shadow-2xl z-10 overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#1A332B]/20 via-transparent to-[#D4AF37]/5 pointer-events-none" />
+          <div className="relative z-10">
+            <span className="text-[#D4AF37] text-lg block mb-4">&#10022;</span>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white uppercase tracking-tight mb-4">Tu Aventura en los Andes Comienza Aqui</h2>
+            <p className="text-gray-300 text-xs md:text-sm max-w-md mx-auto mb-8 font-light leading-relaxed">
+              Reserva directamente con nosotros y obtiene la mejor experiencia al mejor precio. Atencion personalizada y confirmacion inmediata por WhatsApp.
+            </p>
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setBookingOpen(true)}
+              className="bg-gradient-to-r from-[#D4AF37] to-amber-500 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] text-[#0B1311] font-black py-4 px-10 rounded-xl text-xs uppercase tracking-widest transition-shadow"
+            >
+              Reservar por WhatsApp
+            </motion.button>
+          </div>
+        </motion.div>
       </section>
     </>
   );
