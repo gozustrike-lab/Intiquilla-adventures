@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { BookingProvider } from "@/lib/booking-context";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { BookingModal } from "@/components/booking-modal";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -25,12 +29,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  openGraph: {
-    title: "Intiquilla Adventures | Turismo de Aventura en Huaraz",
-    description:
-      "Explora las montanas mas altas del Peru. Trekking, tours y expediciones en la Cordillera Blanca y Huayhuash.",
-    type: "website",
-  },
 };
 
 export default function RootLayout({
@@ -40,8 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className={`${inter.variable} font-sans antialiased`}>
-        {children}
+      <body className={`${inter.variable} font-sans antialiased bg-[#0B1311] text-white`}>
+        <BookingProvider>
+          <Navbar />
+          <main className="pt-16 md:pt-20">{children}</main>
+          <Footer />
+          <BookingModal />
+        </BookingProvider>
       </body>
     </html>
   );
