@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n-context";
 import { getTourBySlug, localizeTour, TOURS } from "@/lib/tours-data";
+import { ImageLightbox, useLightbox } from "@/components/image-lightbox";
 
 /* ─── animation presets ─── */
 const fadeUp = {
@@ -51,6 +52,7 @@ export default function TourPage() {
 
   const [travelDate, setTravelDate] = useState("");
   const [travelers, setTravelers] = useState(1);
+  const lightbox = useLightbox();
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -103,13 +105,20 @@ export default function TourPage() {
           1 · FULL-BLEED HERO
          ═══════════════════════════════════════════ */}
       <section className="relative w-full min-h-[65vh] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
-        <Image
-          src={lt.image}
-          alt={lt.name}
-          fill
-          className="object-cover object-center scale-105"
-          priority
-        />
+        {/* hero image — clickable to lightbox */}
+        <div
+          className="absolute inset-0 cursor-zoom-in"
+          onClick={() => lightbox.open([lt.image, ...lt.gallery], 0, lt.name)}
+          style={{ touchAction: "manipulation" }}
+        >
+          <Image
+            src={lt.image}
+            alt={lt.name}
+            fill
+            className="object-cover object-center scale-105"
+            priority
+          />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B1311] via-[#0B1311]/60 to-[#0B1311]/30" />
 
         <div className="relative z-10 flex flex-col items-center justify-end h-full min-h-[65vh] pb-10 sm:pb-14 px-4 text-center">
@@ -252,7 +261,8 @@ export default function TourPage() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-20px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="relative min-w-[75vw] sm:min-w-[340px] md:min-w-[420px] h-64 sm:h-80 md:h-96 snap-center shrink-0 rounded-2xl overflow-hidden border border-white/[0.06] flex-shrink-0"
+                  className="relative min-w-[75vw] sm:min-w-[340px] md:min-w-[420px] h-64 sm:h-80 md:h-96 snap-center shrink-0 rounded-2xl overflow-hidden border border-white/[0.06] flex-shrink-0 cursor-zoom-in"
+                  onClick={() => lightbox.open(lt.gallery, i, lt.name)}
                 >
                   <Image
                     src={img}
@@ -262,12 +272,25 @@ export default function TourPage() {
                     sizes="(min-width: 768px) 420px, 75vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  {/* zoom icon hint */}
+                  <div className="absolute bottom-3 right-3 p-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white/60">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
       )}
+
+      {/* ═══ LIGHTBOX ═══ */}
+      <ImageLightbox
+        images={lightbox.images}
+        alt={lightbox.alt}
+        initialIndex={lightbox.initialIndex}
+        isOpen={lightbox.isOpen}
+        onClose={lightbox.close}
+      />
 
       {/* ═══════════════════════════════════════════
           4 · HIGHLIGHTS MARQUEE

@@ -166,15 +166,16 @@ export function Navbar() {
 
         {/* Close button - prominent, large tap target */}
         <div className="relative z-10 flex justify-end p-4 pb-0">
-          <motion.button
+          <button
+            type="button"
             onClick={() => setIsOpen(false)}
-            whileTap={{ scale: 0.85 }}
-            className="p-3 text-gray-400 hover:text-white active:text-white rounded-full border border-gray-700/60 hover:border-[#D4AF37]/40 active:border-[#D4AF37]/60 transition-all duration-150 bg-black/30 hover:bg-black/50 active:bg-black/60 backdrop-blur-sm"
+            onPointerDown={(e) => { e.preventDefault(); setIsOpen(false); }}
+            className="p-4 text-gray-300 hover:text-white active:text-white rounded-full border border-gray-700/60 hover:border-[#D4AF37]/40 active:border-[#D4AF37]/60 transition-all duration-100 bg-black/40 hover:bg-black/60 active:bg-black/70 backdrop-blur-sm -mr-1 -mt-1"
             aria-label="Close menu"
-            style={{ touchAction: 'manipulation' }}
+            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
-            <X className="w-5 h-5" strokeWidth={2.5} />
-          </motion.button>
+            <X className="w-6 h-6" strokeWidth={2.5} />
+          </button>
         </div>
 
         {/* ═══ CENTERED BRAND HERO ═══ */}
