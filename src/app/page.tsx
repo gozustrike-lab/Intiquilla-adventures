@@ -24,19 +24,19 @@ import { TOURS } from "@/lib/tours-data";
 
 const HERO_SLIDES = [
   {
-    image: "/images/hero-astronomico.jpg",
+    image: "/images/hero-slide-nightcamp.png",
     title: "HUARAZ: LAS MONTANAS MAS ALTAS DEL PERU",
     subtitle:
       "Explora los glaciares milenarios de la Cordillera Blanca y vive aventuras que transforman tu forma de ver el mundo.",
   },
   {
-    image: "/images/hero-2.jpg",
+    image: "/images/hero-slide-chakana.png",
     title: "LAGUNAS TURQUESAS EN EL CORAZON DE LOS ANDES",
     subtitle:
       "Desciende a lagunas de un azul imposible, alimentadas por nevados que desafian las nubes.",
   },
   {
-    image: "/images/hero-3.jpg",
+    image: "/images/hero-slide-mountainlake.png",
     title: "CIRCUITO HUAYHUASH: LA AVENTURA DEFINITIVA",
     subtitle:
       "Diez dias de trekking a traves de la cordillera mas dramatica de Sudamerica.",
@@ -95,17 +95,19 @@ export default function HomePage() {
         {HERO_SLIDES.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${
-              activeSlide === index ? "opacity-100" : "opacity-0"
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              activeSlide === index ? "opacity-100 z-[2]" : "opacity-0 z-[1]"
             }`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-              style={{ backgroundImage: `url(${slide.image})` }}
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className="absolute inset-0 w-full h-full object-cover scale-105"
+              draggable={false}
             />
           </div>
         ))}
-        <div className="vignette-overlay absolute inset-0 z-10" />
+        <div className="vignette-overlay absolute inset-0 z-[3]" />
         <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 mb-6">
