@@ -45,10 +45,12 @@ export function BookingModal() {
         <div className="sticky top-0 z-10 bg-[#0B1311] p-6 pb-4 border-b border-[#D4AF37]/15">
           <button
             onClick={() => setBookingOpen(false)}
-            className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+            onTouchStart={(e) => { e.preventDefault(); setBookingOpen(false); }}
+            className="absolute top-4 right-4 p-2 text-[#D4AF37] active:text-white"
             aria-label="Close"
+            style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" strokeWidth={2.5} />
           </button>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 mb-3">
             <Sparkles className="w-3 h-3 text-[#D4AF37]" />

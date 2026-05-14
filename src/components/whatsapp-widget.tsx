@@ -76,12 +76,12 @@ export function WhatsAppWidget() {
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
-                    onPointerDown={(e) => { e.preventDefault(); setIsOpen(false); }}
-                    className="absolute top-3 right-3 p-2 text-white/50 hover:text-white rounded-full hover:bg-white/10 transition-all"
+                    onTouchStart={(e) => { e.preventDefault(); setIsOpen(false); }}
+                    className="absolute top-3 right-3 p-2 text-[#D4AF37] active:text-white"
                     aria-label="Close"
-                    style={{ touchAction: "manipulation" }}
+                    style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
                   >
-                    <X className="w-4 h-4" strokeWidth={2.5} />
+                    <X className="w-5 h-5" strokeWidth={2.5} />
                   </button>
 
                   {/* Agent avatar */}

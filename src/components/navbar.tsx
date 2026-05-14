@@ -164,17 +164,17 @@ export function Navbar() {
         <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/[0.03] rounded-full blur-[60px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#D4AF37]/[0.02] rounded-full blur-[50px] pointer-events-none" />
 
-        {/* Close button - prominent, large tap target */}
+        {/* Close button — golden X only, no background circle */}
         <div className="relative z-10 flex justify-end p-4 pb-0">
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            onPointerDown={(e) => { e.preventDefault(); setIsOpen(false); }}
-            className="p-4 text-gray-300 hover:text-white active:text-white rounded-full border border-gray-700/60 hover:border-[#D4AF37]/40 active:border-[#D4AF37]/60 transition-all duration-100 bg-black/40 hover:bg-black/60 active:bg-black/70 backdrop-blur-sm -mr-1 -mt-1"
+            onTouchStart={(e) => { e.preventDefault(); setIsOpen(false); }}
+            className="p-4 text-[#D4AF37] active:text-white -mr-1 -mt-1"
             aria-label="Close menu"
             style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
-            <X className="w-6 h-6" strokeWidth={2.5} />
+            <X className="w-7 h-7" strokeWidth={2.5} />
           </button>
         </div>
 

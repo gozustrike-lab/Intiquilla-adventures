@@ -11,8 +11,9 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /* ─────────────────────────────────────────────
-   Reusable Image Lightbox with touch swipe &
-   keyboard navigation
+   Image Lightbox — fast, fluid, native feel
+   No slow Framer Motion per-slide animations.
+   Uses instant CSS transitions for speed.
    ───────────────────────────────────────────── */
 
 interface LightboxProps {
@@ -33,10 +34,11 @@ export function ImageLightbox({
   const [idx, setIdx] = useState(initialIndex);
   const [direction, setDirection] = useState(0);
 
-  /* pointer-down tracking for swipe */
+  /* pointer tracking for swipe */
   const startX = useRef(0);
   const startY = useRef(0);
   const isDragging = useRef(false);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   /* reset index when lightbox opens */
   useEffect(() => {
@@ -58,7 +60,7 @@ export function ImageLightbox({
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKey);
     };
-  }, [isOpen, idx]);
+  }, [isOpen, idx, images.length]);
 
   const goNext = useCallback(() => {
     if (idx >= images.length - 1) return;
@@ -86,27 +88,10 @@ export function ImageLightbox({
     const dx = e.clientX - startX.current;
     const dy = e.clientY - startY.current;
 
-    /* only fire if horizontal swipe > vertical & exceeds threshold */
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
       if (dx < 0) goNext();
       else goPrev();
     }
-  };
-
-  /* slide animation variants */
-  const slideVariants = {
-    enter: (d: number) => ({
-      x: d >= 0 ? 300 : -300,
-      opacity: 0.4,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (d: number) => ({
-      x: d >= 0 ? -300 : 300,
-      opacity: 0.4,
-    }),
   };
 
   if (!isOpen || images.length === 0) return null;
@@ -119,29 +104,29 @@ export function ImageLightbox({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
           className="fixed inset-0 z-[100] flex items-center justify-center"
         >
           {/* backdrop */}
           <div
-            className="absolute inset-0 bg-black/95 backdrop-blur-md"
+            className="absolute inset-0 bg-black/95"
             onClick={onClose}
             style={{ touchAction: "manipulation" }}
           />
 
-          {/* close button */}
+          {/* close button — minimal gold X */}
           <button
             type="button"
             onClick={onClose}
-            onPointerDown={(e) => {
+            onTouchStart={(e) => {
               e.preventDefault();
               onClose();
             }}
-            className="absolute top-4 right-4 z-[110] p-3 text-gray-300 hover:text-white active:text-white rounded-full bg-black/50 hover:bg-black/70 active:bg-black/80 border border-white/10 hover:border-white/20 transition-all duration-100"
+            className="absolute top-4 right-4 z-[110] p-3 text-[#D4AF37] active:text-white"
             aria-label="Close lightbox"
             style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
           >
-            <X className="w-6 h-6" strokeWidth={2} />
+            <X className="w-6 h-6" strokeWidth={2.5} />
           </button>
 
           {/* counter */}
@@ -149,44 +134,35 @@ export function ImageLightbox({
             {idx + 1} / {images.length}
           </div>
 
-          {/* image container with swipe area */}
+          {/* image container — instant swap, no motion animations on slides */}
           <div
-            className="relative z-[105] w-full h-full flex items-center justify-center"
+            className="relative z-[105] w-full h-full flex items-center justify-center overflow-hidden"
             onPointerDown={handlePointerDown}
             onPointerUp={handlePointerUp}
             onPointerCancel={() => { isDragging.current = false; }}
             style={{ touchAction: "pan-y pinch-zoom" }}
           >
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={idx}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "tween", duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                  opacity: { duration: 0.2 },
-                }}
-                className="relative w-[92vw] max-w-5xl h-[70vh] sm:h-[80vh] max-h-[800px]"
-              >
-                <Image
-                  src={images[idx]}
-                  alt={alt ? `${alt} ${idx + 1}` : `Image ${idx + 1}`}
-                  fill
-                  className="object-contain"
-                  sizes="(min-width: 768px) 80vw, 92vw"
-                  priority
-                />
-              </motion.div>
-            </AnimatePresence>
+            <div
+              key={idx}
+              ref={imageRef}
+              className="relative w-[92vw] max-w-5xl h-[70vh] sm:h-[80vh] max-h-[800px]"
+              style={{ willChange: "contents" }}
+            >
+              <Image
+                src={images[idx]}
+                alt={alt ? `${alt} ${idx + 1}` : `Image ${idx + 1}`}
+                fill
+                className="object-contain"
+                sizes="(min-width: 768px) 80vw, 92vw"
+                priority
+                draggable={false}
+              />
+            </div>
           </div>
 
-          {/* prev / next arrows (hidden on small screens — swipe instead) */}
+          {/* prev / next arrows */}
           {images.length > 1 && (
             <>
-              {/* prev */}
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); goPrev(); }}
@@ -197,7 +173,6 @@ export function ImageLightbox({
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
               </button>
-              {/* next */}
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); goNext(); }}
@@ -211,7 +186,7 @@ export function ImageLightbox({
             </>
           )}
 
-          {/* dot indicators at bottom */}
+          {/* dot indicators */}
           {images.length > 1 && (
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[110] flex items-center gap-2">
               {images.map((_, i) => (
@@ -221,7 +196,7 @@ export function ImageLightbox({
                     setDirection(i > idx ? 1 : -1);
                     setIdx(i);
                   }}
-                  className={`transition-all duration-200 rounded-full ${
+                  className={`transition-all duration-150 rounded-full ${
                     i === idx
                       ? "w-6 h-2 bg-[#D4AF37]"
                       : "w-2 h-2 bg-white/30 hover:bg-white/50"
