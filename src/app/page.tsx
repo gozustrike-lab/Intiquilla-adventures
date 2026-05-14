@@ -27,10 +27,6 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-/* ============================================================
-   DATA & TYPES
-   ============================================================ */
-
 interface TourCatalogItem {
   id: string;
   name: string;
@@ -51,7 +47,7 @@ const TOUR_CATALOG: TourCatalogItem[] = [
     shortName: "Laguna 69",
     duration: "1 Dia",
     price: 90,
-    image: "/images/tour-laguna69.jpg",
+    image: "/images/tour-laguna.jpg",
     difficulty: "Moderado",
     altitude: "4,600 m.s.n.m.",
     description:
@@ -113,7 +109,7 @@ const TOUR_CATALOG: TourCatalogItem[] = [
     highlights: [
       "Observacion estelar profesional",
       "Visita guiada a Chavin de Huantar",
-      "Cielo limpio y零 contaminacion luminica",
+      "Cielo limpio sin contaminacion luminica",
       "Alojamiento y transporte incluidos",
     ],
   },
@@ -121,7 +117,7 @@ const TOUR_CATALOG: TourCatalogItem[] = [
 
 const HERO_SLIDES = [
   {
-    image: "/images/hero-1.jpg",
+    image: "/images/hero-astronomico.jpg",
     title: "HUARAZ: LAS MONTANAS MAS ALTAS DEL PERU",
     subtitle:
       "Explora los glaciares milenarios de la Cordillera Blanca y vive aventuras que transforman tu forma de ver el mundo.",
@@ -162,10 +158,6 @@ const TIPS_DATA = [
     text: "La temporada ideal es de mayo a septiembre. Dias soleados y noches claras perfectas para la observacion astronomica.",
   },
 ];
-
-/* ============================================================
-   MAIN PAGE COMPONENT
-   ============================================================ */
 
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -240,7 +232,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      {/* ===================== NAVIGATION ===================== */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
@@ -250,11 +241,8 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
             <a href="#" className="flex items-center gap-2 group">
-              <Mountain
-                className="w-7 h-7 text-gold transition-transform group-hover:scale-110"
-              />
+              <Mountain className="w-7 h-7 text-gold transition-transform group-hover:scale-110" />
               <div className="flex flex-col">
                 <span className="text-lg font-bold tracking-wider text-white leading-tight">
                   INTIQUILLA
@@ -265,7 +253,6 @@ export default function HomePage() {
               </div>
             </a>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-1 lg:gap-2">
               {[
                 { label: "Destinos", href: "#destinos" },
@@ -282,7 +269,6 @@ export default function HomePage() {
                 </a>
               ))}
 
-              {/* Language Selector */}
               <div className="relative ml-2" ref={langRef}>
                 <button
                   onClick={() => setLangOpen(!langOpen)}
@@ -290,11 +276,7 @@ export default function HomePage() {
                 >
                   <Globe className="w-4 h-4" />
                   <span>ES</span>
-                  <ChevronDown
-                    className={`w-3 h-3 transition-transform ${
-                      langOpen ? "rotate-180" : ""
-                    }`}
-                  />
+                  <ChevronDown className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`} />
                 </button>
                 {langOpen && (
                   <div className="absolute top-full right-0 mt-1 w-28 rounded-lg bg-secondary border border-gold-border shadow-xl py-1">
@@ -308,7 +290,6 @@ export default function HomePage() {
                 )}
               </div>
 
-              {/* CTA Button */}
               <button
                 onClick={handleQuickBooking}
                 className="ml-3 flex items-center gap-2 px-4 py-2.5 rounded-lg bg-pine border border-gold/40 text-gold text-sm font-medium tracking-wide hover:border-gold hover:bg-pine-dark transition-all duration-300"
@@ -319,22 +300,16 @@ export default function HomePage() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-white/80 hover:text-gold transition-colors"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`md:hidden transition-all duration-300 overflow-hidden ${
             mobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
@@ -370,9 +345,7 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* ===================== HERO SLIDER ===================== */}
       <section className="relative w-full h-screen min-h-[600px] max-h-[1000px] overflow-hidden">
-        {/* Slide Images */}
         {HERO_SLIDES.map((slide, index) => (
           <div
             key={index}
@@ -387,10 +360,8 @@ export default function HomePage() {
           </div>
         ))}
 
-        {/* Vignette Overlay */}
         <div className="vignette-overlay absolute inset-0 z-10" />
 
-        {/* Content */}
         <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/10 border border-gold/30 mb-6">
@@ -423,16 +394,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Slide Indicators */}
         <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
           {HERO_SLIDES.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveSlide(index)}
               className={`transition-all duration-500 rounded-full ${
-                activeSlide === index
-                  ? "w-8 h-2 bg-gold"
-                  : "w-2 h-2 bg-white/40 hover:bg-white/60"
+                activeSlide === index ? "w-8 h-2 bg-gold" : "w-2 h-2 bg-white/40 hover:bg-white/60"
               }`}
               aria-label={`Slide ${index + 1}`}
             />
@@ -440,12 +408,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== BOOKING WIDGET ===================== */}
       <section className="relative z-30 -mt-14 sm:-mt-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl bg-secondary/90 backdrop-blur-md border border-gold-border p-4 sm:p-6 shadow-2xl shadow-black/40">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-end">
-              {/* Tour Select */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-medium tracking-wider text-gold/80 uppercase">
                   Selecciona Experiencia
@@ -453,9 +419,7 @@ export default function HomePage() {
                 <div className="relative">
                   <select
                     value={selectedTour}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      setSelectedTour(e.target.value)
-                    }
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedTour(e.target.value)}
                     className="w-full appearance-none bg-pine-dark border border-gold/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold/60 transition-colors cursor-pointer"
                   >
                     <option value="">Seleccionar...</option>
@@ -469,7 +433,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Date Input */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-medium tracking-wider text-gold/80 uppercase">
                   Fecha de Inicio
@@ -479,16 +442,13 @@ export default function HomePage() {
                   <input
                     type="date"
                     value={travelDate}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setTravelDate(e.target.value)
-                    }
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setTravelDate(e.target.value)}
                     min={new Date().toISOString().split("T")[0]}
                     className="w-full bg-pine-dark border border-gold/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-gold/60 transition-colors [color-scheme:dark]"
                   />
                 </div>
               </div>
 
-              {/* Travelers Select */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-medium tracking-wider text-gold/80 uppercase">
                   Aventureros
@@ -497,9 +457,7 @@ export default function HomePage() {
                   <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gold/60 pointer-events-none" />
                   <select
                     value={travelers}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      setTravelers(parseInt(e.target.value, 10))
-                    }
+                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setTravelers(parseInt(e.target.value, 10))}
                     className="w-full appearance-none bg-pine-dark border border-gold/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-gold/60 transition-colors cursor-pointer"
                   >
                     {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
@@ -512,7 +470,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Search Button */}
               <button
                 onClick={handleSearchAdventure}
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-gold text-background font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gold/20"
@@ -525,7 +482,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== DESTINATIONS SECTION ===================== */}
       <section id="destinos" className="py-20 md:py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
@@ -551,7 +507,7 @@ export default function HomePage() {
               {
                 name: "Laguna 69",
                 desc: "Joya turquesa a los pies del Chacraraju, una de las caminatas mas populares del Peru.",
-                image: "/images/hero-2.jpg",
+                image: "/images/tour-laguna.jpg",
               },
               {
                 name: "Cordillera Huayhuash",
@@ -574,12 +530,8 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="text-lg font-bold tracking-wide text-white">
-                    {dest.name}
-                  </h3>
-                  <p className="mt-1 text-sm text-white/70 leading-relaxed line-clamp-2">
-                    {dest.desc}
-                  </p>
+                  <h3 className="text-lg font-bold tracking-wide text-white">{dest.name}</h3>
+                  <p className="mt-1 text-sm text-white/70 leading-relaxed line-clamp-2">{dest.desc}</p>
                   <div className="mt-3 flex items-center gap-1 text-gold text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     Explorar <ArrowRight className="w-3 h-3" />
                   </div>
@@ -590,7 +542,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== TOURS SECTION ===================== */}
       <section id="tours" className="py-20 md:py-28 px-4 bg-pine-dark/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
@@ -629,30 +580,19 @@ export default function HomePage() {
                     </span>
                   </div>
                   <div className="absolute bottom-4 right-4">
-                    <span className="text-2xl sm:text-3xl font-bold text-gold">
-                      S/ {tour.price}
-                    </span>
+                    <span className="text-2xl sm:text-3xl font-bold text-gold">S/ {tour.price}</span>
                   </div>
                 </div>
                 <div className="p-5 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold tracking-wide text-white">
-                    {tour.name}
-                  </h3>
+                  <h3 className="text-lg sm:text-xl font-bold tracking-wide text-white">{tour.name}</h3>
                   <div className="flex items-center gap-1 mt-2">
                     <MapPin className="w-3.5 h-3.5 text-gold/60" />
-                    <span className="text-xs text-white/50">
-                      Altitud maxima: {tour.altitude}
-                    </span>
+                    <span className="text-xs text-white/50">Altitud maxima: {tour.altitude}</span>
                   </div>
-                  <p className="mt-3 text-sm text-white/60 leading-relaxed line-clamp-3">
-                    {tour.description}
-                  </p>
+                  <p className="mt-3 text-sm text-white/60 leading-relaxed line-clamp-3">{tour.description}</p>
                   <div className="mt-4 grid grid-cols-2 gap-2">
                     {tour.highlights.slice(0, 4).map((h, i) => (
-                      <div
-                        key={i}
-                        className="flex items-start gap-1.5 text-xs text-white/50"
-                      >
+                      <div key={i} className="flex items-start gap-1.5 text-xs text-white/50">
                         <CheckCircle className="w-3.5 h-3.5 text-gold/60 mt-0.5 shrink-0" />
                         <span>{h}</span>
                       </div>
@@ -675,11 +615,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== ABOUT SECTION ===================== */}
-      <section id="sobre-nosotros" className="py-20 md:py-28 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section
+        id="sobre-nosotros"
+        className="relative py-20 md:py-28 px-4 overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.06] mix-blend-screen pointer-events-none"
+          style={{ backgroundImage: "url(/images/fondo-chakana.jpg)" }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image */}
             <div className="relative rounded-2xl overflow-hidden h-72 sm:h-96">
               <div
                 className="absolute inset-0 bg-cover bg-center"
@@ -690,29 +635,22 @@ export default function HomePage() {
                 <div className="flex items-center gap-4">
                   <div className="text-center px-4">
                     <span className="block text-3xl font-bold text-gold">10+</span>
-                    <span className="text-xs text-white/60 uppercase tracking-wider">
-                      Anos
-                    </span>
+                    <span className="text-xs text-white/60 uppercase tracking-wider">Anos</span>
                   </div>
                   <div className="w-px h-10 bg-gold/20" />
                   <div className="text-center px-4">
                     <span className="block text-3xl font-bold text-gold">5K+</span>
-                    <span className="text-xs text-white/60 uppercase tracking-wider">
-                      Viajeros
-                    </span>
+                    <span className="text-xs text-white/60 uppercase tracking-wider">Viajeros</span>
                   </div>
                   <div className="w-px h-10 bg-gold/20" />
                   <div className="text-center px-4">
                     <span className="block text-3xl font-bold text-gold">4.9</span>
-                    <span className="text-xs text-white/60 uppercase tracking-wider">
-                      Rating
-                    </span>
+                    <span className="text-xs text-white/60 uppercase tracking-wider">Rating</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Content */}
             <div>
               <span className="inline-block text-xs tracking-[0.3em] text-gold uppercase font-medium mb-3">
                 Sobre Nosotros
@@ -765,12 +703,8 @@ export default function HomePage() {
                   >
                     <item.icon className="w-5 h-5 text-gold mt-0.5 shrink-0" />
                     <div>
-                      <span className="text-sm font-semibold text-white block">
-                        {item.label}
-                      </span>
-                      <span className="text-xs text-white/50 leading-relaxed">
-                        {item.text}
-                      </span>
+                      <span className="text-sm font-semibold text-white block">{item.label}</span>
+                      <span className="text-xs text-white/50 leading-relaxed">{item.text}</span>
                     </div>
                   </div>
                 ))}
@@ -780,9 +714,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== TESTIMONIALS ===================== */}
-      <section className="py-20 md:py-28 px-4 bg-pine-dark/30">
-        <div className="max-w-7xl mx-auto">
+      <section
+        className="relative py-20 md:py-28 px-4 bg-pine-dark/30 overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none"
+          style={{ backgroundImage: "url(/images/fondo-chakana.jpg)" }}
+        />
+        <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-block text-xs tracking-[0.3em] text-gold uppercase font-medium mb-3">
               Testimonios
@@ -818,10 +757,7 @@ export default function HomePage() {
               >
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 text-gold fill-gold"
-                    />
+                    <Star key={i} className="w-4 h-4 text-gold fill-gold" />
                   ))}
                 </div>
                 <p className="text-sm text-white/70 leading-relaxed italic">
@@ -832,9 +768,7 @@ export default function HomePage() {
                     {review.name.charAt(0)}
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-white block">
-                      {review.name}
-                    </span>
+                    <span className="text-sm font-semibold text-white block">{review.name}</span>
                     <span className="text-xs text-white/40">
                       {review.country} &middot; {review.tour}
                     </span>
@@ -846,7 +780,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== TIPS SECTION ===================== */}
       <section id="tips" className="py-20 md:py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
@@ -871,19 +804,14 @@ export default function HomePage() {
                 <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors">
                   <tip.icon className="w-6 h-6 text-gold" />
                 </div>
-                <h3 className="text-base font-bold tracking-wide text-white">
-                  {tip.title}
-                </h3>
-                <p className="mt-2 text-sm text-white/50 leading-relaxed">
-                  {tip.text}
-                </p>
+                <h3 className="text-base font-bold tracking-wide text-white">{tip.title}</h3>
+                <p className="mt-2 text-sm text-white/50 leading-relaxed">{tip.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===================== CTA SECTION ===================== */}
       <section className="py-20 md:py-28 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="p-8 sm:p-12 md:p-16 rounded-3xl bg-secondary border border-gold-border/40 relative overflow-hidden">
@@ -910,11 +838,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===================== FOOTER ===================== */}
       <footer className="mt-auto border-t border-gold/10 bg-pine-dark/50">
         <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-            {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-2 mb-4">
                 <Mountain className="w-6 h-6 text-gold" />
@@ -956,11 +882,8 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Links */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">
-                Navegacion
-              </h4>
+              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">Navegacion</h4>
               <ul className="space-y-2.5">
                 {[
                   { label: "Destinos", href: "#destinos" },
@@ -982,9 +905,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">
-                Tours Populares
-              </h4>
+              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">Tours Populares</h4>
               <ul className="space-y-2.5">
                 {TOUR_CATALOG.map((tour) => (
                   <li key={tour.id}>
@@ -1003,17 +924,12 @@ export default function HomePage() {
               </ul>
             </div>
 
-            {/* Contact */}
             <div>
-              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">
-                Contacto
-              </h4>
+              <h4 className="text-xs font-bold tracking-widest text-gold uppercase mb-4">Contacto</h4>
               <ul className="space-y-3">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-gold/50 mt-0.5 shrink-0" />
-                  <span className="text-sm text-white/40">
-                    Jr. Jose de la Riva Aguero 682, Huaraz, Peru
-                  </span>
+                  <span className="text-sm text-white/40">Jr. Jose de la Riva Aguero 682, Huaraz, Peru</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Phone className="w-4 h-4 text-gold/50 mt-0.5 shrink-0" />
@@ -1021,19 +937,15 @@ export default function HomePage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Mail className="w-4 h-4 text-gold/50 mt-0.5 shrink-0" />
-                  <span className="text-sm text-white/40">
-                    info@intiquillaadventures.com
-                  </span>
+                  <span className="text-sm text-white/40">info@intiquillaadventures.com</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom */}
           <div className="mt-10 pt-6 border-t border-gold/10 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-xs text-white/30">
-              &copy; {new Date().getFullYear()} Intiquilla Adventures. Todos los
-              derechos reservados.
+              &copy; {new Date().getFullYear()} Intiquilla Adventures. Todos los derechos reservados.
             </p>
             <p className="text-xs text-white/20">
               Diseno y desarrollo web por Fastpagepro.
@@ -1042,18 +954,14 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* ===================== CHECKOUT MODAL ===================== */}
       {bookingOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setBookingOpen(false)}
           />
 
-          {/* Modal */}
-          <div className="relative w-full max-w-lg rounded-2xl bg-background border border-gold/50 shadow-2xl shadow-gold/10 overflow-hidden animate-in fade-in zoom-in-95 duration-300">
-            {/* Header */}
+          <div className="relative w-full max-w-lg rounded-2xl bg-background border border-gold/50 shadow-2xl shadow-gold/10 overflow-hidden">
             <div className="relative p-6 pb-4 border-b border-gold/15">
               <button
                 onClick={() => setBookingOpen(false)}
@@ -1068,17 +976,13 @@ export default function HomePage() {
                   Reserva Rapida Directa
                 </span>
               </div>
-              <h3 className="text-xl font-bold tracking-wide text-white">
-                Confirma tu Aventura
-              </h3>
+              <h3 className="text-xl font-bold tracking-wide text-white">Confirma tu Aventura</h3>
               <p className="mt-1 text-sm text-white/50">
                 Completa los detalles para enviar tu solicitud de reserva.
               </p>
             </div>
 
-            {/* Body */}
             <div className="p-6 space-y-4">
-              {/* Selected Tour */}
               <div>
                 <label className="block text-xs font-medium tracking-wider text-gold/80 uppercase mb-1.5">
                   Experiencia Seleccionada
@@ -1088,7 +992,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Date */}
               <div>
                 <label className="block text-xs font-medium tracking-wider text-gold/80 uppercase mb-1.5">
                   Fecha de Viaje
@@ -1098,21 +1001,18 @@ export default function HomePage() {
                   <input
                     type="date"
                     value={travelDate}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setTravelDate(e.target.value)
-                    }
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => setTravelDate(e.target.value)}
                     min={new Date().toISOString().split("T")[0]}
                     className="w-full bg-pine-dark border border-gold/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-gold/60 transition-colors [color-scheme:dark]"
                   />
                 </div>
               </div>
 
-              {/* Travelers */}
               <div>
                 <label className="block text-xs font-medium tracking-wider text-gold/80 uppercase mb-1.5">
                   Cantidad de Viajeros
                 </label>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-2">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                     <button
                       key={n}
@@ -1129,32 +1029,22 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Pricing Breakdown */}
               <div className="mt-2 p-4 rounded-xl bg-gold/5 border border-gold/15">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-white/60">Precio por persona</span>
-                  <span className="text-white font-medium">
-                    S/ {currentTour ? currentTour.price : 0}
-                  </span>
+                  <span className="text-white font-medium">S/ {currentTour ? currentTour.price : 0}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm mt-2">
                   <span className="text-white/60">Viajeros</span>
-                  <span className="text-white font-medium">
-                    {travelers} persona(s)
-                  </span>
+                  <span className="text-white font-medium">{travelers} persona(s)</span>
                 </div>
                 <div className="w-full h-px bg-gold/15 my-3" />
                 <div className="flex items-center justify-between">
-                  <span className="text-base font-bold text-gold">
-                    Total Neto:
-                  </span>
-                  <span className="text-xl font-bold text-gold">
-                    S/ {totalPrice.toLocaleString()}
-                  </span>
+                  <span className="text-base font-bold text-gold">Total Neto:</span>
+                  <span className="text-xl font-bold text-gold">S/ {totalPrice.toLocaleString()}</span>
                 </div>
               </div>
 
-              {/* Action Button */}
               <button
                 onClick={handleConfirmWhatsApp}
                 disabled={!currentTour || !travelDate}
