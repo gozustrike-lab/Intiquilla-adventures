@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight } from "lucide-react";
+import { X, Phone, Globe, ChevronRight, Mountain } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n, type Lang } from "@/lib/i18n-context";
 
@@ -46,11 +47,20 @@ export function Navbar() {
   ];
 
   const drawerLinks = [
-    { label: t("nav.destinos"), href: "/#destinos" },
-    { label: t("nav.tours"), href: "/#tours" },
-    { label: t("nav.sobre"), href: "/nosotros" },
-    { label: t("nav.tips"), href: "/#tips" },
+    { label: t("nav.destinos"), href: "/#destinos", icon: <Mountain className="w-4 h-4" /> },
+    { label: t("nav.tours"), href: "/#tours", icon: <Globe className="w-4 h-4" /> },
+    { label: t("nav.sobre"), href: "/nosotros", icon: <ChevronRight className="w-4 h-4" /> },
+    { label: t("nav.tips"), href: "/#tips", icon: <ChevronRight className="w-4 h-4" /> },
   ];
+
+  /* Reset drawer animation key each time drawer opens */
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isOpen) setAnimKey((k) => k + 1);
+  }, [isOpen]);
+
+  /* Letter-split for INTIQUILLA reveal */
+  const brandLetters = useMemo(() => "INTIQUILLA".split(""), []);
 
   return (
     <>
@@ -145,80 +155,240 @@ export function Navbar() {
 
       {/* ── MOBILE RTL DRAWER ── */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[85vw] max-w-[380px] bg-[#0B1311]/95 backdrop-blur-xl border-l border-[#D4AF37]/20 p-6 z-[70] flex flex-col justify-between transform transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 h-screen w-[85vw] max-w-[380px] bg-[#0B1311]/98 backdrop-blur-xl border-l border-[#D4AF37]/15 z-[70] flex flex-col transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden overflow-hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div>
-          {/* Drawer header */}
-          <div className="flex justify-between items-center pb-6 border-b border-gray-800/60">
-            <div className="flex items-center space-x-2">
-              <Globe className="w-4 h-4 text-[#D4AF37]" />
-              <span className="text-xs uppercase tracking-widest text-gray-400 font-semibold">
-                {t("nav.explorar")}
-              </span>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="p-2 text-gray-400 hover:text-white border border-gray-800 rounded-lg transition-colors"
-              aria-label="Close menu"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+        {/* Ambient glow top-right */}
+        <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/[0.03] rounded-full blur-[60px] pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#D4AF37]/[0.02] rounded-full blur-[50px] pointer-events-none" />
 
-          {/* Drawer links */}
-          <nav className="mt-8 space-y-3">
-            {drawerLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="group flex justify-between items-center p-3 text-lg font-medium text-gray-200 hover:text-white rounded-xl hover:bg-[#1A332B]/40 transition-all border border-transparent hover:border-[#D4AF37]/10"
+        {/* Close button - top right, minimal */}
+        <div className="relative z-10 flex justify-end p-5 pb-0">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-2.5 text-gray-500 hover:text-white rounded-full border border-gray-800/60 hover:border-[#D4AF37]/30 transition-all duration-200 hover:bg-white/[0.03]"
+            aria-label="Close menu"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* ═══ CENTERED BRAND HERO ═══ */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center -mt-10 px-6">
+          <AnimatePresence mode="wait">
+            {isOpen && (
+              <motion.div
+                key={animKey}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-col items-center"
               >
-                <span>{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-gray-500 group-hover:text-[#D4AF37] group-hover:translate-x-1 transition-all" />
-              </Link>
+                {/* Animated Chakana brand mark */}
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0, rotate: -90 }}
+                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative w-14 h-14 mb-5"
+                >
+                  <svg viewBox="0 0 56 56" fill="none" className="w-full h-full">
+                    {/* Outer diamond */}
+                    <motion.path
+                      d="M28 2L52 28L28 54L4 28Z"
+                      stroke="#D4AF37"
+                      strokeWidth="1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.7 }}
+                      transition={{ duration: 1.2, delay: 0.2, ease: "easeInOut" }}
+                    />
+                    {/* Inner diamond */}
+                    <motion.path
+                      d="M28 12L42 28L28 44L14 28Z"
+                      stroke="#D4AF37"
+                      strokeWidth="0.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.4 }}
+                      transition={{ duration: 1, delay: 0.4, ease: "easeInOut" }}
+                    />
+                    {/* Cross lines - vertical */}
+                    <motion.line
+                      x1="28" y1="2" x2="28" y2="54"
+                      stroke="#D4AF37"
+                      strokeWidth="0.6"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.3 }}
+                      transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
+                    />
+                    {/* Cross lines - horizontal */}
+                    <motion.line
+                      x1="4" y1="28" x2="52" y2="28"
+                      stroke="#D4AF37"
+                      strokeWidth="0.6"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.3 }}
+                      transition={{ duration: 0.8, delay: 0.3, ease: "easeInOut" }}
+                    />
+                    {/* Center circle */}
+                    <motion.circle
+                      cx="28" cy="28" r="4"
+                      stroke="#D4AF37"
+                      strokeWidth="0.8"
+                      fill="none"
+                      initial={{ pathLength: 0, opacity: 0 }}
+                      animate={{ pathLength: 1, opacity: 0.6 }}
+                      transition={{ duration: 0.6, delay: 0.6, ease: "easeInOut" }}
+                    />
+                    {/* Center dot */}
+                    <motion.circle
+                      cx="28" cy="28" r="1.2"
+                      fill="#D4AF37"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3, delay: 0.9, ease: "easeOut" }}
+                    />
+                  </svg>
+                  {/* Pulsing ring */}
+                  <motion.div
+                    className="absolute inset-[-4px] rounded-full border border-[#D4AF37]/20"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1.3, opacity: [0, 0.3, 0] }}
+                    transition={{ duration: 2.5, delay: 1, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                </motion.div>
+
+                {/* INTIQUILLA - letter reveal */}
+                <div className="flex overflow-hidden">
+                  {brandLetters.map((letter, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ y: "0%", opacity: 1 }}
+                      transition={{
+                        duration: 0.5,
+                        delay: 0.3 + i * 0.04,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block text-[1.65rem] font-black tracking-[0.18em] bg-gradient-to-b from-white via-[#D4AF37] to-[#D4AF37]/80 bg-clip-text text-transparent"
+                    >
+                      {letter}
+                    </motion.span>
+                  ))}
+                </div>
+
+                {/* ADVENTURES - subtitle with expanding tracking */}
+                <motion.div
+                  initial={{ letterSpacing: "0.2em", opacity: 0, y: 8 }}
+                  animate={{ letterSpacing: "0.45em", opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-1.5 text-[0.6rem] font-bold text-[#D4AF37]/60 uppercase"
+                >
+                  ADVENTURES
+                </motion.div>
+
+                {/* Gold divider line - expands from center */}
+                <div className="relative mt-5 flex justify-center">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: 48 }}
+                    transition={{ duration: 0.7, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                    className="h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent"
+                  />
+                </div>
+
+                {/* Tagline */}
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.3, ease: "easeOut" }}
+                  className="mt-3.5 text-[10px] text-gray-500 tracking-wider text-center"
+                >
+                  {lang === "es" ? "Huaraz, Peru" : "Huaraz, Peru"}
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* ═══ DRAWER LINKS ═══ */}
+        <div className="relative z-10 px-5 pb-2">
+          <nav className="space-y-1">
+            {drawerLinks.map((item, idx) => (
+              <motion.div
+                key={item.href}
+                initial={{ x: 40, opacity: 0 }}
+                animate={isOpen ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.6 + idx * 0.07,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <Link
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className="group flex items-center justify-between px-3 py-3 text-[15px] font-medium text-gray-300 hover:text-white rounded-xl transition-all duration-200 border border-transparent hover:bg-white/[0.03] hover:border-[#D4AF37]/10"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-[#D4AF37]/50 group-hover:text-[#D4AF37] transition-colors">
+                      {item.icon}
+                    </span>
+                    <span>{item.label}</span>
+                  </div>
+                  <ChevronRight className="w-3.5 h-3.5 text-gray-700 group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all" />
+                </Link>
+              </motion.div>
             ))}
           </nav>
         </div>
 
-        {/* Drawer footer */}
-        <div className="space-y-4 pt-6 border-t border-gray-800/60">
-          {/* Language toggle */}
-          <div className="flex items-center justify-between px-3 text-xs text-gray-400">
-            <span>{t("nav.idioma")}</span>
+        {/* ═══ DRAWER FOOTER ═══ */}
+        <div className="relative z-10 p-5 pt-4 space-y-3 border-t border-white/[0.04]">
+          {/* Language toggle - compact pill */}
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={isOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+            transition={{ duration: 0.4, delay: 0.9, ease: "easeOut" }}
+            className="flex items-center justify-between px-1"
+          >
+            <span className="text-[10px] text-gray-600 tracking-wider uppercase font-medium">{t("nav.idioma")}</span>
             <button
               onClick={toggleLang}
-              className="flex bg-[#1A332B]/40 p-1 rounded-lg border border-gray-800 transition-all hover:border-[#D4AF37]/30"
+              className="relative flex bg-white/[0.04] p-[3px] rounded-full border border-white/[0.08] transition-all hover:border-[#D4AF37]/20"
             >
-              <span
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-                  lang === "es"
-                    ? "bg-[#D4AF37] text-[#0B1311]"
-                    : "text-gray-400 hover:text-white"
-                }`}
-              >
+              <motion.div
+                className="absolute top-[3px] bottom-[3px] w-[calc(50%-3px)] bg-[#D4AF37] rounded-full shadow-lg shadow-[#D4AF37]/20"
+                animate={{ left: lang === "es" ? "3px" : "calc(50%)" }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+              <span className={`relative z-10 px-3 py-1.5 text-[11px] font-bold transition-colors duration-200 ${lang === "es" ? "text-[#0B1311]" : "text-gray-500"}`}>
                 ES
               </span>
-              <span
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
-                  lang === "en"
-                    ? "bg-[#D4AF37] text-[#0B1311]"
-                    : "text-gray-400 hover:text-white"
-                }`}
-              >
+              <span className={`relative z-10 px-3 py-1.5 text-[11px] font-bold transition-colors duration-200 ${lang === "en" ? "text-[#0B1311]" : "text-gray-500"}`}>
                 EN
               </span>
             </button>
-          </div>
-          <button
+          </motion.div>
+
+          {/* WhatsApp CTA */}
+          <motion.button
+            initial={{ y: 20, opacity: 0 }}
+            animate={isOpen ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+            transition={{ duration: 0.4, delay: 1, ease: "easeOut" }}
             onClick={handleBookingFromDrawer}
-            className="w-full bg-[#1A332B] hover:bg-[#132720] text-white border border-[#D4AF37]/30 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2"
+            whileTap={{ scale: 0.97 }}
+            className="w-full bg-gradient-to-r from-[#D4AF37] to-amber-500 text-[#0B1311] py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#D4AF37]/15 flex items-center justify-center gap-2"
           >
-            <Phone className="w-4 h-4 text-[#D4AF37]" />
+            <Phone className="w-3.5 h-3.5" />
             <span>{t("nav.whatsapp")}</span>
-          </button>
+          </motion.button>
         </div>
       </div>
     </>
