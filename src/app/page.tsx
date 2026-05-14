@@ -16,54 +16,29 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
+import { useI18n } from "@/lib/i18n-context";
 import { TOURS } from "@/lib/tours-data";
 
-const HERO_SLIDES = [
-  {
-    image: "/images/hero-slide-nightcamp.webp",
-    imageMobile: "/images/hero-slide-nightcamp-sm.webp",
-    imageFallback: "/images/hero-slide-nightcamp.png",
-    title: "HUARAZ: LAS MONTANAS MAS ALTAS DEL PERU",
-    subtitle:
-      "Explora los glaciares milenarios de la Cordillera Blanca y vive aventuras que transforman tu forma de ver el mundo.",
-  },
-  {
-    image: "/images/hero-slide-chakana.webp",
-    imageMobile: "/images/hero-slide-chakana-sm.webp",
-    imageFallback: "/images/hero-slide-chakana.png",
-    title: "LAGUNAS TURQUESAS EN EL CORAZON DE LOS ANDES",
-    subtitle:
-      "Desciende a lagunas de un azul imposible, alimentadas por nevados que desafian las nubes.",
-  },
-  {
-    image: "/images/hero-slide-mountainlake.webp",
-    imageMobile: "/images/hero-slide-mountainlake-sm.webp",
-    imageFallback: "/images/hero-slide-mountainlake.png",
-    title: "CIRCUITO HUAYHUASH: LA AVENTURA DEFINITIVA",
-    subtitle:
-      "Diez dias de trekking a traves de la cordillera mas dramatica de Sudamerica.",
-  },
-];
-
-const TESTIMONIALS = [
-  { text: "Una experiencia increible. El equipo de Intiquilla hace que todo sea facil y seguro, incluso para principiantes. La laguna es simplemente magica.", author: "Maria Fernandez", geo: "Argentina \u2022 Laguna 69" },
-  { text: "El mejor trekking de mi vida. Diez dias de paisajes que parecian de otro planeta. La logistica fue perfecta y el guia excepcional.", author: "Thomas Mueller", geo: "Alemania \u2022 Cordillera Huayhuash" },
-  { text: "Hice el tour de Santa Cruz con mi pareja y fue la mejor decision de nuestro viaje por Peru. Los campamentos, la comida y las vistas fueron de primera.", author: "Carolina Vega", geo: "Colombia \u2022 Santa Cruz" },
-];
-
-const TIPS = [
-  { title: "Aclimatacion", desc: "Llega a Huaraz al menos 2 dias antes de tu trek para aclimatarte a la altitud. Bebe mucha agua y evita comidas pesadas durante los primeros dias." },
-  { title: "Seguridad Primero", desc: "Todos nuestros tours incluyen guias certificados, botiquin de primeros auxilios y oxigeno medicinal para emergencias en altitud." },
-  { title: "Respecta la Naturaleza", desc: "Practicamos turismo responsable. Todo residuo generado regresa con nosotros a la ciudad. No dejes rastro en los senderos." },
-  { title: "Mejor Epoca", desc: "La temporada ideal es de mayo a septiembre. Dias soleados y noches claras perfectas para la observacion astronomica y trekking." },
+const HERO_IMAGES = [
+  { image: "/images/hero-slide-nightcamp.webp", imageMobile: "/images/hero-slide-nightcamp-sm.webp", imageFallback: "/images/hero-slide-nightcamp.png" },
+  { image: "/images/hero-slide-chakana.webp", imageMobile: "/images/hero-slide-chakana-sm.webp", imageFallback: "/images/hero-slide-chakana.png" },
+  { image: "/images/hero-slide-mountainlake.webp", imageMobile: "/images/hero-slide-mountainlake-sm.webp", imageFallback: "/images/hero-slide-mountainlake.png" },
 ];
 
 function TipsAccordion() {
+  const { t } = useI18n();
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
+
+  const tips = [
+    { title: t("tips.acclimation.title"), desc: t("tips.acclimation.desc") },
+    { title: t("tips.safety.title"), desc: t("tips.safety.desc") },
+    { title: t("tips.nature.title"), desc: t("tips.nature.desc") },
+    { title: t("tips.season.title"), desc: t("tips.season.desc") },
+  ];
 
   return (
     <div className="space-y-1">
-      {TIPS.map((tip, idx) => {
+      {tips.map((tip, idx) => {
         const isOpen = activeIndex === idx;
         return (
           <div key={idx} className="border-b border-white/[0.06]">
@@ -102,14 +77,35 @@ function TipsAccordion() {
 
 export default function HomePage() {
   const { bookingOpen, setBookingOpen, selectedTour, setSelectedTour, travelDate, setTravelDate, travelers, setTravelers } = useBooking();
+  const { t, lang } = useI18n();
   const [activeSlide, setActiveSlide] = useState(0);
   const [localTour, setLocalTour] = useState("");
   const [localDate, setLocalDate] = useState("");
   const [localTravelers, setLocalTravelers] = useState(1);
 
+  /* Re-derived data from current lang */
+  const heroSlides = [
+    { ...HERO_IMAGES[0], title: t("hero.slide1.title"), subtitle: t("hero.slide1.subtitle") },
+    { ...HERO_IMAGES[1], title: t("hero.slide2.title"), subtitle: t("hero.slide2.subtitle") },
+    { ...HERO_IMAGES[2], title: t("hero.slide3.title"), subtitle: t("hero.slide3.subtitle") },
+  ];
+
+  const testimonials = [
+    { text: t("testimonials.1.text"), author: t("testimonials.1.author"), geo: t("testimonials.1.geo") },
+    { text: t("testimonials.2.text"), author: t("testimonials.2.author"), geo: t("testimonials.2.geo") },
+    { text: t("testimonials.3.text"), author: t("testimonials.3.author"), geo: t("testimonials.3.geo") },
+  ];
+
+  const destinos = [
+    { name: "Cordillera Blanca", desc: t("destinos.blanca"), image: "/images/hero-1.jpg", href: "/tours/santa-cruz" },
+    { name: "Laguna 69", desc: t("destinos.laguna"), image: "/images/tour-laguna.webp", href: "/tours/laguna-69" },
+    { name: "Cordillera Huayhuash", desc: t("destinos.huayhuash"), image: "/images/hero-3.jpg", href: "/tours/cordillera-huayhuash" },
+    { name: "Chavin de Huantar", desc: t("destinos.chavin"), image: "/images/tour-chavin.jpg", href: "/tours/tour-astronomico" },
+  ];
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      setActiveSlide((prev) => (prev + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(interval);
   }, []);
@@ -125,8 +121,9 @@ export default function HomePage() {
 
   return (
     <>
+      {/* ═══ HERO SLIDER ═══ */}
       <section className="relative w-full h-[calc(100vh-3.5rem)] md:h-[calc(100vh-3.5rem)] min-h-[480px] max-h-[950px] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
-        {HERO_SLIDES.map((slide, index) => (
+        {heroSlides.map((slide, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -152,33 +149,33 @@ export default function HomePage() {
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 mb-6">
               <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-              <span className="text-xs sm:text-sm tracking-widest text-[#D4AF37] font-medium uppercase">Turismo de Aventura en Huaraz</span>
+              <span className="text-xs sm:text-sm tracking-widest text-[#D4AF37] font-medium uppercase">{t("hero.badge")}</span>
             </div>
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold uppercase tracking-wider leading-[1.1] text-white text-shadow-gold">
-              {HERO_SLIDES[activeSlide].title}
+              {heroSlides[activeSlide].title}
             </h1>
             <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed tracking-wide">
-              {HERO_SLIDES[activeSlide].subtitle}
+              {heroSlides[activeSlide].subtitle}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="#tours"
                 className="group flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wide hover:bg-yellow-500 transition-all duration-300 hover:scale-105"
               >
-                Explorar Tours
+                {t("hero.explore")}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/nosotros"
                 className="flex items-center gap-2 px-8 py-3.5 rounded-lg border border-white/30 text-white text-sm tracking-wide hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-300"
               >
-                Conoce Mas
+                {t("hero.more")}
               </Link>
             </div>
           </div>
         </div>
         <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
-          {HERO_SLIDES.map((_, index) => (
+          {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setActiveSlide(index)}
@@ -191,19 +188,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══ BOOKING WIDGET ═══ */}
       <section className="relative z-30 -mt-14 sm:-mt-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl bg-[#1A332B]/90 backdrop-blur-md border border-[#D4AF37]/20 p-4 sm:p-6 shadow-2xl shadow-black/40">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 items-end">
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">Selecciona Experiencia</label>
+                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.experience")}</label>
                 <div className="relative">
                   <select
                     value={localTour}
                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setLocalTour(e.target.value)}
                     className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
                   >
-                    <option value="">Seleccionar...</option>
+                    <option value="">{t("booking.select")}</option>
                     {TOURS.map((tour) => (
                       <option key={tour.id} value={tour.id}>{tour.name} (S/ {tour.price})</option>
                     ))}
@@ -212,7 +210,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">Fecha de Inicio</label>
+                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.date")}</label>
                 <div className="relative">
                   <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
                   <input
@@ -225,7 +223,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">Aventureros</label>
+                <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">{t("booking.travelers")}</label>
                 <div className="relative">
                   <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
                   <select
@@ -234,7 +232,7 @@ export default function HomePage() {
                     className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
                   >
                     {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-                      <option key={n} value={n}>{n} {n === 1 ? "persona" : "personas"}</option>
+                      <option key={n} value={n}>{n} {n === 1 ? t("booking.person") : t("booking.people")}</option>
                     ))}
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
@@ -245,29 +243,25 @@ export default function HomePage() {
                 className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#D4AF37]/20"
               >
                 <Search className="w-4 h-4" />
-                BUSCAR AVENTURA
+                {t("booking.search")}
               </button>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ═══ DESTINOS ═══ */}
       <section id="destinos" className="py-20 md:py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Destinos</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">Paraisos por Descubrir</h2>
+            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("destinos.badge")}</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">{t("destinos.title")}</h2>
             <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Cada destino en los Andes de Ancash guarda una experiencia unica que conecta tu espiritu con la majestuosidad de la naturaleza.
+              {t("destinos.desc")}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Cordillera Blanca", desc: "El corazon nevado del Peru con mas de 30 picos por encima de los 6,000 metros.", image: "/images/hero-1.jpg", href: "/tours/santa-cruz" },
-              { name: "Laguna 69", desc: "Joya turquesa a los pies del Chacraraju, una de las caminatas mas populares del Peru.", image: "/images/tour-laguna.webp", href: "/tours/laguna-69" },
-              { name: "Cordillera Huayhuash", desc: "Considerada la cordillera mas dramatica de Sudamerica, un circuito de nivel mundial.", image: "/images/hero-3.jpg", href: "/tours/cordillera-huayhuash" },
-              { name: "Chavin de Huantar", desc: "Centro ceremonial de la cultura Chavin, Patrimonio Mundial de la Humanidad UNESCO.", image: "/images/tour-chavin.jpg", href: "/tours/tour-astronomico" },
-            ].map((dest) => (
+            {destinos.map((dest) => (
               <Link key={dest.name} href={dest.href} className="group relative rounded-2xl overflow-hidden h-72 sm:h-80 cursor-pointer">
                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${dest.image})` }} />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1311] via-[#0B1311]/40 to-transparent" />
@@ -275,7 +269,7 @@ export default function HomePage() {
                   <h3 className="text-lg font-bold tracking-wide text-white">{dest.name}</h3>
                   <p className="mt-1 text-sm text-white/70 leading-relaxed line-clamp-2">{dest.desc}</p>
                   <div className="mt-3 flex items-center gap-1 text-[#D4AF37] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Ver Detalles <ArrowRight className="w-3 h-3" />
+                    {t("destinos.details")} <ArrowRight className="w-3 h-3" />
                   </div>
                 </div>
               </Link>
@@ -284,13 +278,14 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══ TOURS ═══ */}
       <section id="tours" className="py-20 md:py-28 px-4 bg-[#132720]/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Nuestros Tours</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">Aventuras que Transforman</h2>
+            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("tours.badge")}</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">{t("tours.title")}</h2>
             <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Cada expedicion esta disenada para ofrecerte una experiencia autentica con los mas altos estandares de seguridad y servicio.
+              {t("tours.desc")}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
@@ -319,7 +314,7 @@ export default function HomePage() {
                   </Link>
                   <div className="flex items-center gap-1 mt-2">
                     <MapPin className="w-3.5 h-3.5 text-[#D4AF37]/60" />
-                    <span className="text-xs text-white/50">Altitud maxima: {tour.altitude}</span>
+                    <span className="text-xs text-white/50">{t("tours.altitude")} {tour.altitude}</span>
                   </div>
                   <p className="mt-3 text-sm text-white/60 leading-relaxed line-clamp-2">{tour.description}</p>
                   <div className="mt-4 grid grid-cols-2 gap-2">
@@ -332,7 +327,7 @@ export default function HomePage() {
                   </div>
                   <div className="mt-5 flex gap-3">
                     <Link href={`/tours/${tour.slug}`} className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-medium tracking-wide hover:bg-[#D4AF37]/20 hover:border-[#D4AF37]/50 transition-all duration-300">
-                      Ver Detalles <ArrowRight className="w-4 h-4" />
+                      {t("tours.details")} <ArrowRight className="w-4 h-4" />
                     </Link>
                     <button
                       onClick={() => {
@@ -341,7 +336,7 @@ export default function HomePage() {
                       }}
                       className="px-4 py-3 rounded-lg bg-[#D4AF37] text-[#0B1311] text-sm font-bold tracking-wide hover:bg-yellow-500 transition-all duration-300"
                     >
-                      Reservar
+                      {t("tours.book")}
                     </button>
                   </div>
                 </div>
@@ -356,11 +351,11 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
         <div className="relative z-10">
           <div className="text-center mb-12">
-            <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">Testimonios</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">Lo que Dicen Nuestros Viajeros</h2>
+            <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("testimonials.badge")}</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">{t("testimonials.title")}</h2>
           </div>
           <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-none px-4 masking-gradient">
-            {TESTIMONIALS.map((item, idx) => (
+            {testimonials.map((item, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 24 }}
@@ -390,8 +385,8 @@ export default function HomePage() {
       {/* ═══ MINIMALIST ACCORDION TIPS ═══ */}
       <section id="tips" className="py-20 md:py-28 px-6 max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">Tips de Viaje</span>
-          <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">Preparate para tu Aventura</h2>
+          <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("tips.badge")}</span>
+          <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight">{t("tips.title")}</h2>
         </div>
         <TipsAccordion />
       </section>
@@ -409,16 +404,16 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-tr from-[#1A332B]/20 via-transparent to-[#D4AF37]/5 pointer-events-none" />
           <div className="relative z-10">
             <span className="text-[#D4AF37] text-lg block mb-4">&#10022;</span>
-            <h2 className="text-2xl md:text-4xl font-extrabold text-white uppercase tracking-tight mb-4">Tu Aventura en los Andes Comienza Aqui</h2>
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white uppercase tracking-tight mb-4">{t("cta.title")}</h2>
             <p className="text-gray-300 text-xs md:text-sm max-w-md mx-auto mb-8 font-light leading-relaxed">
-              Reserva directamente con nosotros y obtiene la mejor experiencia al mejor precio. Atencion personalizada y confirmacion inmediata por WhatsApp.
+              {t("cta.desc")}
             </p>
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => setBookingOpen(true)}
               className="bg-gradient-to-r from-[#D4AF37] to-amber-500 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] text-[#0B1311] font-black py-4 px-10 rounded-xl text-xs uppercase tracking-widest transition-shadow"
             >
-              Reservar por WhatsApp
+              {t("cta.button")}
             </motion.button>
           </div>
         </motion.div>

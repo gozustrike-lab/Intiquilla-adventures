@@ -3,13 +3,14 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight, ChevronDown } from "lucide-react";
+import { X, Phone, Globe, ChevronRight } from "lucide-react";
 import { useBooking } from "@/lib/booking-context";
+import { useI18n, type Lang } from "@/lib/i18n-context";
 
 export function Navbar() {
   const { setBookingOpen } = useBooking();
+  const { lang, setLang, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -34,20 +35,22 @@ export function Navbar() {
     setBookingOpen(true);
   };
 
+  const toggleLang = () => {
+    setLang(lang === "es" ? "en" : "es");
+  };
+
   const navLinks = [
-    { label: "Destinos", href: "/#destinos" },
-    { label: "Tours", href: "/#tours" },
-    { label: "Sobre Nosotros", href: "/nosotros" },
+    { label: t("nav.destinos"), href: "/#destinos" },
+    { label: t("nav.tours"), href: "/#tours" },
+    { label: t("nav.sobre"), href: "/nosotros" },
   ];
 
   const drawerLinks = [
-    { label: "Destinos", href: "/#destinos" },
-    { label: "Tours", href: "/#tours" },
-    { label: "Sobre Nosotros", href: "/nosotros" },
-    { label: "Tips de Viaje", href: "/#tips" },
+    { label: t("nav.destinos"), href: "/#destinos" },
+    { label: t("nav.tours"), href: "/#tours" },
+    { label: t("nav.sobre"), href: "/nosotros" },
+    { label: t("nav.tips"), href: "/#tips" },
   ];
-
-  const isHome = pathname === "/";
 
   return (
     <>
@@ -68,7 +71,7 @@ export function Navbar() {
           </Link>
 
           {/* DESKTOP LINKS */}
-          <nav className="hidden md:flex space-x-6 text-xs uppercase tracking-wider font-semibold">
+          <nav className="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-semibold">
             {navLinks.map((link) => {
               const isActive =
                 pathname === link.href ||
@@ -88,29 +91,14 @@ export function Navbar() {
               );
             })}
 
-            {/* Language toggle */}
-            <div className="relative">
-              <button
-                onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-1 transition-colors text-gray-300 hover:text-[#D4AF37]"
-              >
-                <Globe className="w-3.5 h-3.5" />
-                <span>ES</span>
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-              {langOpen && (
-                <div className="absolute top-full right-0 mt-2 flex bg-[#1A332B]/95 backdrop-blur-xl p-1 rounded-lg border border-[#D4AF37]/20 shadow-xl">
-                  <button className="px-3 py-1 rounded-md bg-[#D4AF37] text-[#0B1311] text-xs font-bold">
-                    ES
-                  </button>
-                  <button className="px-3 py-1 rounded-md text-white/60 hover:text-white text-xs">
-                    EN
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* Desktop language toggle */}
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-1.5 transition-colors text-gray-300 hover:text-[#D4AF37]"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span className="font-bold">{lang === "es" ? "ES" : "EN"}</span>
+            </button>
           </nav>
 
           {/* QUICK ACTIONS */}
@@ -120,14 +108,14 @@ export function Navbar() {
               className="hidden sm:flex items-center gap-2 bg-[#1A332B] hover:bg-[#132720] text-white border border-[#D4AF37]/30 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200"
             >
               <Phone className="w-3 h-3 text-[#D4AF37]" />
-              Reservar por WhatsApp
+              {t("nav.whatsapp")}
             </button>
 
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(true)}
               className="md:hidden p-1.5 text-white hover:text-[#D4AF37] transition-colors"
-              aria-label="Abrir menu"
+              aria-label="Open menu"
             >
               <svg
                 className="w-5 h-5"
@@ -167,13 +155,13 @@ export function Navbar() {
             <div className="flex items-center space-x-2">
               <Globe className="w-4 h-4 text-[#D4AF37]" />
               <span className="text-xs uppercase tracking-widest text-gray-400 font-semibold">
-                Explorar
+                {t("nav.explorar")}
               </span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
               className="p-2 text-gray-400 hover:text-white border border-gray-800 rounded-lg transition-colors"
-              aria-label="Cerrar menu"
+              aria-label="Close menu"
             >
               <X className="w-5 h-5" />
             </button>
@@ -197,23 +185,39 @@ export function Navbar() {
 
         {/* Drawer footer */}
         <div className="space-y-4 pt-6 border-t border-gray-800/60">
+          {/* Language toggle */}
           <div className="flex items-center justify-between px-3 text-xs text-gray-400">
-            <span>Idioma del sitio</span>
-            <div className="flex bg-[#1A332B]/40 p-1 rounded-md border border-gray-800">
-              <button className="px-2 py-1 rounded bg-[#D4AF37] text-[#0B1311] font-bold text-xs">
+            <span>{t("nav.idioma")}</span>
+            <button
+              onClick={toggleLang}
+              className="flex bg-[#1A332B]/40 p-1 rounded-lg border border-gray-800 transition-all hover:border-[#D4AF37]/30"
+            >
+              <span
+                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                  lang === "es"
+                    ? "bg-[#D4AF37] text-[#0B1311]"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
                 ES
-              </button>
-              <button className="px-2 py-1 rounded hover:text-white text-xs text-gray-400">
+              </span>
+              <span
+                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${
+                  lang === "en"
+                    ? "bg-[#D4AF37] text-[#0B1311]"
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
                 EN
-              </button>
-            </div>
+              </span>
+            </button>
           </div>
           <button
             onClick={handleBookingFromDrawer}
             className="w-full bg-[#1A332B] hover:bg-[#132720] text-white border border-[#D4AF37]/30 py-3.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all shadow-lg flex items-center justify-center space-x-2"
           >
             <Phone className="w-4 h-4 text-[#D4AF37]" />
-            <span>Reservar por WhatsApp</span>
+            <span>{t("nav.whatsapp")}</span>
           </button>
         </div>
       </div>

@@ -1,8 +1,9 @@
 "use client";
 
 import { type ChangeEvent } from "react";
-import { X, CalendarDays, Users, Sparkles, MessageCircle } from "lucide-react";
+import { X, CalendarDays, Sparkles, MessageCircle } from "lucide-react";
 import { useBooking } from "@/lib/booking-context";
+import { useI18n } from "@/lib/i18n-context";
 import { TOURS } from "@/lib/tours-data";
 
 export function BookingModal() {
@@ -16,6 +17,7 @@ export function BookingModal() {
     travelers,
     setTravelers,
   } = useBooking();
+  const { t } = useI18n();
 
   if (!bookingOpen) return null;
 
@@ -24,13 +26,12 @@ export function BookingModal() {
 
   const handleConfirmWhatsApp = () => {
     if (currentTour && travelDate && travelers > 0) {
-      const message =
-        `Hola Intiquilla Adventures! Deseo confirmar mi estadía y aventura.\n\n` +
-        `• *Tour:* ${currentTour.name}\n` +
-        `• *Fecha:* ${travelDate}\n` +
-        `• *Viajeros:* ${travelers} persona(s)\n` +
-        `• *Total Estimado:* S/ ${totalPrice}\n\n` +
-        `Solicito disponibilidad para proceder con la reserva directa.`;
+      const raw = t("modal.whatsappMsg");
+      const message = raw
+        .replace("{tour}", currentTour.name)
+        .replace("{date}", travelDate)
+        .replace("{travelers}", String(travelers))
+        .replace("{total}", String(totalPrice));
       const encoded = encodeURIComponent(message);
       window.open(`https://wa.me/51999999999?text=${encoded}`, "_blank", "noopener");
     }
@@ -45,21 +46,21 @@ export function BookingModal() {
           <button
             onClick={() => setBookingOpen(false)}
             className="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
-            aria-label="Cerrar"
+            aria-label="Close"
           >
             <X className="w-4 h-4" />
           </button>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/20 mb-3">
             <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-            <span className="text-[10px] tracking-widest text-[#D4AF37] font-semibold uppercase">Reserva Rapida Directa</span>
+            <span className="text-[10px] tracking-widest text-[#D4AF37] font-semibold uppercase">{t("modal.badge")}</span>
           </div>
-          <h3 className="text-xl font-bold tracking-wide text-white">Confirma tu Aventura</h3>
-          <p className="mt-1 text-sm text-white/50">Completa los detalles para enviar tu solicitud de reserva.</p>
+          <h3 className="text-xl font-bold tracking-wide text-white">{t("modal.title")}</h3>
+          <p className="mt-1 text-sm text-white/50">{t("modal.subtitle")}</p>
         </div>
 
         <div className="p-6 space-y-4">
           <div>
-            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">Experiencia Seleccionada</label>
+            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">{t("modal.experience")}</label>
             {currentTour ? (
               <select
                 value={selectedTour}
@@ -71,12 +72,12 @@ export function BookingModal() {
                 ))}
               </select>
             ) : (
-              <div className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-lg px-4 py-3 text-sm text-white">No seleccionada</div>
+              <div className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-lg px-4 py-3 text-sm text-white">{t("modal.none")}</div>
             )}
           </div>
 
           <div>
-            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">Fecha de Viaje</label>
+            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">{t("modal.date")}</label>
             <div className="relative">
               <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
               <input
@@ -90,7 +91,7 @@ export function BookingModal() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">Cantidad de Viajeros</label>
+            <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">{t("modal.travelers")}</label>
             <div className="flex flex-wrap items-center gap-2">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
                 <button
@@ -110,16 +111,16 @@ export function BookingModal() {
 
           <div className="mt-2 p-4 rounded-xl bg-[#D4AF37]/5 border border-[#D4AF37]/15">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-white/60">Precio por persona</span>
+              <span className="text-white/60">{t("modal.perPerson")}</span>
               <span className="text-white font-medium">S/ {currentTour ? currentTour.price : 0}</span>
             </div>
             <div className="flex items-center justify-between text-sm mt-2">
-              <span className="text-white/60">Viajeros</span>
-              <span className="text-white font-medium">{travelers} persona(s)</span>
+              <span className="text-white/60">{t("modal.travelersCount")}</span>
+              <span className="text-white font-medium">{travelers} {t("modal.personShort")}</span>
             </div>
             <div className="w-full h-px bg-[#D4AF37]/15 my-3" />
             <div className="flex items-center justify-between">
-              <span className="text-base font-bold text-[#D4AF37]">Total Neto:</span>
+              <span className="text-base font-bold text-[#D4AF37]">{t("modal.total")}</span>
               <span className="text-xl font-bold text-[#D4AF37]">S/ {totalPrice.toLocaleString()}</span>
             </div>
           </div>
@@ -130,11 +131,11 @@ export function BookingModal() {
             className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-[#D4AF37]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             <MessageCircle className="w-5 h-5" />
-            Confirmar en WhatsApp
+            {t("modal.confirm")}
           </button>
 
           <p className="text-[11px] text-white/30 text-center leading-relaxed">
-            Al confirmar, seras redirigido a WhatsApp para completar tu reserva. Un asesor te atendera personalmente.
+            {t("modal.disclaimer")}
           </p>
         </div>
       </div>

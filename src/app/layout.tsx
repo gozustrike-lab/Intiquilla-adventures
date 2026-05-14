@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BookingProvider } from "@/lib/booking-context";
+import { I18nProvider } from "@/lib/i18n-context";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookingModal } from "@/components/booking-modal";
@@ -47,13 +48,15 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/hero-slide-mountainlake.webp" type="image/webp" />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-[#0B1311] text-white`}>
-        <BookingProvider>
-          <Preloader />
-          <Navbar />
-          <main className="pt-12 md:pt-14">{children}</main>
-          <Footer />
-          <BookingModal />
-        </BookingProvider>
+        <I18nProvider>
+          <BookingProvider>
+            <Preloader />
+            <Navbar />
+            <main className="pt-12 md:pt-14">{children}</main>
+            <Footer />
+            <BookingModal />
+          </BookingProvider>
+        </I18nProvider>
       </body>
     </html>
   );

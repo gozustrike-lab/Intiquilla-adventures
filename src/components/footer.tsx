@@ -1,8 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import { Mountain, ChevronRight, Phone, Mail, MapPin, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { TOURS } from "@/lib/tours-data";
+import { useI18n } from "@/lib/i18n-context";
 
 export function Footer() {
+  const { t } = useI18n();
+
+  const navItems = [
+    { label: t("nav.destinos"), href: "/#destinos" },
+    { label: t("nav.tours"), href: "/#tours" },
+    { label: t("nav.sobre"), href: "/nosotros" },
+    { label: t("nav.tips"), href: "/#tips" },
+  ];
+
   return (
     <footer className="mt-auto border-t border-[#D4AF37]/10 bg-[#132720]/50">
       <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
@@ -16,7 +28,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-white/40 leading-relaxed max-w-xs">
-              Turismo de aventura responsable en la Cordillera Blanca y Huayhuash, Huaraz, Peru.
+              {t("footer.desc")}
             </p>
             <div className="mt-4 flex items-center gap-3">
               <a href="#" className="w-9 h-9 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37]/60 hover:text-[#D4AF37] hover:bg-[#D4AF37]/20 transition-all" aria-label="Instagram">
@@ -32,14 +44,9 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">Navegacion</h4>
+            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">{t("footer.nav")}</h4>
             <ul className="space-y-2.5">
-              {[
-                { label: "Destinos", href: "/#destinos" },
-                { label: "Tours", href: "/#tours" },
-                { label: "Sobre Nosotros", href: "/nosotros" },
-                { label: "Tips de Viaje", href: "/#tips" },
-              ].map((link) => (
+              {navItems.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/40 hover:text-[#D4AF37] transition-colors inline-flex items-center gap-1">
                     <ChevronRight className="w-3 h-3" />
@@ -51,7 +58,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">Tours Populares</h4>
+            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">{t("footer.popular")}</h4>
             <ul className="space-y-2.5">
               {TOURS.map((tour) => (
                 <li key={tour.id}>
@@ -65,7 +72,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">Contacto</h4>
+            <h4 className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-4">{t("footer.contact")}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#D4AF37]/50 mt-0.5 shrink-0" />
@@ -85,10 +92,10 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-[#D4AF37]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Intiquilla Adventures. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} Intiquilla Adventures. {t("footer.rights")}
           </p>
           <p className="text-xs text-white/20">
-            Diseno y desarrollo web por Fastpagepro.
+            {t("footer.credit")}
           </p>
         </div>
       </div>
