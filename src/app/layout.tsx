@@ -41,7 +41,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased bg-[#0B1311] text-white`}>
         <BookingProvider>
           <Navbar />
-          <main className="pt-16 md:pt-20">{children}</main>
+          <main className="pt-12 md:pt-14">{children}</main>
           <Footer />
           <BookingModal />
         </BookingProvider>
