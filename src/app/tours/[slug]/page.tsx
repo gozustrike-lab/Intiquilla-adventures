@@ -2,7 +2,9 @@
 
 import { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Clock,
@@ -16,308 +18,629 @@ import {
   Navigation,
   Star,
   ChevronRight,
-  Phone,
+  Backpack,
 } from "lucide-react";
-import { getTourBySlug, TOURS } from "@/lib/tours-data";
+import { useI18n } from "@/lib/i18n-context";
+import { getTourBySlug, localizeTour, TOURS } from "@/lib/tours-data";
+
+/* ─── animation presets ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: -24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
 export default function TourPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const tour = getTourBySlug(slug);
+  const rawTour = getTourBySlug(slug);
+  const { t, lang } = useI18n();
+  const lt = rawTour ? localizeTour(rawTour, lang) : null;
 
   const [travelDate, setTravelDate] = useState("");
   const [travelers, setTravelers] = useState(1);
-  const [activeImage, setActiveImage] = useState(0);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [slug]);
 
-  if (!tour) {
+  /* ─── not found ─── */
+  if (!rawTour || !lt) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white mb-4">Tour no encontrado</h1>
-          <p className="text-white/60 mb-8">El tour que buscas no existe o ha sido removido.</p>
-          <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm">
-            <ArrowLeft className="w-4 h-4" /> Volver al inicio
+          <h1 className="text-3xl font-bold text-white mb-4">
+            {t("tour.notFound")}
+          </h1>
+          <p className="text-white/60 mb-8">{t("tour.notFoundDesc")}</p>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm hover:bg-yellow-500 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> {t("tour.back")}
           </Link>
         </div>
       </div>
     );
   }
 
-  const totalPrice = tour.price * travelers;
+  const totalPrice = lt.price * travelers;
+
+  const relatedTours = TOURS.filter((r) => r.slug !== lt.slug)
+    .slice(0, 2)
+    .map((r) => localizeTour(r, lang));
 
   const handleConfirmWhatsApp = () => {
-    if (travelDate && travelers > 0) {
-      const message =
-        `Hola Intiquilla Adventures! Deseo confirmar mi estadía y aventura.\n\n` +
-        `• *Tour:* ${tour.name}\n` +
-        `• *Fecha:* ${travelDate}\n` +
-        `• *Viajeros:* ${travelers} persona(s)\n` +
-        `• *Total Estimado:* S/ ${totalPrice}\n\n` +
-        `Solicito disponibilidad para proceder con la reserva directa.`;
-      window.open(`https://wa.me/51999999999?text=${encodeURIComponent(message)}`, "_blank", "noopener");
-    }
+    if (!travelDate) return;
+    const raw = t("tour.whatsappMsg");
+    const message = raw
+      .replace("{tour}", lt.name)
+      .replace("{date}", travelDate)
+      .replace("{travelers}", String(travelers))
+      .replace("{total}", String(totalPrice));
+    window.open(
+      `https://wa.me/51999999999?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener"
+    );
   };
-
-  const relatedTours = TOURS.filter((t) => t.slug !== tour.slug).slice(0, 2);
 
   return (
     <div>
-      <section className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] overflow-hidden -mt-16 md:-mt-20 pt-16 md:pt-20">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${tour.image})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1311] via-[#0B1311]/50 to-[#0B1311]/30" />
-        <div className="relative z-10 flex flex-col items-center justify-end h-full pb-10 px-4 text-center">
-          <Link href="/" className="flex items-center gap-1 text-sm text-white/60 hover:text-[#D4AF37] transition-colors mb-6">
-            <ArrowLeft className="w-4 h-4" /> Volver
+      {/* ═══════════════════════════════════════════
+          1 · FULL-BLEED HERO
+         ═══════════════════════════════════════════ */}
+      <section className="relative w-full min-h-[65vh] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
+        <Image
+          src={lt.image}
+          alt={lt.name}
+          fill
+          className="object-cover object-center scale-105"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0B1311] via-[#0B1311]/60 to-[#0B1311]/30" />
+
+        <div className="relative z-10 flex flex-col items-center justify-end h-full min-h-[65vh] pb-10 sm:pb-14 px-4 text-center">
+          {/* back link */}
+          <Link
+            href="/"
+            className="absolute top-20 md:top-24 left-4 sm:left-8 z-20 inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-[#D4AF37] transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>{t("tour.back")}</span>
           </Link>
-          <div className="flex gap-2 mb-4">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#0B1311]/60 backdrop-blur-sm text-xs font-medium text-[#D4AF37] border border-[#D4AF37]/20">
-              <Clock className="w-3 h-3" />{tour.duration}
+
+          {/* tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="flex flex-wrap justify-center gap-2 mb-5"
+          >
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0B1311]/50 backdrop-blur-sm text-xs font-medium text-[#D4AF37] border border-[#D4AF37]/20">
+              <Clock className="w-3.5 h-3.5" />
+              {lt.duration}
             </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#0B1311]/60 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
-              <Mountain className="w-3 h-3" />{tour.difficulty}
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0B1311]/50 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
+              <Mountain className="w-3.5 h-3.5" />
+              {lt.difficulty}
             </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#0B1311]/60 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
-              <MapPin className="w-3 h-3" />{tour.altitude}
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0B1311]/50 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
+              <MapPin className="w-3.5 h-3.5" />
+              {lt.maxAltitude}
             </span>
-          </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-wide text-white leading-tight max-w-4xl">
-            {tour.name}
-          </h1>
+          </motion.div>
+
+          {/* title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide text-white leading-tight max-w-5xl"
+          >
+            {lt.name}
+          </motion.h1>
+
+          {/* price */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-5 flex items-baseline gap-2"
+          >
+            <span className="text-sm text-white/50 uppercase tracking-wider">
+              {t("tour.from")}
+            </span>
+            <span className="text-3xl sm:text-4xl font-bold text-[#D4AF37]">
+              S/ {lt.price}
+            </span>
+            <span className="text-sm text-white/50">
+              {t("tour.perPerson")}
+            </span>
+          </motion.div>
+
+          {/* quick info row */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-white/50"
+          >
+            <span className="flex items-center gap-1.5">
+              <Navigation className="w-3.5 h-3.5 text-[#D4AF37]/60" />
+              {lt.startLocation}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Star className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <Star className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <Star className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <Star className="w-3.5 h-3.5 text-[#D4AF37]" />
+              <Star className="w-3.5 h-3.5 text-[#D4AF37]" />
+            </span>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            <div className="lg:col-span-2 space-y-12">
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Descripcion del Tour</h2>
-                <p className="text-base text-white/60 leading-relaxed">{tour.longDescription}</p>
-              </div>
+      {/* ═══════════════════════════════════════════
+          2 · DESCRIPTION
+         ═══════════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            custom={0}
+            variants={fadeUp}
+            className="text-center mb-10"
+          >
+            <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-3">
+              {t("tour.description")}
+            </span>
+            <div className="w-16 h-px bg-[#D4AF37]/40 mx-auto" />
+          </motion.div>
 
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Galeria</h2>
-                <div className="space-y-4">
-                  <div className="relative rounded-2xl overflow-hidden h-64 sm:h-80 md:h-[400px]">
-                    <div className="absolute inset-0 bg-cover bg-center transition-all duration-500" style={{ backgroundImage: `url(${tour.gallery[activeImage]})` }} />
-                  </div>
-                  <div className="flex gap-3">
-                    {tour.gallery.map((img, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveImage(i)}
-                        className={`w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden border-2 transition-all ${
-                          activeImage === i ? "border-[#D4AF37] shadow-lg shadow-[#D4AF37]/20" : "border-transparent opacity-60 hover:opacity-100"
-                        }`}
-                      >
-                        <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url(${img})` }} />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Itinerario</h2>
-                <div className="space-y-6">
-                  {tour.itinerary.map((day, idx) => (
-                    <div key={idx} className="flex gap-4 md:gap-6">
-                      <div className="flex flex-col items-center">
-                        <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] font-bold text-sm shrink-0">
-                          {idx + 1}
-                        </div>
-                        {idx < tour.itinerary.length - 1 && <div className="w-px flex-1 bg-[#D4AF37]/15 mt-2" />}
-                      </div>
-                      <div className="pb-6">
-                        <span className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider">{day.day}</span>
-                        <h3 className="text-base md:text-lg font-bold text-white mt-1">{day.title}</h3>
-                        <p className="mt-2 text-sm text-white/50 leading-relaxed">{day.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15">
-                  <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" /> Que Incluye
-                  </h3>
-                  <ul className="space-y-2">
-                    {tour.inclusions.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/60">
-                        <CheckCircle className="w-4 h-4 text-[#D4AF37]/60 mt-0.5 shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15">
-                  <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-                    <XCircle className="w-5 h-5 text-red-400" /> No Incluye
-                  </h3>
-                  <ul className="space-y-2">
-                    {tour.exclusions.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/60">
-                        <XCircle className="w-4 h-4 text-red-400/40 mt-0.5 shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <h3 className="text-base font-bold text-white mt-6 mb-3 flex items-center gap-2">
-                    <Mountain className="w-5 h-5 text-[#D4AF37]" /> Que Llevar
-                  </h3>
-                  <ul className="space-y-2">
-                    {tour.whatToBring.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/60">
-                        <CheckCircle className="w-4 h-4 text-[#D4AF37]/60 mt-0.5 shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-6">
-                <div className="p-6 rounded-2xl bg-[#1A332B] border border-[#D4AF37]/20 shadow-xl">
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <span className="text-xs text-white/40 uppercase tracking-wider">Desde</span>
-                      <div className="text-3xl font-bold text-[#D4AF37]">S/ {tour.price}</div>
-                      <span className="text-xs text-white/40">por persona</span>
-                    </div>
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-4 h-4 ${i < 5 ? "text-[#D4AF37] fill-[#D4AF37]" : "text-white/20"}`} />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-2 text-sm text-white/60">
-                      <Clock className="w-4 h-4 text-[#D4AF37]/60" />
-                      <span>{tour.durationDays}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/60">
-                      <Mountain className="w-4 h-4 text-[#D4AF37]/60" />
-                      <span>{tour.difficulty}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/60">
-                      <MapPin className="w-4 h-4 text-[#D4AF37]/60" />
-                      <span>Max: {tour.maxAltitude}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-white/60">
-                      <Navigation className="w-4 h-4 text-[#D4AF37]/60" />
-                      <span>{tour.startLocation}</span>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-[#D4AF37]/15 pt-4 space-y-4">
-                    <div>
-                      <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">Fecha de Viaje</label>
-                      <div className="relative">
-                        <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
-                        <input
-                          type="date"
-                          value={travelDate}
-                          onChange={(e: ChangeEvent<HTMLInputElement>) => setTravelDate(e.target.value)}
-                          min={new Date().toISOString().split("T")[0]}
-                          className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors [color-scheme:dark]"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase mb-1.5">Viajeros</label>
-                      <div className="relative">
-                        <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
-                        <select
-                          value={travelers}
-                          onChange={(e: ChangeEvent<HTMLSelectElement>) => setTravelers(parseInt(e.target.value, 10))}
-                          className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
-                        >
-                          {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-                            <option key={n} value={n}>{n} {n === 1 ? "persona" : "personas"}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-[#D4AF37]/5 border border-[#D4AF37]/15">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-white/60">Total Neto:</span>
-                        <span className="text-xl font-bold text-[#D4AF37]">S/ {totalPrice.toLocaleString()}</span>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={handleConfirmWhatsApp}
-                      disabled={!travelDate}
-                      className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-[#D4AF37]/20 disabled:opacity-40 disabled:cursor-not-allowed"
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      Confirmar en WhatsApp
-                    </button>
-                  </div>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15">
-                  <h3 className="text-base font-bold text-white mb-3">Destacados</h3>
-                  <ul className="space-y-2">
-                    {tour.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-white/50">
-                        <CheckCircle className="w-4 h-4 text-[#D4AF37]/60 mt-0.5 shrink-0" />
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15">
-                  <h3 className="text-base font-bold text-white mb-3">Coordenadas</h3>
-                  <div className="flex items-start gap-2 text-sm text-white/50">
-                    <Navigation className="w-4 h-4 text-[#D4AF37]/60 mt-0.5 shrink-0" />
-                    <span>{tour.coordinates.name}</span>
-                  </div>
-                  <div className="mt-2 text-xs text-white/30 font-mono">
-                    {tour.coordinates.lat}, {tour.coordinates.lng}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={1}
+            variants={fadeUp}
+            className="text-base md:text-lg text-white/70 leading-relaxed max-w-3xl mx-auto text-center"
+          >
+            {lt.longDescription}
+          </motion.p>
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-[#132720]/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-10">
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Te puede interesar</span>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-white">Otros Tours</h2>
+      {/* ═══════════════════════════════════════════
+          3 · HORIZONTAL GALLERY STRIP
+         ═══════════════════════════════════════════ */}
+      {lt.gallery.length > 0 && (
+        <section className="py-8 md:py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              custom={0}
+              variants={fadeUp}
+              className="mb-6"
+            >
+              <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold">
+                {t("tour.gallery")}
+              </span>
+            </motion.div>
+
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-none masking-gradient">
+              {lt.gallery.map((img, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative min-w-[75vw] sm:min-w-[340px] md:min-w-[420px] h-64 sm:h-80 md:h-96 snap-center shrink-0 rounded-2xl overflow-hidden border border-white/[0.06] flex-shrink-0"
+                >
+                  <Image
+                    src={img}
+                    alt={`${lt.name} gallery ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 768px) 420px, 75vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </motion.div>
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {relatedTours.map((rt) => (
-              <Link key={rt.id} href={`/tours/${rt.slug}`} className="group flex gap-4 p-4 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15 hover:border-[#D4AF37]/30 transition-all">
-                <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-xl overflow-hidden shrink-0">
-                  <div className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style={{ backgroundImage: `url(${rt.image})` }} />
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════
+          4 · HIGHLIGHTS MARQUEE
+         ═══════════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={0}
+            variants={fadeUp}
+            className="text-center mb-10"
+          >
+            <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-3">
+              {t("tour.highlights")}
+            </span>
+            <div className="w-16 h-px bg-[#D4AF37]/40 mx-auto" />
+          </motion.div>
+
+          <div className="flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-none masking-gradient">
+            {lt.highlights.map((h, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="min-w-[260px] sm:min-w-[300px] snap-start shrink-0 border-l-2 border-[#D4AF37]/30 pl-5 py-1"
+              >
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+                  <span className="text-sm md:text-base text-white/80 leading-relaxed">
+                    {h}
+                  </span>
                 </div>
-                <div className="flex flex-col justify-center min-w-0">
-                  <span className="text-xs text-[#D4AF37] font-medium">{rt.duration} &middot; {rt.difficulty}</span>
-                  <h3 className="text-base font-bold text-white mt-1 line-clamp-2">{rt.name}</h3>
-                  <span className="text-lg font-bold text-[#D4AF37] mt-2">S/ {rt.price}</span>
-                  <span className="flex items-center gap-1 text-xs text-[#D4AF37] mt-1">Ver detalles <ChevronRight className="w-3 h-3" /></span>
-                </div>
-              </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          5 · ITINERARY TIMELINE
+         ═══════════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4 bg-[#132720]/20">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-40px" }}
+            custom={0}
+            variants={fadeUp}
+            className="text-center mb-14"
+          >
+            <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-3">
+              {t("tour.itinerary")}
+            </span>
+            <div className="w-16 h-px bg-[#D4AF37]/40 mx-auto" />
+          </motion.div>
+
+          <div className="max-w-2xl mx-auto">
+            {lt.itinerary.map((day, idx) => (
+              <motion.div
+                key={idx}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+                custom={idx}
+                variants={fadeRight}
+                className="relative flex gap-5 sm:gap-8"
+              >
+                {/* timeline line + circle */}
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] font-bold text-sm sm:text-base shrink-0 bg-[#0B1311]">
+                    {idx + 1}
+                  </div>
+                  {idx < lt.itinerary.length - 1 && (
+                    <div className="w-px flex-1 bg-[#D4AF37]/20 mt-2" />
+                  )}
+                </div>
+
+                {/* content */}
+                <div className="pb-10">
+                  <span className="text-xs text-[#D4AF37] font-semibold uppercase tracking-widest">
+                    {day.day}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-white mt-1.5 tracking-wide">
+                    {day.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-white/55 leading-relaxed">
+                    {day.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          6 · INCLUSIONS / EXCLUSIONS / WHAT TO BRING
+         ═══════════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+            {/* Includes */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              custom={0}
+              variants={fadeUp}
+            >
+              <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-5 flex items-center gap-2">
+                <CheckCircle className="w-5 h-5" />
+                {t("tour.includes")}
+              </h3>
+              <ul className="space-y-3">
+                {lt.inclusions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-white/65 leading-relaxed">
+                    <span className="w-1 h-1 rounded-full bg-[#D4AF37] mt-2 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Excludes */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              custom={1}
+              variants={fadeUp}
+            >
+              <h3 className="text-sm font-bold text-red-400/80 uppercase tracking-widest mb-5 flex items-center gap-2">
+                <XCircle className="w-5 h-5" />
+                {t("tour.excludes")}
+              </h3>
+              <ul className="space-y-3">
+                {lt.exclusions.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-white/65 leading-relaxed">
+                    <span className="w-1 h-1 rounded-full bg-red-400/50 mt-2 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* What to bring */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              custom={2}
+              variants={fadeUp}
+            >
+              <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-5 flex items-center gap-2">
+                <Backpack className="w-5 h-5" />
+                {t("tour.whatToBring")}
+              </h3>
+              <ul className="space-y-3">
+                {lt.whatToBring.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-white/65 leading-relaxed">
+                    <span className="w-1 h-1 rounded-full bg-[#D4AF37] mt-2 shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          7 · BOOKING SECTION
+         ═══════════════════════════════════════════ */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="relative rounded-3xl overflow-hidden"
+          >
+            {/* glass-morphism background */}
+            <div className="absolute inset-0 bg-[#1A332B]/60 backdrop-blur-xl border border-white/[0.06]" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#1A332B]/40 via-transparent to-[#D4AF37]/[0.03]" />
+
+            <div className="relative z-10 p-6 sm:p-10 md:p-14">
+              {/* header */}
+              <div className="text-center mb-10">
+                <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-3">
+                  {t("tour.bookNow")}
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wide">
+                  {lt.name}
+                </h2>
+                <div className="mt-3 flex items-center justify-center gap-6 text-sm text-white/50">
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="w-4 h-4 text-[#D4AF37]/60" />
+                    {lt.durationDays}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Mountain className="w-4 h-4 text-[#D4AF37]/60" />
+                    {t("tour.difficulty")}: {lt.difficulty}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-[#D4AF37]/60" />
+                    {t("tour.maxAlt")}: {lt.maxAltitude}
+                  </span>
+                </div>
+              </div>
+
+              {/* form */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+                {/* date */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">
+                    {t("tour.date")}
+                  </label>
+                  <div className="relative">
+                    <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/50 pointer-events-none" />
+                    <input
+                      type="date"
+                      value={travelDate}
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        setTravelDate(e.target.value)
+                      }
+                      min={new Date().toISOString().split("T")[0]}
+                      className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl pl-10 pr-4 py-3.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#D4AF37]/50 transition-colors [color-scheme:dark] backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* travelers */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">
+                    {t("tour.travelers")}
+                  </label>
+                  <div className="relative">
+                    <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/50 pointer-events-none" />
+                    <select
+                      value={travelers}
+                      onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                        setTravelers(parseInt(e.target.value, 10))
+                      }
+                      className="w-full appearance-none bg-white/[0.04] border border-white/[0.08] rounded-xl pl-10 pr-4 py-3.5 text-sm text-white focus:outline-none focus:border-[#D4AF37]/50 transition-colors cursor-pointer backdrop-blur-sm"
+                    >
+                      {Array.from({ length: 15 }, (_, i) => i + 1).map((n) => (
+                        <option key={n} value={n} className="bg-[#1A332B] text-white">
+                          {n} {n === 1 ? t("tour.person") : t("tour.persons")}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* price display */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-medium tracking-wider text-[#D4AF37]/80 uppercase">
+                    {t("tour.total")}
+                  </label>
+                  <div className="flex items-end gap-1 h-[52px]">
+                    <span className="text-sm text-white/50 self-end mb-3">S/</span>
+                    <span className="text-3xl font-bold text-[#D4AF37] leading-none">
+                      {totalPrice.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+
+                {/* CTA button */}
+                <div className="flex flex-col gap-1.5 justify-end">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleConfirmWhatsApp}
+                    disabled={!travelDate}
+                    className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wider hover:bg-yellow-500 transition-all duration-300 shadow-lg shadow-[#D4AF37]/15 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    {t("tour.confirmWA")}
+                  </motion.button>
+                </div>
+              </div>
+
+              {!travelDate && (
+                <p className="mt-4 text-center text-xs text-white/30">
+                  {t("tour.selectDate")}
+                </p>
+              )}
+
+              {/* per-person breakdown */}
+              <div className="mt-8 text-center text-sm text-white/40">
+                {t("tour.from")} <span className="text-[#D4AF37]/80 font-semibold">S/ {lt.price}</span> {t("tour.perPerson")} &middot; {travelers} {travelers === 1 ? t("tour.person") : t("tour.persons")}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          8 · RELATED TOURS
+         ═══════════════════════════════════════════ */}
+      {relatedTours.length > 0 && (
+        <section className="py-16 md:py-24 px-4 bg-[#132720]/20">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              custom={0}
+              variants={fadeUp}
+              className="text-center mb-10"
+            >
+              <span className="inline-block text-[10px] tracking-[0.3em] text-[#D4AF37] uppercase font-bold mb-3">
+                {t("tour.youMayLike")}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wide">
+                {t("tour.otherTours")}
+              </h2>
+              <div className="w-16 h-px bg-[#D4AF37]/40 mx-auto mt-4" />
+            </motion.div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {relatedTours.map((rt, i) => (
+                <motion.div
+                  key={rt.slug}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-30px" }}
+                  custom={i}
+                  variants={fadeUp}
+                >
+                  <Link
+                    href={`/tours/${rt.slug}`}
+                    className="group relative block rounded-2xl overflow-hidden h-56 sm:h-64"
+                  >
+                    <Image
+                      src={rt.image}
+                      alt={rt.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(min-width: 640px) 50vw, 100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B1311] via-[#0B1311]/40 to-transparent" />
+
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <span className="text-xs text-[#D4AF37]/90 font-medium">
+                        {rt.duration} &middot; {rt.difficulty}
+                      </span>
+                      <h3 className="text-base sm:text-lg font-bold text-white mt-1 tracking-wide leading-snug line-clamp-2">
+                        {rt.name}
+                      </h3>
+                      <div className="mt-3 flex items-center justify-between">
+                        <span className="text-xl font-bold text-[#D4AF37]">
+                          S/ {rt.price}
+                        </span>
+                        <span className="flex items-center gap-1 text-xs text-[#D4AF37] font-medium group-hover:gap-2 transition-all">
+                          {t("tour.viewDetails")}
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

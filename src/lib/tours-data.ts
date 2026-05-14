@@ -1,3 +1,5 @@
+import type { Lang } from "./i18n-context";
+
 export interface TourData {
   slug: string;
   id: string;
@@ -383,6 +385,242 @@ export const TOURS: TourData[] = [
     coordinates: { lat: -9.5947, lng: -77.1717, name: "Chavin de Huantar, Ancash" },
   },
 ];
+
+/* ═══════════════════════════════════════════
+   ENGLISH TOUR TRANSLATIONS
+   ═══════════════════════════════════════════ */
+
+const TOURS_EN: Record<string, Partial<TourData>> = {
+  "laguna-69": {
+    name: "Laguna 69 - Full Day Trekking",
+    duration: "1 Day",
+    durationDays: "Full Day",
+    difficulty: "Moderate",
+    description: "One of the most impressive hikes in the Cordillera Blanca. Cross Andean valleys surrounded by quenuyal forests until you reach the legendary emerald lagoon, fed by the glaciers of Chacraraju.",
+    longDescription: "Laguna 69 is world-renowned as one of the most spectacular day hikes in the Peruvian Andes. Located in Huascaran National Park, this intensely turquoise lagoon is surrounded by the imposing snow-capped peaks of Chacraraju (6,112 m), Pisco (5,752 m), and Yanapaccha (5,460 m). The trek begins at kilometer 110 of the Huaraz-Caraz highway, from where you gradually ascend through quenuyal forests and alpine meadows until reaching the lagoon at 4,600 meters altitude. The trail is perfectly marked and offers incredible panoramic views throughout the entire route.",
+    highlights: [
+      "Turquoise lagoon at 4,600 m surrounded by snow-capped peaks",
+      "Views of Chacraraju, Pisco and Yanapaccha",
+      "Native Andean flora with quenuyal forests",
+      "Transport included from Huaraz",
+      "Certified professional guide",
+      "Mountain lunch included",
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Huaraz — Cebollapampa — Laguna 69 — Return",
+        description: "Departure from Huaraz at 5:00 AM in private transport to kilometer 110 of the Huaraz-Caraz highway. Arrival at Cebollapampa (3,900 m) where we begin the ascending hike through ravines and quenuyal forests. After approximately 2.5 hours of hiking, we reach the base of the glacier, and after 1 more hour we reach the imposing Laguna 69 at 4,600 m. Free time to enjoy the landscape, take photos and rest by the lagoon. Descent along the same trail to Cebollapampa where lunch awaits us. Return to Huaraz estimated at 6:00 PM.",
+      },
+    ],
+    inclusions: [
+      "Private transport Huaraz — Cebollapampa — Huaraz",
+      "Certified professional mountaineering guide",
+      "Mountain lunch (energy snacks, sandwich, fruits)",
+      "Mineral water during the hike",
+      "First aid kit and medical oxygen",
+      "Huascaran National Park entrance fee",
+    ],
+    exclusions: [
+      "Breakfast before departure",
+      "Dinner upon return",
+      "Camping or trekking equipment rental (poles, clothing)",
+      "Tips",
+      "Personal expenses",
+    ],
+    whatToBring: [
+      "Thermal clothing in layers (base, mid, waterproof)",
+      "Waterproof trekking shoes",
+      "Sunscreen and sunglasses",
+      "Cap or hat",
+      "Trekking poles (recommended)",
+      "Small backpack (20-30L)",
+      "Camera and extra batteries",
+      "Additional water (1.5L recommended)",
+    ],
+  },
+  santa_cruz: {
+    name: "Classic Santa Cruz Trek - 4 Days",
+    duration: "4 Days",
+    durationDays: "3 Nights / 4 Days",
+    difficulty: "Moderate-High",
+    description: "The quintessential trek of the Cordillera Blanca. Cross the imposing Puerta del Carmen pass and traverse dreamlike valleys with views of the highest peaks in Peru.",
+    longDescription: "The Santa Cruz Trek is considered the most emblematic trekking circuit in the Cordillera Blanca and one of the best in the world. Over 4 days, you will cross glacial valleys, crystal-clear lagoons, and mountain passes exceeding 4,700 meters. The climax is the Puerta del Carmen Pass at 4,750 m, from where you get panoramic views of Huascaran (6,768 m), the highest peak in Peru, and the spectacular Alpamayo (5,947 m), considered the most beautiful mountain in the world by Alpinism magazine. This circuit combines dreamlike landscapes with an authentic cultural experience passing through traditional Andean communities.",
+    highlights: [
+      "Crossing Puerta del Carmen Pass at 4,750 m",
+      "Views of Huascaran and Alpamayo",
+      "Lagoons of Taullipampa and Arhuaycocha",
+      "Equipped campsites with hot meals",
+      "Panoramic views of 14 snow-capped peaks",
+      "Andean wildlife (condors, vicunas, vizcachas)",
+    ],
+    itinerary: [
+      {
+        day: "Day 1",
+        title: "Huaraz — Cashap — Llamacorral",
+        description: "Departure from Huaraz at 6:00 AM in private transport to the village of Cashap (2,900 m). Start of the hike ascending through the Santa Cruz River valley with views of Taulliraju. After 4-5 hours of hiking, we arrive at Llamacorral camp (3,750 m) where tents and dinner await us.",
+      },
+      {
+        day: "Day 2",
+        title: "Llamacorral — Arhuaycocha Base",
+        description: "Continued ascent through the valley with views of snow-capped summits. We pass by Ichiccocha and Jancarurish lagoons until reaching the base of Arhuaycocha (4,200 m). Optional: additional hike to Arhuaycocha Lagoon beneath Alpamayo. Camp with spectacular views.",
+      },
+      {
+        day: "Day 3",
+        title: "Arhuaycocha Base — Puerta del Carmen Pass — Taullipampa",
+        description: "The most challenging and rewarding day. Gradual ascent to Puerta del Carmen Pass (4,750 m) with panoramic views of Huascaran, Alpamayo and multiple snow-capped peaks. Descent to Taullipampa (4,250 m) where we have one of the most beautiful campsites on the circuit.",
+      },
+      {
+        day: "Day 4",
+        title: "Taullipampa — Vaqueria — Huaraz",
+        description: "Descent to the village of Vaqueria crossing the beautiful Huaripampa valley with traditional Andean communities and views of Pishtac (5,300 m). Arrival at Vaqueria where return transport to Huaraz awaits, passing by the Llanganuco Lagoon viewpoint.",
+      },
+    ],
+    inclusions: [
+      "Private transport Huaraz — Cashap and Vaqueria — Huaraz",
+      "Certified professional guide",
+      "Muleteer and professional cook",
+      "Complete meals during trek (breakfast, lunch, dinner)",
+      "2-person tents with sleeping mats",
+      "Complete kitchen equipment",
+      "First aid kit and medical oxygen",
+      "Huascaran National Park entrance fee",
+    ],
+    exclusions: [
+      "Sleeping bag (available to rent S/ 30)",
+      "Trekking poles",
+      "Trekking clothing and personal equipment",
+      "Tips for guide, muleteer and cook",
+      "Meals before and after trek",
+    ],
+    whatToBring: [
+      "Sleeping bag (-10 C recommended)",
+      "Thermal clothing in layers (base, mid, fleece, waterproof)",
+      "Waterproof trekking shoes",
+      "Trekking poles",
+      "Headlamp and extra batteries",
+      "Sunscreen and sunglasses",
+      "Trekking backpack (40-50L)",
+      "Water bottle 1.5L",
+      "Small towel and personal hygiene items",
+    ],
+  },
+  huayhuash: {
+    name: "Cordillera Huayhuash Circuit - 10 Days",
+    duration: "10 Days",
+    durationDays: "9 Nights / 10 Days",
+    difficulty: "Demanding",
+    description: "Considered one of the most spectacular trekking circuits in the world. It circles the compact and dramatic Cordillera Huayhuash, crossing passes above 5,000 meters.",
+    longDescription: "The Huayhuash Circuit is rated as one of the top 10 treks in the world by publications such as National Geographic and Lonely Planet. This 10-day circuit circles the compact and dramatic Cordillera Huayhuash, a mountain range home to peaks such as Yerupaja (6,634 m, second highest peak in Peru), Siula Grande (6,344 m), and Rondoy (5,879 m). The route crosses 6 mountain passes above 4,600 meters, including the legendary Carhuac Pass (4,680 m) with its emerald lagoon and the San Antonio Pass (5,100 m), the highest point of the circuit. Each day offers dramatically different landscapes: turquoise lagoons, alpine meadows, hanging glaciers, and the chance to spot Andean condors in flight.",
+    highlights: [
+      "10-day complete expedition around the Huayhuash",
+      "Crossing 6 passes above 4,600 m (maximum 5,100 m)",
+      "Views of Yerupaja, Siula Grande and Jirishanca",
+      "Lagoons of Jancarurish, Carhuac and Sarapococha",
+      "Professional muleteer and mountain cook",
+      "Campsites with spectacular views",
+      "Possible Andean condor sightings",
+    ],
+    itinerary: [
+      { day: "Day 1", title: "Huaraz — Llamac — Base Camp", description: "Transfer from Huaraz to the village of Llamac (3,300 m). Start of the hike ascending through the valley with views of Jirishanca and Rondoy. Arrival at the first camp near Llamac River (3,800 m)." },
+      { day: "Day 2", title: "Base Camp — Jancarurish Lagoon", description: "Gradual ascent through Querenupampa valley to the impressive Jancarurish Lagoon (4,450 m) at the foot of Yerupaja Chico. Camp with dramatic views of the glacier and turquoise lagoon." },
+      { day: "Day 3", title: "Cacanan Pass (4,900 m) — Mitucocha", description: "Ascent to Cacanan Pass (4,900 m) with panoramic views of the Cordillera Huayhuash. Descent to Mitucocha Lagoon where we establish camp (4,200 m)." },
+      { day: "Day 4", title: "Carhuac Pass (4,680 m) — Huayhuash", description: "Crossing Carhuac Pass (4,680 m) with its incredible emerald lagoon views. Descent to the Huayhuash community (4,350 m). One of the most photographic days of the circuit." },
+      { day: "Day 5", title: "Huayhuash — Vicuna — Tapush", description: "Hike along the eastern face of the range passing through the communities of Vicuna and Cutatambo. Arrival at Tapush camp (4,300 m) with views of El Trapecio." },
+      { day: "Day 6", title: "San Antonio Pass (5,100 m) — Huanacpatay", description: "The highest point of the circuit. Ascent to San Antonio Pass at 5,100 meters with 360-degree views of the entire Huayhuash range and the Cordillera Blanca on the horizon. Long descent to Huanacpatay camp (3,900 m)." },
+      { day: "Day 7", title: "Huanacpatay — Sarapococha Lagoons", description: "Descent to the Sarapococha valley where we visit Sarapococha Lagoon with its incredible view of the famous Siula Grande peak, immortalized in the book and film 'Touching the Void'. Camp beside the lagoon (4,100 m)." },
+      { day: "Day 8", title: "Sarapococha — Portachuelo Pass (4,770 m) — Huacrish", description: "Ascent to Portachuelo de Llamac Pass (4,770 m) to return to the Llamac valley. Descent to Huacrish camp (3,700 m). Last sunset with views of the range." },
+      { day: "Day 9", title: "Huacrish — Llamac — Matacancha", description: "Final descent to Llamac village and continuation to Matacancha (4,100 m), where we establish our last camp celebrating the completion of the circuit." },
+      { day: "Day 10", title: "Matacancha — Huaraz", description: "Last day of trekking with descent to the transport meeting point. Return to Huaraz with a stop for lunch along the way. Estimated arrival in Huaraz in the afternoon." },
+    ],
+    inclusions: [
+      "Private transport Huaraz — Llamac and Matacancha — Huaraz",
+      "Certified high mountain professional guide",
+      "Professional muleteer with pack animals",
+      "Specialized mountain cook",
+      "Complete meals for 10 days (breakfast, lunch, dinner, snacks)",
+      "Individual tents with sleeping mats",
+      "Complete kitchen equipment and tableware",
+      "Complete first aid kit and oxygen",
+      "Communication radio",
+      "Huayhuash protected area entrance fee",
+    ],
+    exclusions: [
+      "Sleeping bag (rental S/ 50)",
+      "Trekking poles (rental S/ 15)",
+      "Trekking clothing and personal equipment",
+      "Tips (suggested: S/ 150-200 total)",
+      "Meals before and after trek",
+      "Travel insurance and evacuation",
+    ],
+    whatToBring: [
+      "High altitude sleeping bag (-15 C)",
+      "4-layer thermal clothing (base, mid, fleece, gore-tex)",
+      "Waterproof mountain boots",
+      "2 pairs of trekking poles",
+      "Headlamp with extra batteries",
+      "SPF 50+ sunscreen and lip balm",
+      "Expedition backpack (50-65L)",
+      "2 water bottles 1.5L",
+      "Quick-dry towel and personal hygiene kit",
+      "Plastic bags for dry clothing",
+      "Optional thermal flask",
+    ],
+  },
+  chavin: {
+    name: "Astronomical & Mystical Chavin Tour - 1 Night",
+    duration: "1 Night",
+    durationDays: "1 Night / 2 Days",
+    difficulty: "Easy",
+    description: "A mystical journey to the archaeological site of Chavin de Huantar, ceremonial center of the Chavin culture. Includes astronomical observation with telescope in one of the best sky zones in Peru.",
+    longDescription: "The Astronomical and Mystical Chavin Tour combines two unique experiences in one trip. During the day, you explore the impressive archaeological site of Chavin de Huantar, a UNESCO World Heritage Site and ceremonial center of one of the oldest and most enigmatic civilizations of the Andes. Built over 3,000 years ago, this architectural complex houses the famous Lanzon Monolitico, the tenon heads, and a system of underground galleries with acoustic ventilation channels. At night, you immerse yourself in an unforgettable astronomical spectacle. The Conchucos Valley area has some of the lowest light pollution in Peru, allowing observation of galaxies, nebulae, star clusters, and planets with extraordinary clarity through professional telescopes.",
+    highlights: [
+      "Professional stargazing with telescope",
+      "Guided visit to UNESCO site of Chavin de Huantar",
+      "Clear skies with no light pollution",
+      "Specialized guide in Andean astronomy",
+      "Accommodation and transport included",
+      "Connection with ancestral Andean worldview",
+    ],
+    itinerary: [
+      { day: "Day 1", title: "Huaraz — Chavin de Huantar — Astronomical Observation", description: "Departure from Huaraz at 9:00 AM along the road to the Conchucos Valley. Stops at the Cahuish Tunnel viewpoint and in the town of Recuay for lunch. Arrival at Chavin de Huantar at 2:00 PM. Guided tour of the archaeological site: Castillo Temple, Circular Plaza, underground galleries, and the Lanzon Monolitico. Overnight in local lodging. At 7:00 PM, start of astronomical session with telescope: observation of the Milky Way, southern hemisphere constellations, open star clusters, and visible planets. Explanation of Andean astronomical worldview and its connection to Chavin." },
+      { day: "Day 2", title: "Chavin — Querococha Lagoon — Huaraz", description: "Andean dawn with panoramic views. Breakfast and departure to Querococha Lagoon (3,980 m), a beautiful lagoon of glacial origin on the return route. Stop for photos and a short walk. Continuation to Huaraz with estimated arrival at 2:00 PM." },
+    ],
+    inclusions: [
+      "Private transport Huaraz — Chavin — Huaraz",
+      "Certified professional cultural guide",
+      "Specialized astronomical guide with telescope",
+      "Chavin de Huantar archaeological site entrance",
+      "1 night accommodation in Chavin lodging",
+      "Breakfast and dinner",
+      "First aid kit",
+    ],
+    exclusions: [
+      "Lunches during the trip",
+      "Tips",
+      "Personal expenses",
+      "Additional snacks",
+    ],
+    whatToBring: [
+      "Warm clothing for the Andean night (sub-zero temperatures)",
+      "Waterproof jacket or windbreaker",
+      "Flashlight or headlamp",
+      "Camera (optional for astrophotography)",
+      "Sunscreen and sunglasses",
+      "Comfortable clothing for light hiking",
+      "Water and snacks for the trip",
+    ],
+  },
+};
+
+/** Localize a tour for the given language. Returns a new object with English fields merged. */
+export function localizeTour(tour: TourData, lang: Lang): TourData {
+  if (lang === "en") {
+    const en = TOURS_EN[tour.id];
+    return en ? { ...tour, ...en } : tour;
+  }
+  return tour;
+}
 
 export function getTourBySlug(slug: string): TourData | undefined {
   return TOURS.find((t) => t.slug === slug);
