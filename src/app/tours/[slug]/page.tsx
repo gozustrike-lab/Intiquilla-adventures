@@ -336,8 +336,12 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           5 · ITINERARY TIMELINE
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 bg-[#132720]/20">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 md:py-24 px-4 bg-[#132720]/20 relative overflow-hidden">
+        {/* Top gradient fade */}
+        <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#0B1311] to-transparent pointer-events-none" />
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 inset-x-0 h-5 bg-gradient-to-b from-transparent to-[#0B1311] pointer-events-none" />
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -598,8 +602,12 @@ export default function TourPage() {
           8 · RELATED TOURS
          ═══════════════════════════════════════════ */}
       {relatedTours.length > 0 && (
-        <section className="py-16 md:py-24 px-4 bg-[#132720]/20">
-          <div className="max-w-6xl mx-auto">
+        <section className="py-16 md:py-24 px-4 bg-[#132720]/20 relative overflow-hidden">
+          {/* Top gradient fade */}
+          <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#0B1311] to-transparent pointer-events-none" />
+          {/* Bottom gradient fade */}
+          <div className="absolute bottom-0 inset-x-0 h-5 bg-gradient-to-b from-transparent to-[#0B1311] pointer-events-none" />
+          <div className="max-w-6xl mx-auto relative z-10">
             <motion.div
               initial="hidden"
               whileInView="visible"

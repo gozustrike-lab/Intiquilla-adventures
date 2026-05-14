@@ -300,8 +300,12 @@ export default function HomePage() {
       </section>
 
       {/* ═══ TOURS ═══ */}
-      <section id="tours" className="py-20 md:py-28 px-4 bg-[#132720]/30">
-        <div className="max-w-7xl mx-auto">
+      <section id="tours" className="py-20 md:py-28 px-4 bg-[#132720]/30 relative overflow-hidden">
+        {/* Top gradient fade — blends from base bg (#0B1311) into section tint */}
+        <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#0B1311] to-transparent pointer-events-none" />
+        {/* Bottom gradient fade — blends from section tint back to base bg */}
+        <div className="absolute bottom-0 inset-x-0 h-5 bg-gradient-to-b from-transparent to-[#0B1311] pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("tours.badge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-wide text-white">{t("tours.title")}</h2>

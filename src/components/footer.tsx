@@ -16,8 +16,10 @@ export function Footer() {
   ];
 
   return (
-    <footer className="mt-auto border-t border-[#D4AF37]/10 bg-[#132720]/50">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+    <footer className="mt-auto border-t border-[#D4AF37]/10 bg-[#132720]/50 relative overflow-hidden">
+      {/* Top gradient fade — smooth blend from base bg into footer tint */}
+      <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#0B1311] to-transparent pointer-events-none" />
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
