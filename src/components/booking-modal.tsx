@@ -33,7 +33,7 @@ export function BookingModal() {
         .replace("{travelers}", String(travelers))
         .replace("{total}", String(totalPrice));
       const encoded = encodeURIComponent(message);
-      window.open(`https://wa.me/51999999999?text=${encoded}`, "_blank", "noopener");
+      window.open(`https://wa.me/51943606789?text=${encoded}`, "_blank", "noopener");
     }
   };
 

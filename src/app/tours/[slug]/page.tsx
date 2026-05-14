@@ -93,7 +93,7 @@ export default function TourPage() {
       .replace("{travelers}", String(travelers))
       .replace("{total}", String(totalPrice));
     window.open(
-      `https://wa.me/51999999999?text=${encodeURIComponent(message)}`,
+      `https://wa.me/51943606789?text=${encodeURIComponent(message)}`,
       "_blank",
       "noopener"
     );

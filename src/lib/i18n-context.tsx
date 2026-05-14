@@ -128,7 +128,10 @@ const es: Record<string, string> = {
   "modal.total": "Total Neto:",
   "modal.confirm": "Confirmar en WhatsApp",
   "modal.disclaimer": "Al confirmar, seras redirigido a WhatsApp para completar tu reserva. Un asesor te atendera personalmente.",
-  "modal.whatsappMsg": "Hola Intiquilla Adventures! Deseo confirmar mi reserva.\n\n\u2022 *Tour:* {tour}\n\u2022 *Fecha:* {date}\n\u2022 *Viajeros:* {travelers} persona(s)\n\u2022 *Total Estimado:* S/ {total}\n\nSolicito disponibilidad para proceder con la reserva directa.",
+  "modal.whatsappMsg": "Hola Intiquilla Adventures! 👋\n\nEstoy interesado/a en reservar una aventura y me gustaria solicitar informacion.\n\n🏔️ *Experiencia:* {tour}\n📅 *Fecha:* {date}\n🧑‍🤝‍🧑 *Viajeros:* {travelers} persona(s)\n💰 *Total Estimado:* S/ {total}\n\nMe gustaria conocer disponibilidad y detalles para proceder con la reserva. Muchas gracias! 🙌",
+
+  // ── WhatsApp Widget ──
+  "widget.whatsappMsg": "Hola Intiquilla Adventures! 👋\n\nMe gustaria reservar una aventura y solicitar informacion.\n\n🏔️ *Experiencia:* {tour}\n📅 *Fecha:* {date}\n🧑‍🤝‍🧑 *Viajeros:* {travelers} persona(s)\n💰 *Total Estimado:* S/ {total}\n\nPor favor confirmen disponibilidad. Gracias! 🙌",
 
   // Footer
   "footer.desc": "Turismo de aventura responsable en la Cordillera Blanca y Huayhuash, Huaraz, Peru.",
@@ -165,7 +168,7 @@ const es: Record<string, string> = {
   "tour.duration": "Duracion",
   "tour.maxAlt": "Altitud maxima",
   "tour.startPoint": "Punto de inicio",
-  "tour.whatsappMsg": "Hola Intiquilla Adventures! Deseo confirmar mi aventura.\n\n\u2022 *Tour:* {tour}\n\u2022 *Fecha:* {date}\n\u2022 *Viajeros:* {travelers} persona(s)\n\u2022 *Total Estimado:* S/ {total}\n\nSolicito disponibilidad para proceder con la reserva directa.",
+  "tour.whatsappMsg": "Hola Intiquilla Adventures! 👋\n\nQuiero reservar mi aventura y solicitar informacion completa.\n\n🏔️ *Tour:* {tour}\n📅 *Fecha:* {date}\n🧑‍🤝‍🧑 *Viajeros:* {travelers} persona(s)\n💰 *Total Estimado:* S/ {total}\n\nPor favor confirmen disponibilidad para proceder con la reserva. Muchas gracias! 🙌",
   "tour.bookNow": "Reservar Ahora",
 
   // ── Nosotros Page ──
@@ -308,7 +311,10 @@ const en: Record<string, string> = {
   "modal.total": "Total:",
   "modal.confirm": "Confirm on WhatsApp",
   "modal.disclaimer": "By confirming, you will be redirected to WhatsApp to complete your booking. An advisor will assist you personally.",
-  "modal.whatsappMsg": "Hello Intiquilla Adventures! I would like to confirm my booking.\n\n\u2022 *Tour:* {tour}\n\u2022 *Date:* {date}\n\u2022 *Travelers:* {travelers} person(s)\n\u2022 *Estimated Total:* S/ {total}\n\nPlease check availability to proceed with the booking.",
+  "modal.whatsappMsg": "Hello Intiquilla Adventures! 👋\n\nI'm interested in booking an adventure and would like to request information.\n\n🏔️ *Experience:* {tour}\n📅 *Date:* {date}\n🧑‍🤝‍🧑 *Travelers:* {travelers} person(s)\n💰 *Estimated Total:* S/ {total}\n\nI'd like to check availability and details to proceed with the booking. Thank you! 🙌",
+
+  // ── WhatsApp Widget ──
+  "widget.whatsappMsg": "Hello Intiquilla Adventures! 👋\n\nI'd like to book an adventure and request information.\n\n🏔️ *Experience:* {tour}\n📅 *Date:* {date}\n🧑‍🤝‍🧑 *Travelers:* {travelers} person(s)\n💰 *Estimated Total:* S/ {total}\n\nPlease confirm availability. Thank you! 🙌",
 
   // Footer
   "footer.desc": "Responsible adventure tourism in the Cordillera Blanca and Huayhuash, Huaraz, Peru.",
@@ -345,7 +351,7 @@ const en: Record<string, string> = {
   "tour.duration": "Duration",
   "tour.maxAlt": "Max altitude",
   "tour.startPoint": "Starting point",
-  "tour.whatsappMsg": "Hello Intiquilla Adventures! I would like to book my adventure.\n\n\u2022 *Tour:* {tour}\n\u2022 *Date:* {date}\n\u2022 *Travelers:* {travelers} person(s)\n\u2022 *Estimated Total:* S/ {total}\n\nPlease check availability to proceed with the booking.",
+  "tour.whatsappMsg": "Hello Intiquilla Adventures! 👋\n\nI want to book my adventure and request complete information.\n\n🏔️ *Tour:* {tour}\n📅 *Date:* {date}\n🧑‍🤝‍🧑 *Travelers:* {travelers} person(s)\n💰 *Estimated Total:* S/ {total}\n\nPlease confirm availability to proceed with the booking. Thank you! 🙌",
   "tour.bookNow": "Book Now",
 
   // ── Nosotros Page ──
