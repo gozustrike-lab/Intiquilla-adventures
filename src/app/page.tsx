@@ -79,6 +79,8 @@ export default function HomePage() {
   const [localTour, setLocalTour] = useState("");
   const [localDate, setLocalDate] = useState("");
   const [localTravelers, setLocalTravelers] = useState(1);
+  const dateInputRef = React.useRef<HTMLInputElement>(null);
+  const bookingWidgetRef = React.useRef<HTMLDivElement>(null);
 
   /* Re-derived data from current lang */
   const heroSlides = [
@@ -107,12 +109,28 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleScrollToBooking = () => {
+    bookingWidgetRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      dateInputRef.current?.showPicker?.() ?? dateInputRef.current?.focus();
+    }, 600);
+  };
+
   const handleSearchAdventure = () => {
-    if (localTour) {
+    if (localTour && localDate) {
       setSelectedTour(localTour);
       setTravelDate(localDate);
       setTravelers(localTravelers);
       setBookingOpen(true);
+    } else if (!localTour) {
+      // No tour selected — scroll to widget and open date picker
+      bookingWidgetRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(() => {
+        dateInputRef.current?.showPicker?.() ?? dateInputRef.current?.focus();
+      }, 600);
+    } else {
+      // Tour selected but no date — open date picker
+      dateInputRef.current?.showPicker?.() ?? dateInputRef.current?.focus();
     }
   };
 
@@ -156,7 +174,8 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="#tours"
+                href="#booking"
+                onClick={(e) => { e.preventDefault(); handleScrollToBooking(); }}
                 className="group flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wide hover:bg-yellow-500 transition-all duration-300 hover:scale-105"
               >
                 {t("hero.explore")}
@@ -186,7 +205,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ BOOKING WIDGET ═══ */}
-      <section className="relative z-30 -mt-14 sm:-mt-16 px-3 sm:px-4">
+      <section id="booking" ref={bookingWidgetRef} className="relative z-30 -mt-14 sm:-mt-16 px-3 sm:px-4">
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl bg-[#1A332B]/90 backdrop-blur-md border border-[#D4AF37]/20 p-3 sm:p-5 md:p-6 shadow-2xl shadow-black/40">
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 items-end">
@@ -213,6 +232,7 @@ export default function HomePage() {
                 <div className="relative">
                   <CalendarDays className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]/60 pointer-events-none" />
                   <input
+                    ref={dateInputRef}
                     type="date"
                     value={localDate}
                     onChange={(e: ChangeEvent<HTMLInputElement>) => setLocalDate(e.target.value)}

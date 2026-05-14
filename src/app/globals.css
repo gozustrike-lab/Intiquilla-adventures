@@ -122,4 +122,36 @@
     mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
   }
+
+  /* Immersive logo background overlay */
+  .immersive-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url('/images/logo-bg-full.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.035;
+    mix-blend-mode: screen;
+    filter: blur(1px) brightness(1.2);
+  }
+
+  @media (max-width: 767px) {
+    .immersive-bg {
+      background-image: url('/images/logo-bg-sm.webp');
+      opacity: 0.03;
+      filter: blur(0.5px) brightness(1.1);
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .immersive-bg {
+      background-image: url('/images/logo-bg-md.webp');
+    }
+  }
 }
