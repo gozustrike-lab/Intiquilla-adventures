@@ -24,19 +24,25 @@ import { TOURS } from "@/lib/tours-data";
 
 const HERO_SLIDES = [
   {
-    image: "/images/hero-slide-nightcamp.png",
+    image: "/images/hero-slide-nightcamp.webp",
+    imageMobile: "/images/hero-slide-nightcamp-sm.webp",
+    imageFallback: "/images/hero-slide-nightcamp.png",
     title: "HUARAZ: LAS MONTANAS MAS ALTAS DEL PERU",
     subtitle:
       "Explora los glaciares milenarios de la Cordillera Blanca y vive aventuras que transforman tu forma de ver el mundo.",
   },
   {
-    image: "/images/hero-slide-chakana.png",
+    image: "/images/hero-slide-chakana.webp",
+    imageMobile: "/images/hero-slide-chakana-sm.webp",
+    imageFallback: "/images/hero-slide-chakana.png",
     title: "LAGUNAS TURQUESAS EN EL CORAZON DE LOS ANDES",
     subtitle:
       "Desciende a lagunas de un azul imposible, alimentadas por nevados que desafian las nubes.",
   },
   {
-    image: "/images/hero-slide-mountainlake.png",
+    image: "/images/hero-slide-mountainlake.webp",
+    imageMobile: "/images/hero-slide-mountainlake-sm.webp",
+    imageFallback: "/images/hero-slide-mountainlake.png",
     title: "CIRCUITO HUAYHUASH: LA AVENTURA DEFINITIVA",
     subtitle:
       "Diez dias de trekking a traves de la cordillera mas dramatica de Sudamerica.",
@@ -99,12 +105,18 @@ export default function HomePage() {
               activeSlide === index ? "opacity-100 z-[2]" : "opacity-0 z-[1]"
             }`}
           >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="absolute inset-0 w-full h-full object-cover scale-105"
-              draggable={false}
-            />
+            <picture>
+              <source media="(max-width: 767px)" srcSet={slide.imageMobile} type="image/webp" />
+              <source srcSet={slide.image} type="image/webp" />
+              <img
+                src={slide.imageFallback}
+                alt={slide.title}
+                className="absolute inset-0 w-full h-full object-cover scale-105"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+                draggable={false}
+              />
+            </picture>
           </div>
         ))}
         <div className="vignette-overlay absolute inset-0 z-[3]" />
@@ -224,7 +236,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { name: "Cordillera Blanca", desc: "El corazon nevado del Peru con mas de 30 picos por encima de los 6,000 metros.", image: "/images/hero-1.jpg", href: "/tours/santa-cruz" },
-              { name: "Laguna 69", desc: "Joya turquesa a los pies del Chacraraju, una de las caminatas mas populares del Peru.", image: "/images/tour-laguna.jpg", href: "/tours/laguna-69" },
+              { name: "Laguna 69", desc: "Joya turquesa a los pies del Chacraraju, una de las caminatas mas populares del Peru.", image: "/images/tour-laguna.webp", href: "/tours/laguna-69" },
               { name: "Cordillera Huayhuash", desc: "Considerada la cordillera mas dramatica de Sudamerica, un circuito de nivel mundial.", image: "/images/hero-3.jpg", href: "/tours/cordillera-huayhuash" },
               { name: "Chavin de Huantar", desc: "Centro ceremonial de la cultura Chavin, Patrimonio Mundial de la Humanidad UNESCO.", image: "/images/tour-chavin.jpg", href: "/tours/tour-astronomico" },
             ].map((dest) => (
@@ -312,7 +324,7 @@ export default function HomePage() {
       </section>
 
       <section className="relative py-20 md:py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.06] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.jpg)" }} />
+        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.06] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16">
             <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Testimonios</span>

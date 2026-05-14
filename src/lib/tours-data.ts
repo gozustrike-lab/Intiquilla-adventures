@@ -33,10 +33,10 @@ export const TOURS: TourData[] = [
     duration: "1 Dia",
     durationDays: "Full Day",
     price: 90,
-    image: "/images/tour-laguna.jpg",
+    image: "/images/tour-laguna.webp",
     gallery: [
-      "/images/tour-laguna.jpg",
-      "/images/hero-astronomico.jpg",
+      "/images/tour-laguna.webp",
+      "/images/hero-astronomico.webp",
       "/images/hero-1.jpg",
     ],
     difficulty: "Moderado",
@@ -192,7 +192,7 @@ export const TOURS: TourData[] = [
     gallery: [
       "/images/tour-huayhuash.jpg",
       "/images/hero-3.jpg",
-      "/images/hero-astronomico.jpg",
+      "/images/hero-astronomico.webp",
     ],
     difficulty: "Exigente",
     difficultyLevel: 5,
@@ -321,8 +321,8 @@ export const TOURS: TourData[] = [
     image: "/images/tour-chavin.jpg",
     gallery: [
       "/images/tour-chavin.jpg",
-      "/images/hero-astronomico.jpg",
-      "/images/fondo-chakana.jpg",
+      "/images/hero-astronomico.webp",
+      "/images/fondo-chakana.webp",
     ],
     difficulty: "Facil",
     difficultyLevel: 1,

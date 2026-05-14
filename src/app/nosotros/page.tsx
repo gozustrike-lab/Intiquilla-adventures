@@ -76,7 +76,7 @@ export default function NosotrosPage() {
   return (
     <div>
       <section className="relative py-20 md:py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.08] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.jpg)" }} />
+        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.08] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">Sobre Nosotros</span>

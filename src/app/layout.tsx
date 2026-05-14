@@ -5,6 +5,7 @@ import { BookingProvider } from "@/lib/booking-context";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookingModal } from "@/components/booking-modal";
+import { Preloader } from "@/components/preloader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -38,8 +39,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
+      <head>
+        {/* Preload first hero slide for instant display */}
+        <link rel="preload" as="image" href="/images/hero-slide-nightcamp.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/images/hero-slide-nightcamp-sm.webp" type="image/webp" media="(max-width: 767px)" />
+        <link rel="preload" as="image" href="/images/hero-slide-chakana.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/images/hero-slide-mountainlake.webp" type="image/webp" />
+      </head>
       <body className={`${inter.variable} font-sans antialiased bg-[#0B1311] text-white`}>
         <BookingProvider>
+          <Preloader />
           <Navbar />
           <main className="pt-12 md:pt-14">{children}</main>
           <Footer />
