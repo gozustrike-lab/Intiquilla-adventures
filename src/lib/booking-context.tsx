@@ -11,6 +11,8 @@ interface BookingContextType {
   setTravelDate: (date: string) => void;
   travelers: number;
   setTravelers: (count: number) => void;
+  drawerOpen: boolean;
+  setDrawerOpen: (open: boolean) => void;
 }
 
 const BookingContext = createContext<BookingContextType | null>(null);
@@ -20,6 +22,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const [selectedTour, setSelectedTour] = useState("");
   const [travelDate, setTravelDate] = useState("");
   const [travelers, setTravelers] = useState(1);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <BookingContext.Provider
@@ -32,6 +35,8 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         setTravelDate,
         travelers,
         setTravelers,
+        drawerOpen,
+        setDrawerOpen,
       }}
     >
       {children}

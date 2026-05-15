@@ -374,12 +374,12 @@ export default function HomePage() {
       {/* ═══ IMMERSIVE TESTIMONIAL STRIP ═══ */}
       <section className="py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
-        <div className="relative z-10">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-[#D4AF37] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("testimonials.badge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">{t("testimonials.title")}</h2>
           </div>
-          <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-none masking-gradient">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((item, idx) => (
               <motion.div
                 key={idx}
@@ -387,10 +387,10 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, delay: idx * 0.12 }}
-                className="min-w-[82vw] sm:min-w-[380px] md:min-w-[400px] lg:min-w-[440px] snap-center shrink-0 pl-6 pr-4 py-6 flex flex-col justify-between relative"
+                className="pl-6 pr-4 py-6 flex flex-col justify-between relative rounded-2xl border border-white/[0.06] bg-white/[0.02]"
               >
                 {/* elegant left accent border */}
-                <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#D4AF37] via-[#D4AF37]/40 to-transparent rounded-full" />
+                <div className="absolute left-0 top-4 bottom-4 w-[2px] bg-gradient-to-b from-[#D4AF37] via-[#D4AF37]/40 to-transparent rounded-full" />
                 <div>
                   <div className="flex text-[#D4AF37] gap-0.5 mb-4 text-sm">
                     {[...Array(5)].map((_, i) => (

@@ -9,7 +9,7 @@ import { useBooking } from "@/lib/booking-context";
 import { useI18n, type Lang } from "@/lib/i18n-context";
 
 export function Navbar() {
-  const { setBookingOpen } = useBooking();
+  const { setBookingOpen, drawerOpen, setDrawerOpen } = useBooking();
   const { lang, setLang, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +21,9 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /* Lock body scroll when drawer is open */
+  /* Sync drawer state with shared context so WhatsApp FAB can hide */
+  const openDrawer = () => { setIsOpen(true); setDrawerOpen(true); };
+  const closeDrawer = () => { setIsOpen(false); setDrawerOpen(false); };
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -32,7 +34,7 @@ export function Navbar() {
   }, [isOpen]);
 
   const handleBookingFromDrawer = () => {
-    setIsOpen(false);
+    closeDrawer();
     setBookingOpen(true);
   };
 
@@ -123,7 +125,7 @@ export function Navbar() {
 
             {/* Mobile hamburger */}
             <button
-              onClick={() => setIsOpen(true)}
+              onClick={openDrawer}
               className="md:hidden p-1.5 text-white hover:text-[#D4AF37] transition-colors"
               aria-label="Open menu"
             >
@@ -147,7 +149,7 @@ export function Navbar() {
 
       {/* ── MOBILE DRAWER BACKDROP ── */}
       <div
-        onClick={() => setIsOpen(false)}
+        onClick={closeDrawer}
         style={{ touchAction: 'manipulation' }}
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] transition-opacity duration-[250ms] md:hidden ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -164,13 +166,14 @@ export function Navbar() {
         <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/[0.03] rounded-full blur-[60px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#D4AF37]/[0.02] rounded-full blur-[50px] pointer-events-none" />
 
-        {/* Close button — golden X only, no background circle */}
+        {/* Close button — golden X only, no background circle, ultra-reliable */}
         <div className="relative z-10 flex justify-end p-4 pb-0">
           <button
             type="button"
-            onClick={() => setIsOpen(false)}
-            onTouchStart={(e) => { e.preventDefault(); setIsOpen(false); }}
-            className="p-4 text-[#D4AF37] active:text-white -mr-1 -mt-1"
+            onClick={(e) => { e.stopPropagation(); closeDrawer(); }}
+            onPointerDown={(e) => { e.stopPropagation(); e.preventDefault(); closeDrawer(); }}
+            onContextMenu={(e) => e.preventDefault()}
+            className="p-4 text-[#D4AF37] active:text-white -mr-1 -mt-1 cursor-pointer"
             aria-label="Close menu"
             style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
@@ -337,7 +340,7 @@ export function Navbar() {
               >
                 <Link
                   href={item.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeDrawer}
                   className="group flex items-center justify-between px-3 py-3 text-[15px] font-medium text-gray-300 hover:text-white rounded-xl transition-all duration-200 border border-transparent hover:bg-white/[0.03] hover:border-[#D4AF37]/10"
                   style={{ touchAction: 'manipulation' }}
                 >

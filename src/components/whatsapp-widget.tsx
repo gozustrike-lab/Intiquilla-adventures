@@ -5,9 +5,11 @@ import { X, MessageCircle, Search, CalendarDays, Users, ChevronDown } from "luci
 import { motion, AnimatePresence } from "framer-motion";
 import { useI18n } from "@/lib/i18n-context";
 import { TOURS } from "@/lib/tours-data";
+import { useBooking } from "@/lib/booking-context";
 
 export function WhatsAppWidget() {
   const { t, lang } = useI18n();
+  const { drawerOpen } = useBooking();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState("");
   const [travelDate, setTravelDate] = useState("");
@@ -33,8 +35,8 @@ export function WhatsAppWidget() {
 
   return (
     <>
-      {/* Floating FAB button */}
-      <div className="fixed bottom-5 right-5 z-[90] md:bottom-8 md:right-8">
+      {/* Floating FAB button — hidden when mobile drawer is open */}
+      <div className={`fixed bottom-5 right-5 z-[90] md:bottom-8 md:right-8 transition-opacity duration-200 ${drawerOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => setIsOpen(true)}
