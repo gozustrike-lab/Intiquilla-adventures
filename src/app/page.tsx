@@ -96,10 +96,10 @@ export default function HomePage() {
   ];
 
   const destinos = [
-    { name: "Cordillera Blanca", desc: t("destinos.blanca"), image: "/images/hero-1.jpg", href: "/tours/santa-cruz" },
-    { name: "Laguna 69", desc: t("destinos.laguna"), image: "/images/tour-laguna.webp", href: "/tours/laguna-69" },
-    { name: "Cordillera Huayhuash", desc: t("destinos.huayhuash"), image: "/images/hero-3.jpg", href: "/tours/cordillera-huayhuash" },
-    { name: "Chavin de Huantar", desc: t("destinos.chavin"), image: "/images/tour-chavin.jpg", href: "/tours/tour-astronomico" },
+    { name: "Cordillera Blanca", desc: t("destinos.blanca"), image: "/images/hero-1.webp", href: "/tours/santa-cruz" },
+    { name: "Laguna 69", desc: t("destinos.laguna"), image: "/images/tour-laguna69.webp", href: "/tours/laguna-69" },
+    { name: "Cordillera Huayhuash", desc: t("destinos.huayhuash"), image: "/images/hero-3.webp", href: "/tours/cordillera-huayhuash" },
+    { name: "Chavin de Huantar", desc: t("destinos.chavin"), image: "/images/tour-chavin.webp", href: "/tours/tour-astronomico" },
   ];
 
   useEffect(() => {
@@ -151,7 +151,7 @@ export default function HomePage() {
               <img
                 src={slide.imageFallback}
                 alt={slide.title}
-                className="absolute inset-0 w-full h-full object-cover scale-105"
+                className="absolute inset-0 w-full h-full object-cover"
                 loading={index === 0 ? "eager" : "lazy"}
                 fetchPriority={index === 0 ? "high" : "auto"}
                 draggable={false}
@@ -160,7 +160,7 @@ export default function HomePage() {
           </div>
         ))}
         <div className="vignette-overlay absolute inset-0 z-[3]" />
-        <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
+        <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center [&>*]:translate-y-[-5%] md:[&>*]:translate-y-[-8%]">
           <div className="max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/30 mb-6">
               <Sparkles className="w-4 h-4 text-[#D4AF37]" />
@@ -190,7 +190,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-28 sm:bottom-32 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+        <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
           {heroSlides.map((_, index) => (
             <button
               key={index}

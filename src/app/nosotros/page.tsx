@@ -86,7 +86,7 @@ export default function NosotrosPage() {
           {/* ── History ── */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             <div className="relative rounded-2xl overflow-hidden h-72 sm:h-[420px]">
-              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/images/hero-1.jpg)" }} />
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/images/hero-1.webp)" }} />
               <div className="absolute inset-0 bg-gradient-to-r from-[#0B1311]/50 to-transparent" />
             </div>
             <motion.div
