@@ -71,35 +71,35 @@ export function Navbar() {
       <header
         className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 px-4 md:px-8 ${
           isScrolled
-            ? "py-3 md:py-4 bg-[#111111]/90 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
-            : "py-4 md:py-5 bg-transparent border-b border-transparent"
+            ? "py-2.5 bg-[#111111]/90 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
+            : "py-3.5 bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* BRAND LOGO CONTAINER - MULTI-SCALE TWIN LAYOUT */}
-          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.01] focus:outline-none py-1">
+        <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
+          {/* EXPANDED LOGO CONTAINER - MAXIMUM MOBILE REAL ESTATE */}
+          <Link href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none py-0.5 flex-1 max-w-[75vw] md:max-w-[300px]">
 
-            {/* MOBILE LOGO (high-visibility, scaled up from left) */}
-            <div className="relative h-10 w-[180px] md:hidden mix-blend-screen brightness-125">
+            {/* MOBILE LOGO - fills available space, only margin for hamburger */}
+            <div className="relative h-9 w-full max-w-[260px] md:hidden mix-blend-screen brightness-125">
               <Image
                 src="/images/logo-intiquilla.png"
                 alt="Intiquilla Adventures Logo Mobile"
                 fill
                 priority
-                className="object-contain object-left scale-125 origin-left"
-                sizes="180px"
+                className="object-contain object-left scale-110 origin-left"
+                sizes="260px"
               />
             </div>
 
-            {/* DESKTOP LOGO (sleek horizontal) */}
-            <div className="relative hidden md:block md:h-12 md:w-[240px] lg:h-12 lg:w-[260px] mix-blend-screen brightness-125">
+            {/* DESKTOP LOGO - balanced high-end proportions */}
+            <div className="relative hidden md:block md:h-12 md:w-[260px] mix-blend-screen brightness-125">
               <Image
                 src="/images/logo-intiquilla.png"
                 alt="Intiquilla Adventures Logo Desktop"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 1024px) 240px, 260px"
+                sizes="260px"
               />
             </div>
           </Link>
@@ -145,14 +145,14 @@ export function Navbar() {
               {t("nav.whatsapp")}
             </button>
 
-            {/* Mobile hamburger */}
+            {/* Mobile hamburger - cleanly pushed to far right */}
             <button
               onClick={openDrawer}
-              className="md:hidden p-1.5 text-white hover:text-[#C89B3C] transition-colors"
+              className="md:hidden p-2 text-white hover:text-[#C89B3C] transition-colors z-50 ml-2"
               aria-label="Open menu"
             >
               <svg
-                className="w-5 h-5"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -160,7 +160,7 @@ export function Navbar() {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={2.5}
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
