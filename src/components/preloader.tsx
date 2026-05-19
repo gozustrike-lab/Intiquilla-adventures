@@ -22,7 +22,7 @@ export function Preloader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#0B1311] transition-opacity duration-200 ${
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[#111111] transition-opacity duration-200 ${
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
@@ -41,7 +41,7 @@ export function Preloader() {
               cx="32"
               cy="32"
               r="28"
-              stroke="#D4AF37"
+              stroke="#C89B3C"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeDasharray="44 132"
@@ -52,7 +52,7 @@ export function Preloader() {
               cx="32"
               cy="32"
               r="18"
-              stroke="#D4AF37"
+              stroke="#C89B3C"
               strokeWidth="1"
               strokeLinecap="round"
               strokeDasharray="28 85"
@@ -62,14 +62,14 @@ export function Preloader() {
           </svg>
           {/* Center diamond dot */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-2 h-2 rotate-45 bg-[#D4AF37] rounded-[1px]" />
+            <div className="w-2 h-2 rotate-45 bg-[#C89B3C] rounded-[1px]" />
           </div>
         </div>
 
         {/* Brand name */}
         <div className="overflow-hidden">
           <span
-            className="block text-sm font-black tracking-[0.35em] uppercase bg-gradient-to-r from-white via-[#D4AF37] to-white bg-clip-text text-transparent"
+            className="block text-sm font-black tracking-[0.35em] uppercase bg-gradient-to-r from-white via-[#C89B3C] to-white bg-clip-text text-transparent"
             style={{
               animation: "slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards",
             }}
@@ -79,7 +79,7 @@ export function Preloader() {
         </div>
         {/* Thin gold line */}
         <div
-          className="mt-2 h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent"
+          className="mt-2 h-[1px] bg-gradient-to-r from-transparent via-[#C89B3C]/60 to-transparent"
           style={{
             animation: "expandLine 0.4s 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards",
             width: 0,

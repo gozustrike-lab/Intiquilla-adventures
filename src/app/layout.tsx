@@ -48,7 +48,7 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/hero-slide-chakana.webp" type="image/webp" />
         <link rel="preload" as="image" href="/images/hero-slide-mountainlake.webp" type="image/webp" />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-[#0B1311] text-white`}>
+      <body className={`${inter.variable} font-sans antialiased bg-[#111111] text-white`}>
         {/* Immersive logo background */}
         <div className="immersive-bg" aria-hidden="true" />
         <I18nProvider>

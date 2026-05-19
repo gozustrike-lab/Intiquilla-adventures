@@ -58,7 +58,7 @@ export default function NosotrosPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("nos.badge")}</span>
+            <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.badge")}</span>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-wide text-white leading-tight">
               {t("nos.title")}
             </h1>
@@ -76,8 +76,8 @@ export default function NosotrosPage() {
             viewport={{ once: true, amount: 0.3 }}
           >
             {STATS.map((stat) => (
-              <div key={stat.label} className="text-center p-6 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/15">
-                <span className="block text-3xl md:text-4xl font-bold text-[#D4AF37]">{stat.value}</span>
+              <div key={stat.label} className="text-center p-6 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/15">
+                <span className="block text-3xl md:text-4xl font-bold text-[#C89B3C]">{stat.value}</span>
                 <span className="block text-xs text-white/50 uppercase tracking-wider mt-1">{stat.label}</span>
               </div>
             ))}
@@ -87,7 +87,7 @@ export default function NosotrosPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             <div className="relative rounded-2xl overflow-hidden h-72 sm:h-[420px]">
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/images/hero-1.webp)" }} />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0B1311]/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/50 to-transparent" />
             </div>
             <motion.div
               variants={fadeUp}
@@ -113,19 +113,19 @@ export default function NosotrosPage() {
             viewport={{ once: true, amount: 0.15 }}
           >
             <div className="text-center mb-12">
-              <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("nos.valuesBadge")}</span>
+              <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.valuesBadge")}</span>
               <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.valuesTitle")}</h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {VALUES.map((item) => (
                 <motion.div
                   key={item.title}
-                  className="flex items-start gap-4 p-6 rounded-2xl bg-[#1A332B]/50 border border-[#D4AF37]/10 hover:border-[#D4AF37]/25 transition-all duration-300"
+                  className="flex items-start gap-4 p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
                   variants={fadeUp}
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-6 h-6 text-[#D4AF37]" />
+                  <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center shrink-0">
+                    <item.icon className="w-6 h-6 text-[#C89B3C]" />
                   </div>
                   <div>
                     <h3 className="text-base font-bold tracking-wide text-white">{item.title}</h3>
@@ -145,7 +145,7 @@ export default function NosotrosPage() {
             viewport={{ once: true, amount: 0.15 }}
           >
             <div className="text-center mb-12">
-              <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("nos.teamBadge")}</span>
+              <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.teamBadge")}</span>
               <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.teamTitle")}</h2>
               <p className="mt-4 text-base text-white/60 max-w-2xl mx-auto leading-relaxed">
                 {t("nos.teamDesc")}
@@ -155,15 +155,15 @@ export default function NosotrosPage() {
               {TEAM.map((member) => (
                 <motion.div
                   key={member.name}
-                  className="p-6 rounded-2xl bg-[#1A332B]/50 border border-[#D4AF37]/10 hover:border-[#D4AF37]/25 transition-all duration-300"
+                  className="p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
                   variants={fadeUp}
                   viewport={{ once: true, amount: 0.3 }}
                 >
-                  <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-2xl mb-4">
+                  <div className="w-16 h-16 rounded-full bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C] font-bold text-2xl mb-4">
                     {member.name.split(" ").map((n) => n[0]).join("")}
                   </div>
                   <h3 className="text-base font-bold text-white">{member.name}</h3>
-                  <span className="text-xs text-[#D4AF37] font-medium tracking-wide">{member.role}</span>
+                  <span className="text-xs text-[#C89B3C] font-medium tracking-wide">{member.role}</span>
                   <p className="mt-3 text-sm text-white/50 leading-relaxed">{member.bio}</p>
                 </motion.div>
               ))}
@@ -179,17 +179,17 @@ export default function NosotrosPage() {
             viewport={{ once: true, amount: 0.15 }}
           >
             <div className="text-center mb-12">
-              <span className="inline-block text-xs tracking-[0.3em] text-[#D4AF37] uppercase font-medium mb-3">{t("nos.mvBadge")}</span>
+              <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.mvBadge")}</span>
               <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.mvTitle")}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div
-                className="p-8 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/20"
+                className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
                 variants={fadeUp}
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-4">
-                  <Mountain className="w-6 h-6 text-[#D4AF37]" />
+                <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
+                  <Mountain className="w-6 h-6 text-[#C89B3C]" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{t("nos.mission")}</h3>
                 <p className="text-sm text-white/50 leading-relaxed">
@@ -197,12 +197,12 @@ export default function NosotrosPage() {
                 </p>
               </motion.div>
               <motion.div
-                className="p-8 rounded-2xl bg-[#1A332B]/60 border border-[#D4AF37]/20"
+                className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
                 variants={fadeUp}
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center mb-4">
-                  <Star className="w-6 h-6 text-[#D4AF37]" />
+                <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
+                  <Star className="w-6 h-6 text-[#C89B3C]" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{t("nos.vision")}</h3>
                 <p className="text-sm text-white/50 leading-relaxed">
@@ -214,13 +214,13 @@ export default function NosotrosPage() {
 
           {/* ── CTA ── */}
           <motion.div
-            className="p-8 sm:p-12 md:p-16 rounded-3xl bg-[#1A332B] border border-[#D4AF37]/20 relative overflow-hidden"
+            className="p-8 sm:p-12 md:p-16 rounded-3xl bg-[#1C1C1C] border border-[#C89B3C]/20 relative overflow-hidden"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.25 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/5 via-transparent to-[#D4AF37]/5" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#C89B3C]/5 via-transparent to-[#C89B3C]/5" />
             <div className="relative z-10 text-center">
               <h2 className="text-2xl md:text-3xl font-bold tracking-wide text-white">{t("nos.ctaTitle")}</h2>
               <p className="mt-4 text-base text-white/60 max-w-xl mx-auto leading-relaxed mb-6">
@@ -228,23 +228,23 @@ export default function NosotrosPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <MapPin className="w-4 h-4 text-[#D4AF37]" />
+                  <MapPin className="w-4 h-4 text-[#C89B3C]" />
                   Jr. Jose de la Riva Aguero 682, Huaraz
                 </div>
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <Phone className="w-4 h-4 text-[#D4AF37]" />
+                  <Phone className="w-4 h-4 text-[#C89B3C]" />
                   +51 999 999 999
                 </div>
                 <div className="flex items-center gap-2 text-sm text-white/50">
-                  <Mail className="w-4 h-4 text-[#D4AF37]" />
+                  <Mail className="w-4 h-4 text-[#C89B3C]" />
                   info@intiquillaadventures.com
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/#tours" className="group flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[#D4AF37] text-[#0B1311] font-bold text-sm tracking-wide hover:bg-yellow-500 transition-all duration-300 hover:scale-105">
+                <Link href="/#tours" className="group flex items-center gap-2 px-8 py-3.5 rounded-lg bg-[#C89B3C] text-[#111111] font-bold text-sm tracking-wide hover:bg-yellow-500 transition-all duration-300 hover:scale-105">
                   {t("nos.viewTours")} <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/#tips" className="flex items-center gap-2 px-8 py-3.5 rounded-lg border border-[#D4AF37]/30 text-white text-sm tracking-wide hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-300">
+                <Link href="/#tips" className="flex items-center gap-2 px-8 py-3.5 rounded-lg border border-[#C89B3C]/30 text-white text-sm tracking-wide hover:border-[#C89B3C] hover:text-[#C89B3C] transition-all duration-300">
                   {t("nos.travelTips")} <CheckCircle className="w-4 h-4" />
                 </Link>
               </div>

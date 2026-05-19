@@ -122,7 +122,7 @@ export function ImageLightbox({
               e.preventDefault();
               onClose();
             }}
-            className="absolute top-4 right-4 z-[110] p-3 text-[#D4AF37] active:text-white"
+            className="absolute top-4 right-4 z-[110] p-3 text-[#C89B3C] active:text-white"
             aria-label="Close lightbox"
             style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
           >
@@ -198,7 +198,7 @@ export function ImageLightbox({
                   }}
                   className={`transition-all duration-150 rounded-full ${
                     i === idx
-                      ? "w-6 h-2 bg-[#D4AF37]"
+                      ? "w-6 h-2 bg-[#C89B3C]"
                       : "w-2 h-2 bg-white/30 hover:bg-white/50"
                   }`}
                   aria-label={`Go to image ${i + 1}`}

@@ -72,14 +72,14 @@ export function WhatsAppWidget() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="fixed bottom-0 right-0 md:bottom-auto md:top-1/2 md:right-8 md:-translate-y-1/2 z-[100] w-full md:w-[380px] md:max-w-[90vw]"
             >
-              <div className="bg-[#0B1311] border border-[#D4AF37]/20 rounded-t-2xl md:rounded-2xl shadow-2xl overflow-hidden max-h-[85vh] overflow-y-auto">
+              <div className="bg-[#111111] border border-[#C89B3C]/20 rounded-t-2xl md:rounded-2xl shadow-2xl overflow-hidden max-h-[85vh] overflow-y-auto">
                 {/* Header */}
                 <div className="relative bg-gradient-to-r from-[#25D366]/20 to-[#25D366]/5 p-5 pb-4 border-b border-white/[0.06]">
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
                     onTouchStart={(e) => { e.preventDefault(); setIsOpen(false); }}
-                    className="absolute top-3 right-3 p-2 text-[#D4AF37] active:text-white"
+                    className="absolute top-3 right-3 p-2 text-[#C89B3C] active:text-white"
                     aria-label="Close"
                     style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
                   >
@@ -111,58 +111,58 @@ export function WhatsAppWidget() {
                 <div className="p-5 space-y-4">
                   {/* Experience select */}
                   <div>
-                    <label className="block text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase mb-1.5">
+                    <label className="block text-[10px] font-bold tracking-widest text-[#C89B3C] uppercase mb-1.5">
                       {lang === "es" ? "Selecciona Experiencia" : "Select Experience"}
                     </label>
                     <div className="relative">
                       <select
                         value={selectedTour}
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedTour(e.target.value)}
-                        className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
+                        className="w-full appearance-none bg-[#171717] border border-[#C89B3C]/20 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#C89B3C]/60 transition-colors cursor-pointer"
                       >
                         <option value="">{lang === "es" ? "Seleccionar..." : "Select..."}</option>
                         {TOURS.map((tour) => (
                           <option key={tour.id} value={tour.id}>{tour.name} — S/ {tour.price}</option>
                         ))}
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C89B3C]/60 pointer-events-none" />
                     </div>
                   </div>
 
                   {/* Date */}
                   <div>
-                    <label className="block text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase mb-1.5">
+                    <label className="block text-[10px] font-bold tracking-widest text-[#C89B3C] uppercase mb-1.5">
                       {lang === "es" ? "Fecha de Inicio" : "Start Date"}
                     </label>
                     <div className="relative">
-                      <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/50 pointer-events-none" />
+                      <CalendarDays className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C89B3C]/50 pointer-events-none" />
                       <input
                         type="date"
                         value={travelDate}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => setTravelDate(e.target.value)}
                         min={new Date().toISOString().split("T")[0]}
-                        className="w-full bg-[#132720] border border-[#D4AF37]/20 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors [color-scheme:dark]"
+                        className="w-full bg-[#171717] border border-[#C89B3C]/20 rounded-xl pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-[#C89B3C]/60 transition-colors [color-scheme:dark]"
                       />
                     </div>
                   </div>
 
                   {/* Travelers */}
                   <div>
-                    <label className="block text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase mb-1.5">
+                    <label className="block text-[10px] font-bold tracking-widest text-[#C89B3C] uppercase mb-1.5">
                       {lang === "es" ? "Aventureros" : "Adventurers"}
                     </label>
                     <div className="relative">
-                      <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/50 pointer-events-none" />
+                      <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C89B3C]/50 pointer-events-none" />
                       <select
                         value={travelers}
                         onChange={(e: ChangeEvent<HTMLSelectElement>) => setTravelers(parseInt(e.target.value, 10))}
-                        className="w-full appearance-none bg-[#132720] border border-[#D4AF37]/20 rounded-xl pl-10 pr-10 py-3 text-sm text-white focus:outline-none focus:border-[#D4AF37]/60 transition-colors cursor-pointer"
+                        className="w-full appearance-none bg-[#171717] border border-[#C89B3C]/20 rounded-xl pl-10 pr-10 py-3 text-sm text-white focus:outline-none focus:border-[#C89B3C]/60 transition-colors cursor-pointer"
                       >
                         {Array.from({ length: 15 }, (_, i) => i + 1).map((n) => (
                           <option key={n} value={n}>{n} {n === 1 ? (lang === "es" ? "persona" : "person") : (lang === "es" ? "personas" : "people")}</option>
                         ))}
                       </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#D4AF37]/60 pointer-events-none" />
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C89B3C]/60 pointer-events-none" />
                     </div>
                   </div>
 
@@ -171,11 +171,11 @@ export function WhatsAppWidget() {
                     <motion.div
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="p-3 rounded-xl bg-[#D4AF37]/5 border border-[#D4AF37]/15"
+                      className="p-3 rounded-xl bg-[#C89B3C]/5 border border-[#C89B3C]/15"
                     >
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-white/50">{lang === "es" ? "Total Estimado" : "Estimated Total"}</span>
-                        <span className="text-xl font-bold text-[#D4AF37]">S/ {totalPrice.toLocaleString()}</span>
+                        <span className="text-xl font-bold text-[#C89B3C]">S/ {totalPrice.toLocaleString()}</span>
                       </div>
                     </motion.div>
                   )}
