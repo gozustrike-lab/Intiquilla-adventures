@@ -76,16 +76,30 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* BRAND LOGO - HORIZONTAL + BLACK BG REMOVED */}
-          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.02] focus:outline-none">
-            <div className="relative h-8 w-[160px] md:h-10 md:w-[200px] lg:h-12 lg:w-[240px] mix-blend-screen">
+          {/* BRAND LOGO CONTAINER - MULTI-SCALE TWIN LAYOUT */}
+          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.01] focus:outline-none py-1">
+
+            {/* MOBILE LOGO (high-visibility, scaled up from left) */}
+            <div className="relative h-10 w-[180px] md:hidden mix-blend-screen brightness-125">
               <Image
                 src="/images/logo-intiquilla.png"
-                alt="Intiquilla Adventures Logo"
+                alt="Intiquilla Adventures Logo Mobile"
+                fill
+                priority
+                className="object-contain object-left scale-125 origin-left"
+                sizes="180px"
+              />
+            </div>
+
+            {/* DESKTOP LOGO (sleek horizontal) */}
+            <div className="relative hidden md:block md:h-12 md:w-[240px] lg:h-12 lg:w-[260px] mix-blend-screen brightness-125">
+              <Image
+                src="/images/logo-intiquilla.png"
+                alt="Intiquilla Adventures Logo Desktop"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 768px) 160px, (max-width: 1024px) 200px, 240px"
+                sizes="(max-width: 1024px) 240px, 260px"
               />
             </div>
           </Link>
