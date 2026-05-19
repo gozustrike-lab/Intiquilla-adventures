@@ -75,11 +75,14 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* BRAND */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <span className="text-lg md:text-xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C]">
-              INTIQUILLA
-            </span>
+          {/* BRAND LOGO */}
+          <Link href="/" className="flex items-center group shrink-0">
+            <img
+              src="/images/logo-navbar-sm.webp"
+              alt="Intiquilla Adventures"
+              className="h-9 md:h-10 w-auto object-contain"
+              draggable={false}
+            />
           </Link>
 
           {/* DESKTOP LINKS */}
