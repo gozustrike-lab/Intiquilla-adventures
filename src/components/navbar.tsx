@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight, Mountain, Search, Heart } from "lucide-react";
+import { X, Phone, Globe, ChevronRight, Mountain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n, type Lang } from "@/lib/i18n-context";
@@ -76,28 +76,32 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-          {/* LOGO - HYBRID: Isolated Chakana icon + native serif text */}
-          <Link href="/" className="flex items-center gap-2.5 md:gap-3 transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0 py-0.5">
+          {/* LOGO - PROTAGONIST: fills all available space on mobile */}
+          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.01] focus:outline-none flex-1 min-w-0 md:flex-none md:w-[340px] lg:w-[420px]">
 
-            {/* 1. ISOTYPE (Chakana) — strict crop: only the golden circle, no text from PNG */}
-            <div className="relative h-8 w-8 md:h-9 md:w-9 rounded-full overflow-hidden flex-shrink-0">
+            {/* MOBILE: logo cropped to content, max width available */}
+            <div className="relative w-full h-12 md:hidden">
               <Image
                 src="/images/logo-intiquilla.png"
-                alt="Intiquilla"
+                alt="Intiquilla Adventures"
                 fill
                 priority
-                className="object-cover object-left scale-[2.2] origin-left"
-                sizes="36px"
+                className="object-contain object-left"
+                sizes="(max-width: 768px) 75vw"
               />
             </div>
 
-            {/* 2. BRAND TEXT — native serif, uppercase, gold gradient */}
-            <span
-              className="text-[15px] md:text-xl font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none whitespace-nowrap leading-none pt-0.5"
-              style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
-            >
-              INTIQUILLA
-            </span>
+            {/* DESKTOP: large prominent brand mark */}
+            <div className="relative hidden md:block w-full h-14 lg:h-16">
+              <Image
+                src="/images/logo-intiquilla.png"
+                alt="Intiquilla Adventures"
+                fill
+                priority
+                className="object-contain object-left"
+                sizes="(max-width: 1024px) 340px, 420px"
+              />
+            </div>
           </Link>
 
           {/* DESKTOP LINKS */}
@@ -131,74 +135,39 @@ export function Navbar() {
             </button>
           </nav>
 
-          {/* ACTION ROW — Search, Favorites, Contact + Hamburger */}
-          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
-
-            {/* 1. SEARCH — smooth scroll to booking widget */}
+          {/* QUICK ACTIONS */}
+          <div className="flex items-center space-x-3">
             <button
-              onClick={() => {
-                document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
-              aria-label="Buscar aventuras"
+              onClick={() => setBookingOpen(true)}
+              className="hidden sm:flex items-center gap-2 bg-[#1C1C1C] hover:bg-[#171717] text-white border border-[#C89B3C]/30 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200"
             >
-              <Search className="w-5 h-5 group-hover:scale-105 transition-transform" />
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
-                {lang === "es" ? "Buscar Aventuras" : "Search Adventures"}
-              </span>
+              <Phone className="w-3 h-3 text-[#C89B3C]" />
+              {t("nav.whatsapp")}
             </button>
 
-            {/* 2. FAVORITES — coming soon placeholder */}
-            <button
-              onClick={() => {
-                const toast = document.getElementById('fav-toast');
-                if (toast) { toast.classList.remove('opacity-0', 'translate-y-2'); toast.classList.add('opacity-100', 'translate-y-0'); setTimeout(() => { toast.classList.remove('opacity-100', 'translate-y-0'); toast.classList.add('opacity-0', 'translate-y-2'); }, 2500); }
-              }}
-              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
-              aria-label="Mis favoritos"
-            >
-              <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
-                {lang === "es" ? "Favoritos" : "Favorites"}
-              </span>
-            </button>
-
-            {/* 3. PHONE — native tel: link for real calls on mobile */}
-            <a
-              href="tel:+51943606789"
-              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative flex items-center justify-center"
-              aria-label="Llamar a Intiquilla Adventures"
-            >
-              <Phone className="w-5 h-5 group-hover:scale-105 transition-transform" />
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
-                {lang === "es" ? "Llamar" : "Call"}
-              </span>
-            </a>
-
-            {/* 4. MOBILE HAMBURGER — always last, mobile only */}
+            {/* Mobile hamburger - far right, compact */}
             <button
               onClick={openDrawer}
-              className="md:hidden p-2 text-white hover:text-[#C89B3C] transition-colors z-50 shrink-0 ml-0.5"
+              className="md:hidden p-2.5 text-white hover:text-[#C89B3C] transition-colors z-50 shrink-0"
               aria-label="Open menu"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
         </div>
       </header>
-
-      {/* ── FAVORITES TOAST — animated notification ── */}
-      <div
-        id="fav-toast"
-        className="fixed top-20 left-1/2 -translate-x-1/2 z-[80] px-5 py-2.5 rounded-xl bg-[#1C1C1C] border border-[#C89B3C]/30 shadow-xl shadow-black/30 opacity-0 translate-y-2 transition-all duration-300 pointer-events-none flex items-center gap-2"
-      >
-        <Heart className="w-4 h-4 text-[#C89B3C] fill-[#C89B3C]" />
-        <span className="text-sm text-white/80 font-medium whitespace-nowrap">
-          {lang === "es" ? "Favoritos disponibles proximamente" : "Favorites coming soon"}
-        </span>
-      </div>
 
       {/* ── MOBILE DRAWER BACKDROP ── */}
       <div
