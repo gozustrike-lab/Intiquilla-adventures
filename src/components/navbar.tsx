@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { X, Phone, Globe, ChevronRight, Mountain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,22 +76,18 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* BRAND LOGO */}
-          <Link href="/" className="flex items-center group shrink-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/logo-navbar-mobile.webp"
-              alt="Intiquilla Adventures"
-              className="h-12 md:hidden w-auto object-contain"
-              draggable={false}
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/logo-navbar-desktop.webp"
-              alt="Intiquilla Adventures"
-              className="hidden md:block h-16 lg:h-[72px] w-auto object-contain"
-              draggable={false}
-            />
+          {/* BRAND LOGO - HORIZONTAL */}
+          <Link href="/" className="flex items-center shrink-0 transition-all duration-200 hover:opacity-90 focus:outline-none py-1">
+            <div className="relative h-6 w-[140px] md:h-8 md:w-[190px] lg:h-9 lg:w-[220px]">
+              <Image
+                src="/images/logo-intiquilla.png"
+                alt="Intiquilla Adventures Logo"
+                fill
+                priority
+                className="object-contain object-left"
+                sizes="(max-width: 768px) 140px, (max-width: 1024px) 190px, 220px"
+              />
+            </div>
           </Link>
 
           {/* DESKTOP LINKS */}
