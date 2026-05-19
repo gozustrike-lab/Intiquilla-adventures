@@ -373,8 +373,7 @@ export default function HomePage() {
 
       {/* ═══ IMMERSIVE TESTIMONIAL STRIP ═══ */}
       <section className="py-20 md:py-28 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.04] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
-        <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-[#C89B3C] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("testimonials.badge")}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase text-white tracking-tight">{t("testimonials.title")}</h2>

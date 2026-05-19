@@ -324,7 +324,7 @@ export const TOURS: TourData[] = [
     gallery: [
       "/images/tour-chavin.webp",
       "/images/hero-astronomico.webp",
-      "/images/fondo-chakana.webp",
+      "/images/hero-1.webp",
     ],
     difficulty: "Facil",
     difficultyLevel: 1,

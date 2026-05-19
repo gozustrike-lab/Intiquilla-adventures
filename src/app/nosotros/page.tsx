@@ -48,8 +48,7 @@ export default function NosotrosPage() {
   return (
     <div>
       <section className="relative py-20 md:py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-fixed bg-cover bg-center opacity-[0.08] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url(/images/fondo-chakana.webp)" }} />
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* ── Hero / About ── */}
           <motion.div
             className="text-center mb-16"

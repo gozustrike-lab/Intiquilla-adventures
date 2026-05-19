@@ -49,8 +49,8 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/hero-slide-mountainlake.webp" type="image/webp" />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-[#111111] text-white`}>
-        {/* Immersive logo background */}
-        <div className="immersive-bg" aria-hidden="true" />
+        {/* Subtle ambient background glow */}
+        <div className="ambient-glow" aria-hidden="true" />
         <I18nProvider>
           <BookingProvider>
             <Preloader />
