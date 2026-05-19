@@ -71,21 +71,21 @@ export function Navbar() {
       <header
         className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 px-4 md:px-8 ${
           isScrolled
-            ? "py-1.5 bg-[#111111]/85 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
-            : "py-2.5 md:py-3 bg-transparent border-b border-transparent"
+            ? "py-3 md:py-4 bg-[#111111]/90 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
+            : "py-4 md:py-5 bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* BRAND LOGO - HORIZONTAL */}
-          <Link href="/" className="flex items-center shrink-0 transition-all duration-200 hover:opacity-90 focus:outline-none py-1">
-            <div className="relative h-6 w-[140px] md:h-8 md:w-[190px] lg:h-9 lg:w-[220px]">
+          {/* BRAND LOGO - HORIZONTAL + BLACK BG REMOVED */}
+          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.02] focus:outline-none">
+            <div className="relative h-8 w-[160px] md:h-10 md:w-[200px] lg:h-12 lg:w-[240px] mix-blend-screen">
               <Image
                 src="/images/logo-intiquilla.png"
                 alt="Intiquilla Adventures Logo"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 768px) 140px, (max-width: 1024px) 190px, 220px"
+                sizes="(max-width: 768px) 160px, (max-width: 1024px) 200px, 240px"
               />
             </div>
           </Link>
