@@ -70,17 +70,25 @@ export function Navbar() {
       <header
         className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 px-4 md:px-8 ${
           isScrolled
-            ? "py-2 bg-[#111111]/85 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
-            : "py-3 bg-transparent border-b border-transparent"
+            ? "py-1.5 bg-[#111111]/85 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
+            : "py-2.5 md:py-3 bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           {/* BRAND LOGO */}
           <Link href="/" className="flex items-center group shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/logo-navbar-sm.webp"
+              src="/images/logo-navbar-mobile.webp"
               alt="Intiquilla Adventures"
-              className="h-9 md:h-10 w-auto object-contain"
+              className="h-12 md:hidden w-auto object-contain"
+              draggable={false}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/logo-navbar-desktop.webp"
+              alt="Intiquilla Adventures"
+              className="hidden md:block h-16 lg:h-[72px] w-auto object-contain"
               draggable={false}
             />
           </Link>
