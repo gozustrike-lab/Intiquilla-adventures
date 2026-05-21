@@ -58,31 +58,54 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
 
-          {/* ── LOGO: symmetric horizontal PNG, forced 1:1 height ── */}
+          {/* ── LOGO: optical split — Isotype (Chakana) + Text (INTIQUILLA) ── */}
           <Link
             href="/"
-            className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0 py-1"
+            className="flex items-center space-x-2.5 transition-transform hover:scale-[1.01] focus:outline-none py-1 flex-shrink-0"
           >
-            {/* Mobile: h-7 forced, wide container for object-contain symmetry */}
-            <div className="relative h-7 w-[200px] md:hidden mix-blend-screen brightness-125">
+            {/* Mobile: Chakana icon — circular mask */}
+            <div className="relative h-8 w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0 md:hidden">
               <Image
                 src="/images/logo-simetrico.png"
-                alt="Intiquilla Adventures"
+                alt="Intiquilla"
                 fill
                 priority
-                className="object-contain object-left scale-y-110 origin-left"
-                sizes="200px"
+                className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
+                sizes="32px"
               />
             </div>
-            {/* Desktop: h-9 forced, wider for prominence */}
-            <div className="relative hidden md:block h-9 w-[260px] lg:h-[34px] lg:w-[290px] mix-blend-screen brightness-125">
+            {/* Mobile: Text INTIQUILLA — wide mask */}
+            <div className="relative h-5 w-[130px] overflow-hidden mix-blend-screen brightness-125 flex-shrink-0 md:hidden">
               <Image
                 src="/images/logo-simetrico.png"
                 alt="Intiquilla Adventures"
                 fill
                 priority
-                className="object-contain object-left scale-y-110 origin-left"
-                sizes="(max-width: 1024px) 260px, 290px"
+                className="object-cover scale-[1.7] origin-right translate-x-[-12px] translate-y-[-2px] select-none pointer-events-none"
+                sizes="130px"
+              />
+            </div>
+
+            {/* Desktop: Chakana icon */}
+            <div className="relative hidden md:block h-10 w-10 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+              <Image
+                src="/images/logo-simetrico.png"
+                alt="Intiquilla"
+                fill
+                priority
+                className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
+                sizes="40px"
+              />
+            </div>
+            {/* Desktop: Text INTIQUILLA */}
+            <div className="relative hidden md:block h-6 w-[180px] overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+              <Image
+                src="/images/logo-simetrico.png"
+                alt="Intiquilla Adventures"
+                fill
+                priority
+                className="object-cover scale-[1.7] origin-right translate-x-[-12px] translate-y-[-2px] select-none pointer-events-none"
+                sizes="180px"
               />
             </div>
           </Link>
@@ -204,16 +227,28 @@ export function Navbar() {
               </button>
             </div>
 
-            {/* Horizontal brand logo — same symmetric image as header */}
-            <div className="flex items-center justify-center pb-3 border-b border-white/[0.06]">
-              <div className="relative h-8 w-[200px] mix-blend-screen brightness-125">
+            {/* Optical split brand logo — same structure as header */}
+            <div className="flex items-center justify-center space-x-2.5 pb-3 border-b border-white/[0.06]">
+              {/* Chakana icon — circular mask */}
+              <div className="relative h-8 w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+                <Image
+                  src="/images/logo-simetrico.png"
+                  alt="Intiquilla"
+                  fill
+                  priority
+                  className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
+                  sizes="32px"
+                />
+              </div>
+              {/* Text INTIQUILLA — wide mask */}
+              <div className="relative h-5 w-[130px] overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
                 <Image
                   src="/images/logo-simetrico.png"
                   alt="Intiquilla Adventures"
                   fill
                   priority
-                  className="object-contain object-left scale-y-110 origin-left"
-                  sizes="200px"
+                  className="object-cover scale-[1.7] origin-right translate-x-[-12px] translate-y-[-2px] select-none pointer-events-none"
+                  sizes="130px"
                 />
               </div>
             </div>
