@@ -50,24 +50,24 @@ export function Navbar() {
     <>
       {/* ═══ FULL-BLEED HEADER ═══ */}
       <header
-        className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 px-3 md:px-8 ${
+        className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 px-5 md:px-10 ${
           isScrolled
-            ? "py-2 bg-[#111111]/90 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
-            : "py-3 bg-transparent border-b border-transparent"
+            ? "py-2.5 bg-[#111111]/90 backdrop-blur-md border-b border-[#C89B3C]/10 shadow-lg"
+            : "py-3.5 bg-transparent border-b border-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
 
           {/* ── LOGO INTEGRAL — fondo transparente, responsive mobile-first ── */}
           <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none py-0.5 flex-shrink-0">
-            <div className="relative h-9 w-[170px] sm:h-10 sm:w-[200px] md:h-12 md:w-[240px] lg:h-[52px] lg:w-[290px]">
+            <div className="relative h-10 w-[190px] sm:h-11 sm:w-[225px] md:h-14 md:w-[280px] lg:h-[56px] lg:w-[320px]">
               <Image
                 src="/images/logo-simetrico-transparent.png"
                 alt="Intiquilla Adventures"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 640px) 170px, (max-width: 768px) 200px, (max-width: 1024px) 240px, 290px"
+                sizes="(max-width: 640px) 190px, (max-width: 768px) 225px, (max-width: 1024px) 280px, 320px"
               />
             </div>
           </a>
@@ -185,16 +185,16 @@ export function Navbar() {
         </div>
 
         {/* ── BRAND LOGO — transparente, responsive ── */}
-        <div className="flex items-center justify-center px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
+        <div className="flex items-center justify-center px-4 py-3 flex-shrink-0 border-b border-white/[0.06]">
           <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0">
-            <div className="relative h-9 w-[170px]">
+            <div className="relative h-10 w-[190px]">
               <Image
                 src="/images/logo-simetrico-transparent.png"
                 alt="Intiquilla Adventures"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="170px"
+                sizes="190px"
               />
             </div>
           </a>

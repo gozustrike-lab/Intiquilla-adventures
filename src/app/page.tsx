@@ -137,7 +137,7 @@ export default function HomePage() {
   return (
     <>
       {/* ═══ HERO SLIDER ═══ */}
-      <section className="relative w-full h-[calc(100vh-3.5rem)] md:h-[calc(100vh-3.5rem)] min-h-[480px] max-h-[950px] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
+      <section className="relative w-full h-[calc(100vh-68px)] md:h-[calc(100vh-84px)] min-h-[480px] max-h-[950px] overflow-hidden -mt-[68px] md:-mt-[84px] pt-[68px] md:pt-[84px]">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
