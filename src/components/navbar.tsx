@@ -58,31 +58,19 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
 
-          {/* ── LOGO: Chakana icon (mask) + Native serif text INTIQUILLA ── */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 transition-transform hover:scale-[1.01] focus:outline-none py-1 flex-shrink-0"
-          >
-            {/* Chakana icon — circular mask over logo image */}
-            <div className="relative h-7 w-7 md:h-8 md:w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+          {/* ── CONFIGURACIÓN DEFINITIVA DEL LOGOTIPO DE MARCA INTEGRAL ── */}
+          <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none py-1 flex-shrink-0">
+            <div className="relative h-8 w-[160px] md:h-10 md:w-[200px] mix-blend-screen brightness-125">
               <Image
                 src="/images/logo-simetrico.png"
-                alt="Intiquilla"
+                alt="Intiquilla Adventures Logo Oficial"
                 fill
                 priority
-                className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
-                sizes="32px"
+                className="object-contain object-left"
+                sizes="(max-width: 768px) 160px, 200px"
               />
             </div>
-
-            {/* INTIQUILLA — real HTML text, same serif typography as original logo */}
-            <span
-              className="text-[22px] md:text-[26px] font-bold uppercase tracking-[0.12em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
-              style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
-            >
-              INTIQUILLA
-            </span>
-          </Link>
+          </a>
 
           {/* ── DESKTOP NAV LINKS ── */}
           <nav className="hidden md:flex items-center space-x-6 text-xs uppercase tracking-wider font-semibold">
@@ -196,17 +184,20 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* ── BRAND LOGO ── */}
-        <div className="flex items-center justify-center gap-2.5 px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
-          <div className="relative h-7 w-7 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
-            <Image src="/images/logo-simetrico.png" alt="Intiquilla" fill priority className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none" sizes="28px" />
-          </div>
-          <span
-            className="text-[20px] font-bold uppercase tracking-[0.12em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
-            style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
-          >
-            INTIQUILLA
-          </span>
+        {/* ── BRAND LOGO — imagen integral original ── */}
+        <div className="flex items-center justify-center px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
+          <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0">
+            <div className="relative h-8 w-[160px] mix-blend-screen brightness-125">
+              <Image
+                src="/images/logo-simetrico.png"
+                alt="Intiquilla Adventures Logo Oficial"
+                fill
+                priority
+                className="object-contain object-left"
+                sizes="160px"
+              />
+            </div>
+          </a>
         </div>
 
         {/* ── NAV LINKS ── */}
