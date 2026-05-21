@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight, Mountain } from "lucide-react";
+import { X, Phone, Globe, ChevronRight, Mountain, Search, Heart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n, type Lang } from "@/lib/i18n-context";
@@ -131,39 +131,74 @@ export function Navbar() {
             </button>
           </nav>
 
-          {/* QUICK ACTIONS */}
-          <div className="flex items-center space-x-3">
+          {/* ACTION ROW — Search, Favorites, Contact + Hamburger */}
+          <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+
+            {/* 1. SEARCH — smooth scroll to booking widget */}
             <button
-              onClick={() => setBookingOpen(true)}
-              className="hidden sm:flex items-center gap-2 bg-[#1C1C1C] hover:bg-[#171717] text-white border border-[#C89B3C]/30 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200"
+              onClick={() => {
+                document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }}
+              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
+              aria-label="Buscar aventuras"
             >
-              <Phone className="w-3 h-3 text-[#C89B3C]" />
-              {t("nav.whatsapp")}
+              <Search className="w-5 h-5 group-hover:scale-105 transition-transform" />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
+                {lang === "es" ? "Buscar Aventuras" : "Search Adventures"}
+              </span>
             </button>
 
-            {/* Mobile hamburger - far right, compact */}
+            {/* 2. FAVORITES — coming soon placeholder */}
+            <button
+              onClick={() => {
+                const toast = document.getElementById('fav-toast');
+                if (toast) { toast.classList.remove('opacity-0', 'translate-y-2'); toast.classList.add('opacity-100', 'translate-y-0'); setTimeout(() => { toast.classList.remove('opacity-100', 'translate-y-0'); toast.classList.add('opacity-0', 'translate-y-2'); }, 2500); }
+              }}
+              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
+              aria-label="Mis favoritos"
+            >
+              <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
+                {lang === "es" ? "Favoritos" : "Favorites"}
+              </span>
+            </button>
+
+            {/* 3. QUICK CONTACT — open WhatsApp booking modal */}
+            <button
+              onClick={() => setBookingOpen(true)}
+              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
+              aria-label="Contacto WhatsApp"
+            >
+              <Phone className="w-5 h-5 group-hover:scale-105 transition-transform" />
+              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
+                WhatsApp
+              </span>
+            </button>
+
+            {/* 4. MOBILE HAMBURGER — always last, mobile only */}
             <button
               onClick={openDrawer}
-              className="md:hidden p-2.5 text-white hover:text-[#C89B3C] transition-colors z-50 shrink-0"
+              className="md:hidden p-2 text-white hover:text-[#C89B3C] transition-colors z-50 shrink-0 ml-0.5"
               aria-label="Open menu"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
         </div>
       </header>
+
+      {/* ── FAVORITES TOAST — animated notification ── */}
+      <div
+        id="fav-toast"
+        className="fixed top-20 left-1/2 -translate-x-1/2 z-[80] px-5 py-2.5 rounded-xl bg-[#1C1C1C] border border-[#C89B3C]/30 shadow-xl shadow-black/30 opacity-0 translate-y-2 transition-all duration-300 pointer-events-none flex items-center gap-2"
+      >
+        <Heart className="w-4 h-4 text-[#C89B3C] fill-[#C89B3C]" />
+        <span className="text-sm text-white/80 font-medium whitespace-nowrap">
+          {lang === "es" ? "Favoritos disponibles proximamente" : "Favorites coming soon"}
+        </span>
+      </div>
 
       {/* ── MOBILE DRAWER BACKDROP ── */}
       <div
