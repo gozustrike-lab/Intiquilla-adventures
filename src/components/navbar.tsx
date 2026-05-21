@@ -64,20 +64,20 @@ export function Navbar() {
             className="flex items-center gap-2.5 transition-transform hover:scale-[1.01] focus:outline-none py-1 flex-shrink-0"
           >
             {/* Chakana icon — circular mask over logo image */}
-            <div className="relative h-8 w-8 md:h-9 md:w-9 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+            <div className="relative h-7 w-7 md:h-8 md:w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
               <Image
                 src="/images/logo-simetrico.png"
                 alt="Intiquilla"
                 fill
                 priority
                 className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
-                sizes="36px"
+                sizes="32px"
               />
             </div>
 
-            {/* INTIQUILLA — real HTML text, impossible to deform */}
+            {/* INTIQUILLA — real HTML text, same serif typography as original logo */}
             <span
-              className="text-[17px] md:text-xl font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none pt-0.5 whitespace-nowrap"
+              className="text-[22px] md:text-[26px] font-bold uppercase tracking-[0.12em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
               style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
             >
               INTIQUILLA
@@ -198,11 +198,11 @@ export function Navbar() {
 
         {/* ── BRAND LOGO ── */}
         <div className="flex items-center justify-center gap-2.5 px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
-          <div className="relative h-8 w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
-            <Image src="/images/logo-simetrico.png" alt="Intiquilla" fill priority className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none" sizes="32px" />
+          <div className="relative h-7 w-7 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+            <Image src="/images/logo-simetrico.png" alt="Intiquilla" fill priority className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none" sizes="28px" />
           </div>
           <span
-            className="text-base font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
+            className="text-[20px] font-bold uppercase tracking-[0.12em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
             style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
           >
             INTIQUILLA
