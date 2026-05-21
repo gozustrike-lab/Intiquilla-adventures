@@ -76,24 +76,24 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-          {/* LOGO - HYBRID: Isotype (Chakana) + Text "INTIQUILLA" in serif */}
-          <Link href="/" className="flex items-center gap-2.5 md:gap-3 transition-transform hover:scale-[1.01] focus:outline-none flex-1 min-w-0 md:flex-none">
+          {/* LOGO - HYBRID: Isolated Chakana icon + native serif text */}
+          <Link href="/" className="flex items-center gap-2.5 md:gap-3 transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0 py-0.5">
 
-            {/* 1. ISOTYPE (Chakana) — cropped from logo, zoomed to show icon only */}
-            <div className="relative h-9 w-9 md:h-10 md:w-10 flex-shrink-0">
+            {/* 1. ISOTYPE (Chakana) — strict crop: only the golden circle, no text from PNG */}
+            <div className="relative h-8 w-8 md:h-9 md:w-9 rounded-full overflow-hidden flex-shrink-0">
               <Image
                 src="/images/logo-intiquilla.png"
                 alt="Intiquilla"
                 fill
                 priority
-                className="object-contain object-left scale-[2.2] origin-left"
-                sizes="40px"
+                className="object-cover object-left scale-[2.2] origin-left"
+                sizes="36px"
               />
             </div>
 
-            {/* 2. BRAND TEXT — native serif, uppercase, no "ADVENTURES" */}
+            {/* 2. BRAND TEXT — native serif, uppercase, gold gradient */}
             <span
-              className="text-[15px] md:text-xl font-bold uppercase tracking-[0.18em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none whitespace-nowrap"
+              className="text-[15px] md:text-xl font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none whitespace-nowrap leading-none pt-0.5"
               style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
             >
               INTIQUILLA
@@ -163,17 +163,17 @@ export function Navbar() {
               </span>
             </button>
 
-            {/* 3. QUICK CONTACT — open WhatsApp booking modal */}
-            <button
-              onClick={() => setBookingOpen(true)}
-              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
-              aria-label="Contacto WhatsApp"
+            {/* 3. PHONE — native tel: link for real calls on mobile */}
+            <a
+              href="tel:+51943606789"
+              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative flex items-center justify-center"
+              aria-label="Llamar a Intiquilla Adventures"
             >
               <Phone className="w-5 h-5 group-hover:scale-105 transition-transform" />
               <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
-                WhatsApp
+                {lang === "es" ? "Llamar" : "Call"}
               </span>
-            </button>
+            </a>
 
             {/* 4. MOBILE HAMBURGER — always last, mobile only */}
             <button
