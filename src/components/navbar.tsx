@@ -60,14 +60,14 @@ export function Navbar() {
 
           {/* ── CONFIGURACIÓN DEFINITIVA DEL LOGOTIPO DE MARCA INTEGRAL ── */}
           <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none py-1 flex-shrink-0">
-            <div className="relative h-8 w-[160px] md:h-10 md:w-[200px] mix-blend-screen brightness-125">
+            <div className="relative h-9 w-[200px] md:h-11 md:w-[260px]">
               <Image
                 src="/images/logo-simetrico.png"
                 alt="Intiquilla Adventures Logo Oficial"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 768px) 160px, 200px"
+                sizes="(max-width: 768px) 200px, 260px"
               />
             </div>
           </a>
@@ -187,14 +187,14 @@ export function Navbar() {
         {/* ── BRAND LOGO — imagen integral original ── */}
         <div className="flex items-center justify-center px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
           <a href="/" className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0">
-            <div className="relative h-8 w-[160px] mix-blend-screen brightness-125">
+            <div className="relative h-9 w-[200px]">
               <Image
                 src="/images/logo-simetrico.png"
                 alt="Intiquilla Adventures Logo Oficial"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="160px"
+                sizes="200px"
               />
             </div>
           </a>
