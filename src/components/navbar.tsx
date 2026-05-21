@@ -176,109 +176,94 @@ export function Navbar() {
         }`}
       />
 
-      {/* ═══ MOBILE RTL DRAWER — COMPACT, NO VERTICAL OVERFLOW ═══ */}
+      {/* ═══ MOBILE RTL DRAWER — REBUILT: guaranteed visible on all screens ═══ */}
       <div
-        className={`fixed top-0 right-0 h-screen w-[85vw] max-w-[360px] bg-[#111111]/[0.98] backdrop-blur-xl border-l border-[#C89B3C]/15 z-[70] flex flex-col transform transition-transform duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden shadow-2xl ${
+        className={`fixed top-0 right-0 h-dvh w-[85vw] max-w-[360px] bg-[#111111] border-l border-[#C89B3C]/15 z-[70] flex flex-col transform transition-transform duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden shadow-2xl ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="flex flex-col h-full justify-between">
+        {/* ── TOP: Close button ── */}
+        <div className="flex justify-end pt-3 pr-3 flex-shrink-0">
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); closeDrawer(); }}
+            className="p-2 text-gray-400 hover:text-white transition-colors focus:outline-none"
+            aria-label="Cerrar menú"
+            style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
+          >
+            <X className="w-5 h-5" strokeWidth={2.5} />
+          </button>
+        </div>
 
-          {/* ── TOP SECTION: Close + Logo + Nav Links ── */}
-          <div className="space-y-3">
-
-            {/* Close button */}
-            <div className="flex justify-end items-center pt-3 pr-3">
-              <button
-                type="button"
-                onClick={(e) => { e.stopPropagation(); closeDrawer(); }}
-                onPointerDown={(e) => { e.stopPropagation(); e.preventDefault(); closeDrawer(); }}
-                className="p-2 text-gray-400 hover:text-white border border-white/10 rounded-lg transition-colors focus:outline-none"
-                aria-label="Cerrar menú"
-                style={{ touchAction: "manipulation", WebkitTapHighlightColor: "transparent" }}
-              >
-                <X className="w-5 h-5" strokeWidth={2.5} />
-              </button>
-            </div>
-
-            {/* Brand logo: Chakana icon + native text INTIQUILLA */}
-            <div className="flex items-center justify-center gap-2.5 pb-3 border-b border-white/[0.06]">
-              <div className="relative h-9 w-9 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
-                <Image
-                  src="/images/logo-simetrico.png"
-                  alt="Intiquilla"
-                  fill
-                  priority
-                  className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none"
-                  sizes="36px"
-                />
-              </div>
-              <span
-                className="text-lg font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none pt-0.5 whitespace-nowrap"
-                style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
-              >
-                INTIQUILLA
-              </span>
-            </div>
-
-            {/* Navigation links — reduced vertical padding */}
-            <nav className="space-y-0.5 px-3 mt-1">
-              {drawerLinks.map((item, idx) => (
-                <motion.div
-                  key={item.href}
-                  initial={{ x: 30, opacity: 0 }}
-                  animate={isOpen ? { x: 0, opacity: 1 } : { x: 30, opacity: 0 }}
-                  transition={{ duration: 0.25, delay: 0.1 + idx * 0.04, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <Link
-                    href={item.href}
-                    onClick={closeDrawer}
-                    className="group flex justify-between items-center py-2.5 px-3 text-sm font-medium text-gray-300 hover:text-white rounded-xl transition-all duration-200 border border-transparent hover:bg-white/[0.03] hover:border-[#C89B3C]/10"
-                    style={{ touchAction: "manipulation" }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#C89B3C]/50 group-hover:bg-[#C89B3C] transition-colors" />
-                      <span className="uppercase tracking-wider text-xs">{item.label}</span>
-                    </div>
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-700 group-hover:text-[#C89B3C] group-hover:translate-x-0.5 transition-all" />
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
+        {/* ── BRAND LOGO ── */}
+        <div className="flex items-center justify-center gap-2.5 px-4 py-2 flex-shrink-0 border-b border-white/[0.06]">
+          <div className="relative h-8 w-8 rounded-full overflow-hidden mix-blend-screen brightness-125 flex-shrink-0">
+            <Image src="/images/logo-simetrico.png" alt="Intiquilla" fill priority className="object-cover object-left scale-[2.2] origin-left select-none pointer-events-none" sizes="32px" />
           </div>
+          <span
+            className="text-base font-bold uppercase tracking-[0.15em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none leading-none whitespace-nowrap"
+            style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
+          >
+            INTIQUILLA
+          </span>
+        </div>
 
-          {/* ── BOTTOM SECTION: Language + WhatsApp CTA (anchored) ── */}
-          <div className="space-y-3 pb-5 pt-4 border-t border-white/[0.06] px-5">
-
-            {/* Language toggle — compact pill */}
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] text-gray-500 tracking-wider uppercase font-medium">{t("nav.idioma")}</span>
-              <button
-                onClick={toggleLang}
-                className="relative flex bg-white/[0.04] p-[3px] rounded-full border border-white/[0.08] transition-all hover:border-[#C89B3C]/20"
-              >
-                <motion.div
-                  className="absolute top-[3px] bottom-[3px] w-[calc(50%-3px)] bg-[#C89B3C] rounded-full shadow-lg shadow-[#C89B3C]/20"
-                  animate={{ left: lang === "es" ? "3px" : "calc(50%)" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-                <span className={`relative z-10 px-3 py-1.5 text-[11px] font-bold transition-colors duration-200 ${lang === "es" ? "text-[#111111]" : "text-gray-500"}`}>ES</span>
-                <span className={`relative z-10 px-3 py-1.5 text-[11px] font-bold transition-colors duration-200 ${lang === "en" ? "text-[#111111]" : "text-gray-500"}`}>EN</span>
-              </button>
-            </div>
-
-            {/* WhatsApp CTA — anchored at bottom */}
-            <button
-              onClick={handleBookingFromDrawer}
-              className="w-full bg-gradient-to-r from-[#C89B3C] to-amber-500 text-[#111111] py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#C89B3C]/15 flex items-center justify-center gap-2"
-              style={{ touchAction: "manipulation" }}
+        {/* ── NAV LINKS ── */}
+        <nav className="flex-1 overflow-y-auto px-3 py-2">
+          {drawerLinks.map((item, idx) => (
+            <motion.div
+              key={item.href}
+              initial={{ x: 30, opacity: 0 }}
+              animate={isOpen ? { x: 0, opacity: 1 } : { x: 30, opacity: 0 }}
+              transition={{ duration: 0.2, delay: 0.05 + idx * 0.03, ease: [0.22, 1, 0.36, 1] }}
             >
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              <span>{t("nav.whatsapp")}</span>
+              <Link
+                href={item.href}
+                onClick={closeDrawer}
+                className="group flex justify-between items-center py-2.5 px-3 text-sm font-medium text-gray-300 hover:text-white rounded-xl transition-all duration-200 border border-transparent hover:bg-white/[0.03] hover:border-[#C89B3C]/10"
+                style={{ touchAction: "manipulation" }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C89B3C]/50 group-hover:bg-[#C89B3C] transition-colors" />
+                  <span className="uppercase tracking-wider text-xs">{item.label}</span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-gray-700 group-hover:text-[#C89B3C] group-hover:translate-x-0.5 transition-all" />
+              </Link>
+            </motion.div>
+          ))}
+        </nav>
+
+        {/* ── BOTTOM FOOTER: Language + CTA — always visible, never clipped ── */}
+        <div className="flex-shrink-0 border-t border-white/[0.06] px-5 pt-3 pb-4 space-y-2.5">
+          {/* Language toggle */}
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] text-gray-500 tracking-wider uppercase font-medium">{t("nav.idioma")}</span>
+            <button
+              onClick={toggleLang}
+              className="relative flex bg-white/[0.04] p-[3px] rounded-full border border-white/[0.08] transition-all hover:border-[#C89B3C]/20"
+            >
+              <motion.div
+                className="absolute top-[3px] bottom-[3px] w-[calc(50%-3px)] bg-[#C89B3C] rounded-full shadow-lg shadow-[#C89B3C]/20"
+                animate={{ left: lang === "es" ? "3px" : "calc(50%)" }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+              <span className={`relative z-10 px-3 py-1 text-[11px] font-bold transition-colors duration-200 ${lang === "es" ? "text-[#111111]" : "text-gray-500"}`}>ES</span>
+              <span className={`relative z-10 px-3 py-1 text-[11px] font-bold transition-colors duration-200 ${lang === "en" ? "text-[#111111]" : "text-gray-500"}`}>EN</span>
             </button>
           </div>
+
+          {/* WhatsApp CTA — full width, always visible */}
+          <button
+            onClick={handleBookingFromDrawer}
+            className="w-full bg-gradient-to-r from-[#C89B3C] to-amber-500 text-[#111111] py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[#C89B3C]/15 flex items-center justify-center gap-2"
+            style={{ touchAction: "manipulation" }}
+          >
+            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <span>{t("nav.whatsapp")}</span>
+          </button>
         </div>
       </div>
     </>
