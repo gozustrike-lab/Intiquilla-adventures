@@ -92,13 +92,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-[#C89B3C]/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-white/30">
+        <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-center px-2 md:px-0 gap-2">
+          <p className="text-gray-500 text-xs">
             &copy; {new Date().getFullYear()} Intiquilla Adventures. {t("footer.rights")}
           </p>
-          <p className="text-xs text-white/20">
+          <a
+            href="https://fastpagepro.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-gray-500 hover:text-[#C89B3C] transition-colors text-center"
+          >
             {t("footer.credit")}
-          </p>
+          </a>
         </div>
       </div>
     </footer>
