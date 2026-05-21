@@ -48,11 +48,11 @@ const es: Record<string, string> = {
 
   // Hero
   "hero.badge": "Turismo de Aventura en Huaraz",
-  "hero.slide1.title": "HUARAZ: LAS MONTANAS MAS ALTAS DEL PERU",
+  "hero.slide1.title": "La montana y el trekking mas bellos del mundo.",
   "hero.slide1.subtitle": "Explora los glaciares milenarios de la Cordillera Blanca y vive aventuras que transforman tu forma de ver el mundo.",
-  "hero.slide2.title": "LAGUNAS TURQUESAS EN EL CORAZON DE LOS ANDES",
+  "hero.slide2.title": "Exploracion, consciente de montanas sagradas",
   "hero.slide2.subtitle": "Desciende a lagunas de un azul imposible, alimentadas por nevados que desafian las nubes.",
-  "hero.slide3.title": "CIRCUITO HUAYHUASH: LA AVENTURA DEFINITIVA",
+  "hero.slide3.title": "The Complete Huayhuash Mountain Range Mystical Journey",
   "hero.slide3.subtitle": "Diez dias de trekking a traves de la cordillera mas dramatica de Sudamerica.",
   "hero.explore": "Explorar Tours",
   "hero.more": "Conoce Mas",
@@ -108,6 +108,16 @@ const es: Record<string, string> = {
   "tips.nature.desc": "Practicamos turismo responsable. Todo residuo generado regresa con nosotros a la ciudad. No dejes rastro en los senderos.",
   "tips.season.title": "Mejor Epoca",
   "tips.season.desc": "La temporada ideal es de mayo a septiembre. Dias soleados y noches claras perfectas para la observacion astronomica y trekking.",
+
+  // Manifesto
+  "manifesto.quote": "No llevamos personas a la montaña.",
+  "manifesto.quoteLine2": "La montaña las transforma.",
+  "manifesto.p1": "Hay marcas de aventura que venden rutas.",
+  "manifesto.p2": "Otras venden paisajes.",
+  "manifesto.p3": "Algunas venden adrenalina.",
+  "manifesto.p4": "Pero Intiquilla Adventures no nace para hacer trekking.",
+  "manifesto.p5": "Nace para provocar una transicion humana.",
+  "manifesto.p6": "Porque en los Andes, especialmente en las montanas sagradas de la Cordillera Blanca y la Cordillera Huayhuash, nadie regresa exactamente igual.",
 
   // CTA
   "cta.title": "Tu Aventura en los Andes Comienza Aqui",
@@ -231,11 +241,11 @@ const en: Record<string, string> = {
 
   // Hero
   "hero.badge": "Adventure Tourism in Huaraz",
-  "hero.slide1.title": "HUARAZ: THE HIGHEST MOUNTAINS IN PERU",
+  "hero.slide1.title": "The most beautiful mountain and trekking in the world.",
   "hero.slide1.subtitle": "Explore the millenary glaciers of the Cordillera Blanca and live adventures that transform the way you see the world.",
-  "hero.slide2.title": "TURQUOISE LAGOONS IN THE HEART OF THE ANDES",
+  "hero.slide2.title": "Exploration, conscious of sacred mountains",
   "hero.slide2.subtitle": "Descend to lagoons of an impossible blue, fed by snow-capped peaks that defy the clouds.",
-  "hero.slide3.title": "HUAYHUASH CIRCUIT: THE DEFINITIVE ADVENTURE",
+  "hero.slide3.title": "The Complete Huayhuash Mountain Range Mystical Journey",
   "hero.slide3.subtitle": "Ten days of trekking through the most dramatic mountain range in South America.",
   "hero.explore": "Explore Tours",
   "hero.more": "Learn More",
@@ -291,6 +301,16 @@ const en: Record<string, string> = {
   "tips.nature.desc": "We practice responsible tourism. All waste generated returns with us to the city. Leave no trace on the trails.",
   "tips.season.title": "Best Season",
   "tips.season.desc": "The ideal season is from May to September. Sunny days and clear nights perfect for stargazing and trekking.",
+
+  // Manifesto
+  "manifesto.quote": "We don't take people to the mountain.",
+  "manifesto.quoteLine2": "The mountain transforms them.",
+  "manifesto.p1": "Some adventure brands sell routes.",
+  "manifesto.p2": "Others sell landscapes.",
+  "manifesto.p3": "Some sell adrenaline.",
+  "manifesto.p4": "But Intiquilla Adventures was not born to go trekking.",
+  "manifesto.p5": "It was born to provoke a human transition.",
+  "manifesto.p6": "Because in the Andes, especially in the sacred mountains of the Cordillera Blanca and the Cordillera Huayhuash, nobody returns exactly the same.",
 
   // CTA
   "cta.title": "Your Adventure in the Andes Starts Here",

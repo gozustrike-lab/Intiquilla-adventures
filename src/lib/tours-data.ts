@@ -183,10 +183,47 @@ export const TOURS: TourData[] = [
     coordinates: { lat: -8.5833, lng: -77.7167, name: "Paso Puerta del Carmen, Cordillera Blanca" },
   },
   {
+    slug: "alpamayo-two-sacred-faces",
+    id: "alpamayo",
+    name: "Alpamayo Two Sacred Faces Expedition",
+    shortName: "Alpamayo",
+    duration: "10D/09N",
+    durationDays: "9 Noches / 10 Dias",
+    price: 1800,
+    image: "/images/hero-1.webp",
+    gallery: ["/images/hero-1.webp", "/images/hero-3.webp", "/images/tour-laguna.webp"],
+    difficulty: "Exigente",
+    difficultyLevel: 5,
+    altitude: "4,750 m.s.n.m.",
+    maxAltitude: "4,860 m",
+    startLocation: "Huaraz (3,052 m s.n.m.)",
+    endLocation: "Huaraz",
+    description: "Expedicion de 10 dias a traves de las dos caras sagradas del Alpamayo (5,947 m s.n.m.), la Montaña mas Bella del Mundo.",
+    longDescription: "Una travesia completa que te lleva por los senderos mas impresionantes de la Cordillera Blanca, incluyendo el paso Osoruri, la cara noroeste del Alpamayo, el paso Punta Union y la legendaria Laguna Arhuaycocha.",
+    highlights: ["Vista cara noroeste del Alpamayo (5,947 m)", "Paso Osoruri (4,860 m s.n.m.)", "Lagunas Azulcocha, Yanacocha y Cullicocha", "Paso Punta Union (4,750 m s.n.m.)", "Campo Base Alpamayo y Laguna Arhuaycocha", "Vistas del Huascaran, Chacraraju y Taulliraju"],
+    itinerary: [
+      { day: "Dia 01", title: "Huaraz (3,052 m s.n.m.) – Hualcayan (3,140 m s.n.m.) – Huishcash (4,200 m s.n.m.)", description: "Traslado en transporte hasta el pueblo de Hualcayan, desde donde daremos inicio a la caminata ascendiendo en zigzag por un camino de herradura hasta nuestro primer camping.\n\nAlmuerzo | Cena\n\nTiempo en transporte: 3 horas\nTiempo de caminata: 5 - 6 horas aprox.\nCamping: Huishcash (4,200 m s.n.m.)" },
+      { day: "Dia 02", title: "Huishcash (4,200 m s.n.m.) – Osoruri", description: "Este dia no espera un paso muy importante: el paso Osoruri (4,860 m s.n.m.), tambien tendremos una hermosa vista de las lagunas Azulcocha y Yanacocha para luego pasar por el borde de la laguna Cullicocha (4,620 m s.n.m.).\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 6 - 7 horas aprox.\nCamping: Osoruri (4,550 m s.n.m.)" },
+      { day: "Dia 03", title: "Osoruri – Jancarurish (3,800 m s.n.m.)", description: "Este dia ascenderemos hacia el paso Vientunan (4,770 m s.n.m.), luego la caminata sera a traves de la quebrada de los Cedros y con direccion a la quebrada Alpamayo desde donde tendremos la vista mas impresionante de la cara noroeste del Alpamayo (5,947 m s.n.m.).\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 6 - 7 horas aprox.\nCamping: Jancarurish (3,800 m s.n.m.)" },
+      { day: "Dia 04", title: "Jancarurish – Mirador Alpamayo (4,450 m s.n.m.) – Jancarurish", description: "Dia de descanso.\n\nOpcional: podemos hacer una pequena caminata hacia el \"Mirador Alpamayo\" para ver la figura piramidal del nevado Alpamayo (5,947 m s.n.m.); desde este lugar se tomo la famosa fotografia del Alpamayo \"La Montaña mas Bella del Mundo\".\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 3 horas aprox.\nCamping: Jancarurish (3,800 m s.n.m.)" },
+      { day: "Dia 05", title: "Jancarurish – Huillca (4,000 m s.n.m.)", description: "Este dia salimos con direccion a Huillca para ello cruzaremos el paso Gara Gara (4,830 m s.n.m.), seguido del paso Mesapampa (4,500 m s.n.m.).\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 7 horas aprox.\nCamping: Huillca valley (4,300 m s.n.m.)" },
+      { day: "Dia 06", title: "Huillca – Jancapampa (3,600 m s.n.m.)", description: "Salimos con direccion a Jancapampa por la quebrada de Yana Quenua. Este dia atravesaremos el paso Yanacon (4,600 m).\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 7 horas aprox.\nCamping: Jancapampa (3,600 m s.n.m.)" },
+      { day: "Dia 07", title: "Jancapampa Valley – Quishuar (3,800 m s.n.m.)", description: "Este dia caminaremos con direccion al pueblo de Pishgopampa (3,600 m s.n.m.), luego ascenderemos por la quebrada de Tingopampa hacia el paso Tupa Tupa (4,400 m s.n.m.).\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 7 horas aprox.\nCamping: Quishuar (3,800 m s.n.m.)" },
+      { day: "Dia 08", title: "Quishuar – Tuctu (4,200 m s.n.m.)", description: "Este dia salimos con direccion al paso Pucaraju (4,650 m s.n.m.) desde este punto podemos ver las montanas mas altas de la Cordillera Blanca como: Huascaran, Chopicalqui, Chacraraju y Taulliraju (5,830 m s.n.m.). Caminaremos a traves del valle de Huaripampa, la ruta siempre estara rodeada de bosques de arboles de Quenual.\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 7 horas aprox.\nCamping: Tuctu (4,200 m s.n.m.)" },
+      { day: "Dia 09", title: "Tuctu (4,200 m s.n.m.) – Paso Punta Union (4,750 m s.n.m.) – Taullipampa (4,250 m s.n.m.)", description: "Este dia iniciamos nuestro ascenso hacia uno de los puntos mas destacados de la travesia: el paso Punta Union. Durante la subida, disfrutaremos de vistas panoramicas espectaculares de los imponentes picos nevados y el valle Santa Cruz.\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 8 horas aprox.\nDistancia: 11 km\nCamping: Taullipampa (4,250 m s.n.m.)" },
+      { day: "Dia 10", title: "Taullipampa – Campo Base Alpamayo – Laguna Arhuaycocha (4,420 m s.n.m.) – Llamacorral", description: "Este dia nos dirigimos al campo base del Nevado Alpamayo, una de las montanas mas iconicas de la Cordillera Blanca, atravesando paisajes espectaculares. Luego, exploramos la tranquila Laguna Arhuaycocha con sus vistas panoramicas, antes de descender hacia Llamacorral para culminar otro dia emocionante.\n\nDesayuno | Almuerzo | Cena\n\nTiempo de caminata: 9 horas aprox.\nDistancia: 20 km\nCamping: Llamacorral (3,760 m s.n.m.)" },
+      { day: "Dia 11", title: "Llamacorral – Cashapampa (2,900 m s.n.m.) – Huaraz", description: "Este ultimo dia tendremos una caminata corta hacia Cashapampa donde nos espera nuestro transporte para el traslado hacia Huaraz.\n\nDesayuno\n\nTiempo de caminata: 4 horas aprox.\nDistancia: 10 km" }
+    ],
+    inclusions: ["Transporte privado Huaraz – Hualcayan / Cashapampa – Huaraz", "Guia profesional certificado en montanismo", "Arriero y mulas de carga", "Cocinero y cocina de montana", "Comidas: Desayuno, Almuerzo, Cena durante el trekking", "Carpa de comedor y carpa personal", "Botiquin de primeros auxilios y oxigeno medicinal", "Entrada al Parque Nacional Huascaran"],
+    exclusions: ["Desayuno del primer dia", "Cena del ultimo dia", "Arriendo de equipo de caminata (sleeping bag, colchoneta)", "Propinas al guia, cocinero y arriero", "Gastos personales", "Seguro de viaje"],
+    whatToBring: ["Ropa termica en capas (base, media y exterior)", "Zapatillas de trekking impermeables", "Sleeping bag (-10C)", "Colchoneta aislante", "Protector solar y lentes de sol", "Gorra o sombrero", "Baston de trekking", "Mochila (30-40L)", "Cantimplora o bidon (2L)", "Linterna frontal", "Camara fotografica", "Bolsas plasticas para ropa"],
+    coordinates: { lat: -8.8333, lng: -77.6167, name: "Alpamayo, Cordillera Blanca" },
+  },
+  {
     slug: "cordillera-huayhuash",
     id: "huayhuash",
-    name: "Circuito Cordillera Huayhuash - 10 Dias",
-    shortName: "Huayhuash",
+    name: "Huayhuash Inner Silence Expedition",
+    shortName: "Huayhuash Inner Silence",
     duration: "10 Dias",
     durationDays: "9 Noches / 10 Dias",
     price: 1400,
@@ -216,66 +253,16 @@ export const TOURS: TourData[] = [
       "Posibilidad de avistamiento de condores andinos",
     ],
     itinerary: [
-      {
-        day: "Dia 1",
-        title: "Huaraz — Llamac — Campo Base",
-        description:
-          "Traslado desde Huaraz hasta el pueblo de Llamac (3,300 m). Inicio de caminata ascendente por el valle con vistas al Jirishanca y el Rondoy. Llegada al primer campamento en las proximidades del Rio Llamac (3,800 m).",
-      },
-      {
-        day: "Dia 2",
-        title: "Campo Base — Laguna Jancarurish",
-        description:
-          "Ascenso gradual por el valle de Querenupampa hasta llegar a la impresionante Laguna Jancarurish (4,450 m) al pie del Yerupaja Chico. Campamento con vistas dramaticas del glaciar y la laguna turquesa.",
-      },
-      {
-        day: "Dia 3",
-        title: "Paso Cacanan (4,900 m) — Mitucocha",
-        description:
-          "Ascenso al Paso Cacanan (4,900 m) con vistas panoramicas de la Cordillera Huayhuash. Descenso hacia la Laguna de Mitucocha donde establecemos el campamento (4,200 m).",
-      },
-      {
-        day: "Dia 4",
-        title: "Paso de Carhuac (4,680 m) — Huayhuash",
-        description:
-          "Cruce del Paso de Carhuac (4,680 m) con sus increibles vistas de la laguna esmeralda. Descenso hacia la comunidad de Huayhuash (4,350 m). Uno de los dias mas fotograficos del circuito.",
-      },
-      {
-        day: "Dia 5",
-        title: "Huayhuash — Vicuña — Tapush",
-        description:
-          "Caminata por la cara este de la cordillera pasando por las comunidades de Vicuña y Cutatambo. Llegada al campamento de Tapush (4,300 m) con vistas al Trapecio.",
-      },
-      {
-        day: "Dia 6",
-        title: "Paso San Antonio (5,100 m) — Huanacpatay",
-        description:
-          "El punto mas alto del circuito. Ascenso al Paso San Antonio a 5,100 metros con vistas 360 grados de toda la Cordillera Huayhuash y Cordillera Blanca en el horizonte. Descenso largo hasta el campamento en Huanacpatay (3,900 m).",
-      },
-      {
-        day: "Dia 7",
-        title: "Huanacpatay — Lagunas de Sarapococha",
-        description:
-          "Descenso hacia el valle de Sarapococha donde visitamos la Laguna de Sarapococha con su increible vista del famoso pico Siula Grande, inmortalizado en el libro y pelicula 'Toquemos el Viento'. Campamento junto a la laguna (4,100 m).",
-      },
-      {
-        day: "Dia 8",
-        title: "Sarapococha — Paso Portachuelo (4,770 m) — Huacrish",
-        description:
-          "Ascenso al Paso Portachuelo de Llamac (4,770 m) para regresar al valle de Llamac. Descenso hasta el campamento de Huacrish (3,700 m). Ultimo atardecer con vistas a la cordillera.",
-      },
-      {
-        day: "Dia 9",
-        title: "Huacrish — Llamac — Matacancha",
-        description:
-          "Descenso final hacia el pueblo de Llamac y continuacion hasta Matacancha (4,100 m), donde establecemos nuestro ultimo campamento celebrando la conclusion del circuito.",
-      },
-      {
-        day: "Dia 10",
-        title: "Matacancha — Huaraz",
-        description:
-          "Ultimo dia de trekking con descenso hacia el punto de encuentro con el transporte. Retorno a Huaraz con parada en el camino para almuerzo. Llegada estimada a Huaraz en la tarde.",
-      },
+      { day: "Dia 1", title: "Huaraz – Cuartelhuain (3,900 m s.n.m.) – Laguna Mitucocha (4,100 m s.n.m.)", description: "Salimos desde Huaraz a las 03:00 a.m. en transporte privado hacia Cuartelhuain (aprox. 6 horas).\n\nEn ruta atravesamos los pueblos tradicionales de Chiquian, Llamac, Pocpa y Pallca, con vistas espectaculares del paisaje andino.\n\nLlegada al punto de inicio del trekking e inicio de la caminata. Caminata de 6 a 7 horas. Ascenso al primer paso: Cacananpunta (4,700 m).\n\nDistancia: 9 Km aprox." },
+      { day: "Dia 2", title: "Laguna Mitucocha (4,100 m s.n.m.) – Laguna Carhuacocha (4,138 m s.n.m.)", description: "Caminata de 5 a 6 horas.\n\nDespues del desayuno, ascenso al Paso Punta Carhuac (4,650 m).\n\nDescenso hacia el valle hasta llegar al campamento en Carhuacocha, uno de los miradores mas impresionantes del circuito, con vistas a Jirishanca Chico y Grande, Yerupaja Chico y Grande, Toro, Siula y Carnicero.\n\nDistancia: 11 Km aprox." },
+      { day: "Dia 3", title: "Laguna Carhuacocha – Huayhuash (4,300 m s.n.m.)", description: "Salida despues del desayuno.\n\nAscenso gradual de aproximadamente 7/8 horas hasta el Paso Carnicero (4,600 m). Este es el dia de la famosa vista de las tres lagunas, almuerzo y descenso suave hasta el campamento de Huayhuash.\n\nDistancia: 12 Km aprox." },
+      { day: "Dia 4", title: "Huayhuash – Laguna Viconga (4,400 m s.n.m.)", description: "Caminata de 5 a 6 horas.\n\nCruce del Paso Portachuelo (4,750 m) con vistas a Puscanturpa, Cuyoc y Millpo. Y la montana Leon Dormido de la cordillera de Raura. Descenso hasta la laguna Viconga y luego al campamento de Viconga y tarde libre para disfrutar de los banos termales de Atuscancha.\n\nDistancia: 11 Km aprox." },
+      { day: "Dia 5", title: "Laguna Viconga – Pampa Cuyoc (4,400 m s.n.m.) – Campamento Elefante", description: "Caminata de 4 a 5 horas.\n\nCruce del Paso Cuyoc (5,000 m), uno de los puntos mas alto del trekking.\n\nVista panoramica de numerosos nevados como Cuyoc, Yerupaja, Siula, Sarapo, Rasac, Trapecio, Jurau, Pumarinri y mas.\n\nDescenso a Pampa Cuyoc y campamento.\n\nDistancia: 10 Km aprox." },
+      { day: "Dia 6", title: "Campamento Elefante – Paso Santa Rosa – Campamento Cutatambo", description: "Despues del desayuno, partimos hacia Santa Rosa, un mirador ubicado a 5,000 m (16,404 pies). Llegamos a este punto despues de 2 horas y media. Este punto es unico, ya que desde alli tenemos las vistas mas hermosas de los nevados Carnicero, Jurao, Siula Grande y Yerupaja, asi como de las lagunas Jurao y Siulacocha. Despues de descansar y tomar fotos, descendemos al valle de Cutatambo (4,250 m / 13,944 pies), nuestro proximo campamento, al que llegamos despues de 2 horas, desde donde veremos la montana Siula Grande hecho famoso por Joe Simpson en su libro \"Tocando el vacio\", y luego llevado al cine con el mismo nombre.\n\nDistancia: 12 Km aprox." },
+      { day: "Dia 7", title: "Cutatambo – Huayllapa", description: "Despues del desayuno iniciamos nuestra caminata por el valle de Calinca, teniendo a nuestro lado derecho las montanas Siula Grande y Yerupaja, almorzamos en la ruta y mas tarde llegamos al pueblo de Huayllapa, pintoresca comunidad ganadera para luego de la cena pernoctar cerca al pueblo.\n\nDistancia: 12 Km aprox." },
+      { day: "Dia 8", title: "Huayllapa – Gashpapampa (4,600 m s.n.m.)", description: "Caminata de 5 a 6 horas.\n\nDespues del desayuno, iniciamos nuestra caminata y llegamos a cruzar el Paso Punta Tapush (4,900 m).\n\nExcelentes vistas de los nevados Auxilio y Diablo Mudo.\n\nCampamento en Gashpa Pampa, base del Nevado Diablo Mudo (de facil ascenso).\n\nDistancia: 13 Km aprox." },
+      { day: "Dia 9", title: "Gashpa Pampa – Laguna Jahuacocha (4,100 m s.n.m.)", description: "Caminata de 4 a 5 horas.\n\nAscenso al Paso Yaucha (4,800 m) y posterior descenso por el Valle de Wacrish, con vistas a Jirishanca y Yerupaja.\n\nLlegada y campamento en Jahuacocha.\n\nDespues del almuerzo se preparara la Pachamanca, plato tipico peruano que se cocina bajo la tierra con especias naturales. Cena y ultima noche en las montanas de Huayhuash.\n\nDistancia: 10 Km aprox." },
+      { day: "Dia 10", title: "Jahuacocha – Llamac – Huaraz", description: "Opcion de levantarse temprano y contemplar el amanecer en Jahuacocha, luego del desayuno, iniciamos nuestra ultima caminata de 5 a 6 horas con un ascenso gradual hasta el Paso Pampa de Llamac (4,300 m), ultimo punto alto que cruzaremos en el trekking y tendremos las ultimas vistas de los imponentes nevados de la Cordillera Huayhuash. Descenso hasta el pueblo de Llamac, despues traslado en vehiculo desde Llamac a Chiquian (aprox. 2 horas) y continuacion hacia Huaraz.\n\nDistancia: 13 Km aprox." }
     ],
     inclusions: [
       "Transporte privado Huaraz — Llamac y Matacancha — Huaraz",

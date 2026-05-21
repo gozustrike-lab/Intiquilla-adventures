@@ -204,6 +204,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ═══ BRAND MANIFESTO ═══ */}
+      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="mb-8">
+            <span className="inline-block w-8 h-[1px] bg-[#C89B3C]/40 mb-6" />
+            <p className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-relaxed italic tracking-wide">
+              &ldquo;{t("manifesto.quote")}
+            </p>
+            <p className="text-2xl sm:text-3xl md:text-4xl font-light text-white/90 leading-relaxed italic tracking-wide mt-1">
+              {t("manifesto.quoteLine2")}&rdquo;
+            </p>
+          </div>
+          <div className="space-y-3 mt-10">
+            <p className="text-sm md:text-base text-gray-400 leading-relaxed">{t("manifesto.p1")}</p>
+            <p className="text-sm md:text-base text-gray-400 leading-relaxed">{t("manifesto.p2")}</p>
+            <p className="text-sm md:text-base text-gray-400 leading-relaxed">{t("manifesto.p3")}</p>
+            <div className="py-2">
+              <p className="text-base md:text-lg text-[#C89B3C] font-semibold leading-relaxed">{t("manifesto.p4")}</p>
+            </div>
+            <div className="py-1">
+              <p className="text-base md:text-lg text-[#C89B3C] font-semibold leading-relaxed">{t("manifesto.p5")}</p>
+            </div>
+            <p className="text-sm md:text-base text-white/60 leading-relaxed mt-4">{t("manifesto.p6")}</p>
+          </div>
+        </div>
+      </section>
+
       {/* ═══ BOOKING WIDGET ═══ */}
       <section id="booking" ref={bookingWidgetRef} className="relative z-30 -mt-14 sm:-mt-16 px-3 sm:px-4">
         <div className="max-w-5xl mx-auto">
