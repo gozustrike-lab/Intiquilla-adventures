@@ -58,31 +58,31 @@ export function Navbar() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
 
-          {/* ── LOGO: full horizontal PNG (Chakana + INTIQUILLA ADVENTURES) ── */}
+          {/* ── LOGO: symmetric horizontal PNG, forced 1:1 height ── */}
           <Link
             href="/"
-            className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0 py-0.5"
+            className="flex items-center transition-transform hover:scale-[1.01] focus:outline-none flex-shrink-0 py-1"
           >
-            {/* Mobile: compact horizontal logo */}
-            <div className="relative h-8 w-[150px] md:hidden">
+            {/* Mobile: h-7 forced, wide container for object-contain symmetry */}
+            <div className="relative h-7 w-[200px] md:hidden mix-blend-screen brightness-125">
               <Image
-                src="/images/logo-intiquilla.png"
+                src="/images/logo-simetrico.png"
                 alt="Intiquilla Adventures"
                 fill
                 priority
-                className="object-contain object-left"
-                sizes="150px"
+                className="object-contain object-left scale-y-110 origin-left"
+                sizes="200px"
               />
             </div>
-            {/* Desktop: larger prominent logo */}
-            <div className="relative hidden md:block h-10 w-[220px] lg:h-12 lg:w-[280px]">
+            {/* Desktop: h-9 forced, wider for prominence */}
+            <div className="relative hidden md:block h-9 w-[260px] lg:h-[34px] lg:w-[290px] mix-blend-screen brightness-125">
               <Image
-                src="/images/logo-intiquilla.png"
+                src="/images/logo-simetrico.png"
                 alt="Intiquilla Adventures"
                 fill
                 priority
-                className="object-contain object-left"
-                sizes="(max-width: 1024px) 220px, 280px"
+                className="object-contain object-left scale-y-110 origin-left"
+                sizes="(max-width: 1024px) 260px, 290px"
               />
             </div>
           </Link>
@@ -204,16 +204,16 @@ export function Navbar() {
               </button>
             </div>
 
-            {/* Horizontal brand logo — compact */}
+            {/* Horizontal brand logo — same symmetric image as header */}
             <div className="flex items-center justify-center pb-3 border-b border-white/[0.06]">
-              <div className="relative h-9 w-[180px]">
+              <div className="relative h-8 w-[200px] mix-blend-screen brightness-125">
                 <Image
-                  src="/images/logo-intiquilla.png"
+                  src="/images/logo-simetrico.png"
                   alt="Intiquilla Adventures"
                   fill
                   priority
-                  className="object-contain"
-                  sizes="180px"
+                  className="object-contain object-left scale-y-110 origin-left"
+                  sizes="200px"
                 />
               </div>
             </div>
