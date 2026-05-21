@@ -76,32 +76,28 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center w-full">
-          {/* LOGO - PROTAGONIST: fills all available space on mobile */}
-          <Link href="/" className="flex items-center shrink-0 transition-transform hover:scale-[1.01] focus:outline-none flex-1 min-w-0 md:flex-none md:w-[340px] lg:w-[420px]">
+          {/* LOGO - HYBRID: Isotype (Chakana) + Text "INTIQUILLA" in serif */}
+          <Link href="/" className="flex items-center gap-2.5 md:gap-3 transition-transform hover:scale-[1.01] focus:outline-none flex-1 min-w-0 md:flex-none">
 
-            {/* MOBILE: logo cropped to content, max width available */}
-            <div className="relative w-full h-12 md:hidden">
+            {/* 1. ISOTYPE (Chakana) — cropped from logo, zoomed to show icon only */}
+            <div className="relative h-9 w-9 md:h-10 md:w-10 flex-shrink-0">
               <Image
                 src="/images/logo-intiquilla.png"
-                alt="Intiquilla Adventures"
+                alt="Intiquilla"
                 fill
                 priority
-                className="object-contain object-left"
-                sizes="(max-width: 768px) 75vw"
+                className="object-contain object-left scale-[2.2] origin-left"
+                sizes="40px"
               />
             </div>
 
-            {/* DESKTOP: large prominent brand mark */}
-            <div className="relative hidden md:block w-full h-14 lg:h-16">
-              <Image
-                src="/images/logo-intiquilla.png"
-                alt="Intiquilla Adventures"
-                fill
-                priority
-                className="object-contain object-left"
-                sizes="(max-width: 1024px) 340px, 420px"
-              />
-            </div>
+            {/* 2. BRAND TEXT — native serif, uppercase, no "ADVENTURES" */}
+            <span
+              className="text-[15px] md:text-xl font-bold uppercase tracking-[0.18em] text-transparent bg-clip-text bg-gradient-to-r from-white to-[#C89B3C] select-none whitespace-nowrap"
+              style={{ fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif" }}
+            >
+              INTIQUILLA
+            </span>
           </Link>
 
           {/* DESKTOP LINKS */}
