@@ -112,7 +112,7 @@ export function WhatsAppWidget() {
 
                   <p className="text-[13px] text-white/70 leading-relaxed">
                     {lang === "es"
-                      ? "Hola! 🏔️ Selecciona tu aventura y te contactamos por WhatsApp con toda la informacion."
+                      ? "Hola! 🏔️ Selecciona tu aventura y te contactamos por WhatsApp con toda la información."
                       : "Hello! 🏔️ Select your adventure and we'll reach out on WhatsApp with all the details."}
                   </p>
                 </div>

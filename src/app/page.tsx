@@ -21,7 +21,7 @@ import { TOURS } from "@/lib/tours-data";
 
 const HERO_IMAGES = [
   { image: "/images/hero-slide-nightcamp.webp", imageMobile: "/images/hero-slide-nightcamp-sm.webp", imageFallback: "/images/hero-slide-nightcamp.png" },
-  { image: "/images/hero-slide-chakana.webp", imageMobile: "/images/hero-slide-chakana-sm.webp", imageFallback: "/images/hero-slide-chakana.png" },
+  { image: "/images/hero-slide-mountain.webp", imageMobile: "/images/hero-slide-mountain.webp", imageFallback: "/images/hero-slide-mountain.webp" },
   { image: "/images/hero-slide-mountainlake.webp", imageMobile: "/images/hero-slide-mountainlake-sm.webp", imageFallback: "/images/hero-slide-mountainlake.png" },
 ];
 
