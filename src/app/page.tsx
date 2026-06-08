@@ -12,6 +12,8 @@ import {
   CheckCircle,
   Sparkles,
   MapPin,
+  Facebook,
+  Instagram,
 } from "lucide-react";
 import { ChakanaIcon } from "@/components/chakana-icon";
 import { motion, AnimatePresence } from "framer-motion";
@@ -150,6 +152,28 @@ export default function HomePage() {
 
   return (
     <>
+      {/* BOTONES FLOTANTES COMPACTOS DE REDES SOCIALES (EXCLUSIVO MÓVIL) */}
+      <div className="fixed bottom-28 right-7 z-40 flex flex-col space-y-3 md:hidden">
+        <a
+          href="https://www.facebook.com/share/1BmkSZU97A/?mibextid=wwXIfr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#1A332B]/80 backdrop-blur-md border border-[#D4AF37]/20 text-gray-300 p-2 rounded-full shadow-xl hover:text-[#D4AF37] hover:border-[#D4AF37]/50 active:scale-95 transition-all duration-300 flex items-center justify-center"
+          aria-label="Síguenos en Facebook"
+        >
+          <Facebook className="w-4 h-4" />
+        </a>
+        <a
+          href="https://www.instagram.com/intiquilladventures?igsh=MW1uZnd6Z3dycDZpeQ%3D%3D&utm_source=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#1A332B]/80 backdrop-blur-md border border-[#D4AF37]/20 text-gray-300 p-2 rounded-full shadow-xl hover:text-[#D4AF37] hover:border-[#D4AF37]/50 active:scale-95 transition-all duration-300 flex items-center justify-center"
+          aria-label="Síguenos en Instagram"
+        >
+          <Instagram className="w-4 h-4" />
+        </a>
+      </div>
+
       {/* ═══ HERO SLIDER ═══ */}
       <section id="hero" className="relative w-full h-[calc(100vh-68px)] md:h-[calc(100vh-84px)] min-h-[480px] max-h-[950px] overflow-hidden -mt-[68px] md:-mt-[84px] pt-[68px] md:pt-[84px]">
         {heroSlides.map((slide, index) => (

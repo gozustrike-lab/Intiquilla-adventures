@@ -79,7 +79,6 @@ export const TOURS: TourData[] = [
       "Desayuno antes de la salida",
       "Cena al retorno",
       "Arriendo de equipo de camping o trekking (bastónes, ropa)",
-      "Propinas",
       "Gastos personales",
     ],
     whatToBring: [
@@ -172,7 +171,6 @@ export const TOURS: TourData[] = [
       "Saco de dormir (disponible para alquilar $9)",
       "Bastón de trekking",
       "Ropa de trekking y equipo personal",
-      "Propinas para guia, arriero y cocinero",
       "Comida antes y después del trek",
     ],
     whatToBring: [
@@ -196,8 +194,15 @@ export const TOURS: TourData[] = [
     duration: "10D/09N",
     durationDays: "9 Noches / 10 Días",
     price: 1300,
-    image: "/images/hero-1.webp",
-    gallery: ["/images/hero-1.webp", "/images/hero-3.webp", "/images/tour-laguna.webp"],
+    image: "/images/tours/alpamayo/alpamayo-03.jpg",
+    gallery: [
+      "/images/tours/alpamayo/alpamayo-03.jpg",
+      "/images/tours/alpamayo/alpamayo-01.jpg",
+      "/images/tours/alpamayo/alpamayo-02.jpg",
+      "/images/tours/alpamayo/alpamayo-04.jpg",
+      "/images/tours/alpamayo/alpamayo-05.jpg",
+      "/images/tours/alpamayo/alpamayo-06.jpg",
+    ],
     difficulty: "Exigente",
     difficultyLevel: 5,
     altitude: "4,750 m.s.n.m.",
@@ -221,7 +226,7 @@ export const TOURS: TourData[] = [
       { day: "Día 11", title: "Llamacorral – Cashapampa (2,900 m s.n.m.) – Huaraz", description: "Este último día tendremos una caminata corta hacia Cashapampa donde nos espera nuestro transporte para el traslado hacia Huaraz.\n\nDesayuno\n\nTiempo de caminata: 4 horas aprox.\nDistancia: 10 km" }
     ],
     inclusions: ["Transporte privado Huaraz – Hualcayan / Cashapampa – Huaraz", "Guía profesional certificado en montañismo", "Arriero y mulas de carga", "Cocinero y cocina de montaña", "Comidas: Desayuno, Almuerzo, Cena durante el trekking", "Carpa de comedor y carpa personal", "Botiquín de primeros auxilios y oxígeno medicinal", "Entrada al Parque Nacional Huascarán"],
-    exclusions: ["Desayuno del primer dia", "Cena del último dia", "Arriendo de equipo de caminata (sleeping bag, colchoneta)", "Propinas al guia, cocinero y arriero", "Gastos personales", "Seguro de viaje"],
+    exclusions: ["Desayuno del primer dia", "Cena del último dia", "Arriendo de equipo de caminata (sleeping bag, colchoneta)", "Gastos personales", "Seguro de viaje"],
     whatToBring: ["Ropa térmica en capas (base, media y exterior)", "Zapatillas de trekking impermeables", "Sleeping bag (-10C)", "Colchoneta aislante", "Protector solar y lentes de sol", "Gorra o sombrero", "Bastón de trekking", "Mochila (30-40L)", "Cantimplora o bidón (2L)", "Linterna frontal", "Cámara fotográfica", "Bolsas plásticas para ropa"],
     coordinates: { lat: -8.8333, lng: -77.6167, name: "Alpamayo, Cordillera Blanca" },
   },
@@ -364,7 +369,6 @@ export const TOURS: TourData[] = [
     ],
     exclusions: [
       "Almuerzos durante el viaje",
-      "Propinas",
       "Gastos personales",
       "Snacks adicionales",
     ],
@@ -420,7 +424,6 @@ const TOURS_EN: Record<string, Partial<TourData>> = {
       "Breakfast before departure",
       "Dinner upon return",
       "Camping or trekking equipment rental (poles, clothing)",
-      "Tips",
       "Personal expenses",
     ],
     whatToBring: [
@@ -485,7 +488,6 @@ const TOURS_EN: Record<string, Partial<TourData>> = {
       "Sleeping bag (available to rent $9)",
       "Trekking poles",
       "Trekking clothing and personal equipment",
-      "Tips for guide, muleteer and cook",
       "Meals before and after trek",
     ],
     whatToBring: [
@@ -518,7 +520,7 @@ const TOURS_EN: Record<string, Partial<TourData>> = {
     ],
     itinerary: [
       { day: "Day 1", title: "Huaraz — Llamac — Base Camp", description: "Transfer from Huaraz to the village of Llamac (3,300 m). Start of the hike ascending through the valley with views of Jirishanca and Rondoy. Arrival at the first camp near Llamac River (3,800 m)." },
-      { day: "Day 2", title: "Base Camp — Jancarurish Lagoon", description: "Gradual ascent through Querenupampa valley to the impressive Jancarurish Lagoon (4,450 m) at the foot of Yerupaja Chico. Camp with dramatic views of the glacier and turquoise lagoon." },
+      { day: "Day 2", title: "Base Camp — Jahuacocha Lagoon", description: "Gradual ascent through Querenupampa valley to the impressive Jahuacocha Lagoon (4,450 m) at the foot of Yerupaja Chico. Camp with dramatic views of the glacier and turquoise lagoon." },
       { day: "Day 3", title: "Cacanan Pass (4,900 m) — Mitucocha", description: "Ascent to Cacanan Pass (4,900 m) with panoramic views of the Cordillera Huayhuash. Descent to Mitucocha Lagoon where we establish camp (4,200 m)." },
       { day: "Day 4", title: "Carhuac Pass (4,680 m) — Huayhuash", description: "Crossing Carhuac Pass (4,680 m) with its incredible emerald lagoon views. Descent to the Huayhuash community (4,350 m). One of the most photographic days of the circuit." },
       { day: "Day 5", title: "Huayhuash — Vicuna — Tapush", description: "Hike along the eastern face of the range passing through the communities of Vicuna and Cutatambo. Arrival at Tapush camp (4,300 m) with views of El Trapecio." },
@@ -591,7 +593,6 @@ const TOURS_EN: Record<string, Partial<TourData>> = {
     ],
     exclusions: [
       "Lunches during the trip",
-      "Tips",
       "Personal expenses",
       "Additional snacks",
     ],
