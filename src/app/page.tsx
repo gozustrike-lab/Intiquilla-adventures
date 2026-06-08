@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
   ChevronDown,
-  Mountain,
   CalendarDays,
   Users,
   Search,
@@ -14,6 +13,7 @@ import {
   Sparkles,
   MapPin,
 } from "lucide-react";
+import { ChakanaIcon } from "@/components/chakana-icon";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n } from "@/lib/i18n-context";
@@ -366,7 +366,7 @@ export default function HomePage() {
                         <Clock className="w-3 h-3" />{tour.duration}
                       </span>
                       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#111111]/70 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
-                        <Mountain className="w-3 h-3" />{tour.difficulty}
+                        <ChakanaIcon className="text-[#C89B3C]" size={12} />{tour.difficulty}
                       </span>
                     </div>
                     <div className="absolute bottom-4 right-4">

@@ -18,7 +18,6 @@ import {
   Star,
   ChevronRight,
   Backpack,
-  Mountain,
 } from "lucide-react";
 import { ChakanaIcon } from "@/components/chakana-icon";
 import { useI18n } from "@/lib/i18n-context";
@@ -157,7 +156,7 @@ export default function TourPage() {
               {lt.duration}
             </span>
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#111111]/50 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
-              <Mountain className="w-3.5 h-3.5" />
+              <ChakanaIcon className="text-[#C89B3C]" size={14} />
               {lt.difficulty}
             </span>
             <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#111111]/50 backdrop-blur-sm text-xs font-medium text-white/80 border border-white/10">
