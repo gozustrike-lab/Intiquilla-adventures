@@ -70,7 +70,7 @@ export function BookingModal() {
                 className="w-full appearance-none bg-[#171717] border border-[#C89B3C]/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#C89B3C]/60 transition-colors cursor-pointer"
               >
                 {TOURS.map((tour) => (
-                  <option key={tour.id} value={tour.id}>{tour.name} (S/ {tour.price})</option>
+                  <option key={tour.id} value={tour.id}>{tour.name} ($ {tour.price})</option>
                 ))}
               </select>
             ) : (
@@ -114,7 +114,7 @@ export function BookingModal() {
           <div className="mt-2 p-4 rounded-xl bg-[#C89B3C]/5 border border-[#C89B3C]/15">
             <div className="flex items-center justify-between text-sm">
               <span className="text-white/60">{t("modal.perPerson")}</span>
-              <span className="text-white font-medium">S/ {currentTour ? currentTour.price : 0}</span>
+              <span className="text-white font-medium">$ {currentTour ? currentTour.price : 0}</span>
             </div>
             <div className="flex items-center justify-between text-sm mt-2">
               <span className="text-white/60">{t("modal.travelersCount")}</span>
@@ -123,7 +123,7 @@ export function BookingModal() {
             <div className="w-full h-px bg-[#C89B3C]/15 my-3" />
             <div className="flex items-center justify-between">
               <span className="text-base font-bold text-[#C89B3C]">{t("modal.total")}</span>
-              <span className="text-xl font-bold text-[#C89B3C]">S/ {totalPrice.toLocaleString()}</span>
+              <span className="text-xl font-bold text-[#C89B3C]">$ {totalPrice.toLocaleString()}</span>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer";
 import { BookingModal } from "@/components/booking-modal";
 import { Preloader } from "@/components/preloader";
 import { WhatsAppWidget } from "@/components/whatsapp-widget";
+import { SocialSidebar } from "@/components/social-sidebar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -91,6 +92,7 @@ export default function RootLayout({
             <Footer />
             <BookingModal />
             <WhatsAppWidget />
+            <SocialSidebar />
           </BookingProvider>
         </I18nProvider>
       </body>

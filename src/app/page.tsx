@@ -261,7 +261,7 @@ export default function HomePage() {
                   >
                     <option value="">{t("booking.select")}</option>
                     {TOURS.map((tour) => (
-                      <option key={tour.id} value={tour.id}>{tour.name} (S/ {tour.price})</option>
+                      <option key={tour.id} value={tour.id}>{tour.name} ($ {tour.price})</option>
                     ))}
                   </select>
                   <ChevronDown className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#C89B3C]/60 pointer-events-none" />
@@ -370,7 +370,7 @@ export default function HomePage() {
                       </span>
                     </div>
                     <div className="absolute bottom-4 right-4">
-                      <span className="text-2xl sm:text-3xl font-bold text-[#C89B3C]">S/ {tour.price}</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-[#C89B3C]">$ {tour.price}</span>
                     </div>
                   </div>
                 </Link>

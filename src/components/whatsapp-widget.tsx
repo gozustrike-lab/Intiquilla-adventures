@@ -132,7 +132,7 @@ export function WhatsAppWidget() {
                       >
                         <option value="">{lang === "es" ? "Seleccionar..." : "Select..."}</option>
                         {TOURS.map((tour) => (
-                          <option key={tour.id} value={tour.id}>{tour.name} — S/ {tour.price}</option>
+                          <option key={tour.id} value={tour.id}>{tour.name} — $ {tour.price}</option>
                         ))}
                       </select>
                       <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C89B3C]/60 pointer-events-none" />
@@ -185,7 +185,7 @@ export function WhatsAppWidget() {
                     >
                       <div className="flex items-center justify-between text-sm">
                         <span className="text-white/50">{lang === "es" ? "Total Estimado" : "Estimated Total"}</span>
-                        <span className="text-xl font-bold text-[#C89B3C]">S/ {totalPrice.toLocaleString()}</span>
+                        <span className="text-xl font-bold text-[#C89B3C]">$ {totalPrice.toLocaleString()}</span>
                       </div>
                     </motion.div>
                   )}

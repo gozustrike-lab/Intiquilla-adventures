@@ -186,7 +186,7 @@ export default function TourPage() {
               {t("tour.from")}
             </span>
             <span className="text-3xl sm:text-4xl font-bold text-[#C89B3C]">
-              S/ {lt.price}
+              $ {lt.price}
             </span>
             <span className="text-sm text-white/50">
               {t("tour.perPerson")}
@@ -574,7 +574,7 @@ export default function TourPage() {
                     {t("tour.total")}
                   </label>
                   <div className="flex items-end gap-1 h-[52px]">
-                    <span className="text-sm text-white/50 self-end mb-3">S/</span>
+                    <span className="text-sm text-white/50 self-end mb-3">$</span>
                     <span className="text-3xl font-bold text-[#C89B3C] leading-none">
                       {totalPrice.toLocaleString()}
                     </span>
@@ -604,7 +604,7 @@ export default function TourPage() {
 
               {/* per-person breakdown */}
               <div className="mt-8 text-center text-sm text-white/40">
-                {t("tour.from")} <span className="text-[#C89B3C]/80 font-semibold">S/ {lt.price}</span> {t("tour.perPerson")} &middot; {travelers} {travelers === 1 ? t("tour.person") : t("tour.persons")}
+                {t("tour.from")} <span className="text-[#C89B3C]/80 font-semibold">$ {lt.price}</span> {t("tour.perPerson")} &middot; {travelers} {travelers === 1 ? t("tour.person") : t("tour.persons")}
               </div>
             </div>
           </motion.div>
@@ -670,7 +670,7 @@ export default function TourPage() {
                       </h3>
                       <div className="mt-3 flex items-center justify-between">
                         <span className="text-xl font-bold text-[#C89B3C]">
-                          S/ {rt.price}
+                          $ {rt.price}
                         </span>
                         <span className="flex items-center gap-1 text-xs text-[#C89B3C] font-medium group-hover:gap-2 transition-all">
                           {t("tour.viewDetails")}

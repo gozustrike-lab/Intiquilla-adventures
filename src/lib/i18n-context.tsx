@@ -138,10 +138,10 @@ const es: Record<string, string> = {
   "modal.total": "Total Neto:",
   "modal.confirm": "Confirmar en WhatsApp",
   "modal.disclaimer": "Al confirmar, serás redirigido a WhatsApp para completar tu reserva. Un asesor te atenderá personalmente.",
-  "modal.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nEstoy interesado/a en reservar una aventura y me gustaría solicitar información.\n\n\u{1F3D4}\u{FE0F} *Experiencia:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* S/ {total}\n\nMe gustaría conocer disponibilidad y detalles para proceder con la reserva. Muchas gracias! \u{1F64C}",
+  "modal.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nEstoy interesado/a en reservar una aventura y me gustaría solicitar información.\n\n\u{1F3D4}\u{FE0F} *Experiencia:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* $ {total}\n\nMe gustaría conocer disponibilidad y detalles para proceder con la reserva. Muchas gracias! \u{1F64C}",
 
   // ── WhatsApp Widget ──
-  "widget.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nMe gustaría reservar una aventura y solicitar información.\n\n\u{1F3D4}\u{FE0F} *Experiencia:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* S/ {total}\n\nPor favor confirmen disponibilidad. Gracias! \u{1F64C}",
+  "widget.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nMe gustaría reservar una aventura y solicitar información.\n\n\u{1F3D4}\u{FE0F} *Experiencia:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* $ {total}\n\nPor favor confirmen disponibilidad. Gracias! \u{1F64C}",
 
   // Footer
   "footer.desc": "Turismo de aventura responsable en la Cordillera Blanca y Huayhuash, Huaraz, Perú.",
@@ -178,7 +178,7 @@ const es: Record<string, string> = {
   "tour.duration": "Duración",
   "tour.maxAlt": "Altitud máxima",
   "tour.startPoint": "Punto de inicio",
-  "tour.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nQuiero reservar mi aventura y solicitar información completa.\n\n\u{1F3D4}\u{FE0F} *Tour:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* S/ {total}\n\nPor favor confirmen disponibilidad para proceder con la reserva. Muchas gracias! \u{1F64C}",
+  "tour.whatsappMsg": "Hola Intiquilla Adventures! \u{1F44B}\n\nQuiero reservar mi aventura y solicitar información completa.\n\n\u{1F3D4}\u{FE0F} *Tour:* {tour}\n\u{1F4C5} *Fecha:* {date}\n\u{1F465} *Viajeros:* {travelers} persona(s)\n\u{1F4B0} *Total Estimado:* $ {total}\n\nPor favor confirmen disponibilidad para proceder con la reserva. Muchas gracias! \u{1F64C}",
   "tour.bookNow": "Reservar Ahora",
 
   // ── Nosotros Page ──
@@ -331,10 +331,10 @@ const en: Record<string, string> = {
   "modal.total": "Total:",
   "modal.confirm": "Confirm on WhatsApp",
   "modal.disclaimer": "By confirming, you will be redirected to WhatsApp to complete your booking. An advisor will assist you personally.",
-  "modal.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI'm interested in booking an adventure and would like to request information.\n\n\u{1F3D4}\u{FE0F} *Experience:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* S/ {total}\n\nI'd like to check availability and details to proceed with the booking. Thank you! \u{1F64C}",
+  "modal.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI'm interested in booking an adventure and would like to request information.\n\n\u{1F3D4}\u{FE0F} *Experience:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* $ {total}\n\nI'd like to check availability and details to proceed with the booking. Thank you! \u{1F64C}",
 
   // ── WhatsApp Widget ──
-  "widget.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI'd like to book an adventure and request information.\n\n\u{1F3D4}\u{FE0F} *Experience:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* S/ {total}\n\nPlease confirm availability. Thank you! \u{1F64C}",
+  "widget.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI'd like to book an adventure and request information.\n\n\u{1F3D4}\u{FE0F} *Experience:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* $ {total}\n\nPlease confirm availability. Thank you! \u{1F64C}",
 
   // Footer
   "footer.desc": "Responsible adventure tourism in the Cordillera Blanca and Huayhuash, Huaraz, Peru.",
@@ -371,7 +371,7 @@ const en: Record<string, string> = {
   "tour.duration": "Duration",
   "tour.maxAlt": "Max altitude",
   "tour.startPoint": "Starting point",
-  "tour.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI want to book my adventure and request complete information.\n\n\u{1F3D4}\u{FE0F} *Tour:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* S/ {total}\n\nPlease confirm availability to proceed with the booking. Thank you! \u{1F64C}",
+  "tour.whatsappMsg": "Hello Intiquilla Adventures! \u{1F44B}\n\nI want to book my adventure and request complete information.\n\n\u{1F3D4}\u{FE0F} *Tour:* {tour}\n\u{1F4C5} *Date:* {date}\n\u{1F465} *Travelers:* {travelers} person(s)\n\u{1F4B0} *Estimated Total:* $ {total}\n\nPlease confirm availability to proceed with the booking. Thank you! \u{1F64C}",
   "tour.bookNow": "Book Now",
 
   // ── Nosotros Page ──
