@@ -34,13 +34,13 @@ export function Footer() {
               {t("footer.desc")}
             </p>
             <div className="mt-4 flex items-center gap-3">
-              <a href="#" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Instagram">
+              <a href="https://www.instagram.com/intiquilladventures?igsh=MW1uZnd6Z3dycDZpeQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Instagram">
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/1BmkSZU97A/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Facebook">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Email">
+              <a href="mailto:info@intiquillaadventures.com" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Email">
                 <Mail className="w-4 h-4" />
               </a>
             </div>

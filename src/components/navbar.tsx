@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight, Search, Heart } from "lucide-react";
+import { X, Phone, Globe, ChevronRight, Search, Heart, Facebook, Instagram } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n } from "@/lib/i18n-context";
@@ -227,6 +227,29 @@ export function Navbar() {
 
         {/* ── BOTTOM FOOTER: Language + CTA — always visible, never clipped ── */}
         <div className="flex-shrink-0 border-t border-white/[0.06] px-5 pt-3 pb-4 space-y-2.5">
+          {/* FILA COMPACTA DE REDES SOCIALES INTEGRADA EN EL MENÚ */}
+          <div className="flex items-center justify-center space-x-6 pb-2 border-b border-white/5 mb-2">
+            <span className="text-[10px] uppercase tracking-widest text-gray-500 font-semibold">Síguenos:</span>
+            <a
+              href="https://www.facebook.com/share/1BmkSZU97A/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-[#D4AF37] active:scale-95 transition-all p-1"
+              aria-label="Facebook de Intiquilla"
+            >
+              <Facebook className="w-[18px] h-[18px]" />
+            </a>
+            <a
+              href="https://www.instagram.com/intiquilladventures?igsh=MW1uZnd6Z3dycDZpeQ%3D%3D&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-[#D4AF37] active:scale-95 transition-all p-1"
+              aria-label="Instagram de Intiquilla"
+            >
+              <Instagram className="w-[18px] h-[18px]" />
+            </a>
+          </div>
+
           {/* Language toggle */}
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-gray-500 tracking-wider uppercase font-medium">{t("nav.idioma")}</span>
