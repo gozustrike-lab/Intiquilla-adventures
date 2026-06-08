@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, type ChangeEvent } from "react";
+import React, { useState, useEffect, useMemo, type ChangeEvent } from "react";
 import Link from "next/link";
 import {
   ChevronDown,
@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
 import { useI18n } from "@/lib/i18n-context";
 import { TOURS } from "@/lib/tours-data";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
 
 const HERO_IMAGES = [
   { image: "/images/hero-slide-nightcamp.webp", imageMobile: "/images/hero-slide-nightcamp-sm.webp", imageFallback: "/images/hero-slide-nightcamp.png" },
@@ -82,6 +83,19 @@ export default function HomePage() {
   const dateInputRef = React.useRef<HTMLInputElement>(null);
   const bookingWidgetRef = React.useRef<HTMLDivElement>(null);
 
+  /* Section IDs for scroll spy — easily extensible */
+  const sectionIds = useMemo(() => [
+    "hero",
+    "manifesto",
+    "booking",
+    "destinos",
+    "tours",
+    "testimonios",
+    "tips",
+    "cta",
+  ], []);
+  const { scrollToSection } = useScrollSpy({ sectionIds });
+
   /* Re-derived data from current lang */
   const heroSlides = [
     { ...HERO_IMAGES[0], title: t("hero.slide1.title"), subtitle: t("hero.slide1.subtitle") },
@@ -137,7 +151,7 @@ export default function HomePage() {
   return (
     <>
       {/* ═══ HERO SLIDER ═══ */}
-      <section className="relative w-full h-[calc(100vh-68px)] md:h-[calc(100vh-84px)] min-h-[480px] max-h-[950px] overflow-hidden -mt-[68px] md:-mt-[84px] pt-[68px] md:pt-[84px]">
+      <section id="hero" className="relative w-full h-[calc(100vh-68px)] md:h-[calc(100vh-84px)] min-h-[480px] max-h-[950px] overflow-hidden -mt-[68px] md:-mt-[84px] pt-[68px] md:pt-[84px]">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
@@ -205,7 +219,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ BRAND MANIFESTO ═══ */}
-      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
+      <section id="manifesto" className="relative py-20 md:py-28 px-4 overflow-hidden">
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-8">
             <span className="inline-block w-8 h-[1px] bg-[#C89B3C]/40 mb-6" />
@@ -399,7 +413,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ IMMERSIVE TESTIMONIAL STRIP ═══ */}
-      <section className="py-20 md:py-28 px-4 relative overflow-hidden">
+      <section id="testimonios" className="py-20 md:py-28 px-4 relative overflow-hidden">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
             <span className="text-[#C89B3C] text-[10px] tracking-widest uppercase font-bold block mb-3">{t("testimonials.badge")}</span>
@@ -448,7 +462,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══ CINEMATIC CTA ═══ */}
-      <section className="py-24 px-4 relative flex justify-center items-center overflow-hidden">
+      <section id="cta" className="py-24 px-4 relative flex justify-center items-center overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Mountain, ChevronRight, Phone, Mail, MapPin, Instagram, Facebook, MessageCircle } from "lucide-react";
+import { ChevronRight, Phone, Mail, MapPin, Instagram, Facebook } from "lucide-react";
+import { ChakanaIcon } from "@/components/chakana-icon";
 import { TOURS } from "@/lib/tours-data";
 import { useI18n } from "@/lib/i18n-context";
 
@@ -23,7 +24,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <Mountain className="w-6 h-6 text-[#C89B3C]" />
+              <ChakanaIcon className="text-[#D4AF37]" size={24} />
               <div className="flex flex-col">
                 <span className="text-base font-bold tracking-wider text-white leading-tight">INTIQUILLA</span>
                 <span className="text-[9px] tracking-[0.3em] text-[#C89B3C]/80 font-medium uppercase leading-tight">Adventures</span>

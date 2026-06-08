@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import {
-  Mountain,
   Shield,
   Heart,
   Star,
@@ -14,7 +14,9 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { ChakanaIcon } from "@/components/chakana-icon";
 import { useI18n } from "@/lib/i18n-context";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -23,6 +25,16 @@ const fadeUp = {
 
 export default function NosotrosPage() {
   const { t } = useI18n();
+  const sectionIds = useMemo(() => [
+    "nosotros-hero",
+    "nosotros-stats",
+    "nosotros-historia",
+    "nosotros-valores",
+    "nosotros-equipo",
+    "nosotros-mision",
+    "nosotros-cta",
+  ], []);
+  useScrollSpy({ sectionIds });
 
   const STATS = [
     { value: "10+", label: t("nos.stat.years") },
@@ -47,9 +59,9 @@ export default function NosotrosPage() {
 
   return (
     <div>
-      <section className="relative py-20 md:py-28 px-4 overflow-hidden">
+      {/* ═══ HERO / ABOUT ═══ */}
+      <section id="nosotros-hero" className="relative py-20 md:py-28 px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          {/* ── Hero / About ── */}
           <motion.div
             className="text-center mb-16"
             variants={fadeUp}
@@ -65,10 +77,14 @@ export default function NosotrosPage() {
               {t("nos.desc")}
             </p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* ── Stats ── */}
+      {/* ═══ STATS ═══ */}
+      <section id="nosotros-stats" className="py-12 md:py-16 px-4">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -81,9 +97,13 @@ export default function NosotrosPage() {
               </div>
             ))}
           </motion.div>
+        </div>
+      </section>
 
-          {/* ── History ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+      {/* ═══ HISTORY ═══ */}
+      <section id="nosotros-historia" className="py-20 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-2xl overflow-hidden h-72 sm:h-[420px]">
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/images/hero-1.webp)" }} />
               <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/50 to-transparent" />
@@ -102,10 +122,14 @@ export default function NosotrosPage() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* ── Values ── */}
+      {/* ═══ VALUES ═══ */}
+      <section id="nosotros-valores" className="py-20 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            className="mb-20"
+            className="mb-12"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -115,29 +139,35 @@ export default function NosotrosPage() {
               <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.valuesBadge")}</span>
               <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.valuesTitle")}</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {VALUES.map((item) => (
-                <motion.div
-                  key={item.title}
-                  className="flex items-start gap-4 p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
-                  variants={fadeUp}
-                  viewport={{ once: true, amount: 0.3 }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-6 h-6 text-[#C89B3C]" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold tracking-wide text-white">{item.title}</h3>
-                    <p className="mt-2 text-sm text-white/50 leading-relaxed">{item.text}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {VALUES.map((item) => (
+              <motion.div
+                key={item.title}
+                className="flex items-start gap-4 p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center shrink-0">
+                  <item.icon className="w-6 h-6 text-[#C89B3C]" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold tracking-wide text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm text-white/50 leading-relaxed">{item.text}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* ── Team ── */}
+      {/* ═══ TEAM ═══ */}
+      <section id="nosotros-equipo" className="py-20 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            className="mb-20"
+            className="mb-12"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -150,68 +180,74 @@ export default function NosotrosPage() {
                 {t("nos.teamDesc")}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {TEAM.map((member) => (
-                <motion.div
-                  key={member.name}
-                  className="p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
-                  variants={fadeUp}
-                  viewport={{ once: true, amount: 0.3 }}
-                >
-                  <div className="w-16 h-16 rounded-full bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C] font-bold text-2xl mb-4">
-                    {member.name.split(" ").map((n) => n[0]).join("")}
-                  </div>
-                  <h3 className="text-base font-bold text-white">{member.name}</h3>
-                  <span className="text-xs text-[#C89B3C] font-medium tracking-wide">{member.role}</span>
-                  <p className="mt-3 text-sm text-white/50 leading-relaxed">{member.bio}</p>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
-
-          {/* ── Mission & Vision ── */}
-          <motion.div
-            className="mb-20"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-          >
-            <div className="text-center mb-12">
-              <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.mvBadge")}</span>
-              <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.mvTitle")}</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {TEAM.map((member) => (
               <motion.div
-                className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
+                key={member.name}
+                className="p-6 rounded-2xl bg-[#1C1C1C]/50 border border-[#C89B3C]/10 hover:border-[#C89B3C]/25 transition-all duration-300"
                 variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
-                  <Mountain className="w-6 h-6 text-[#C89B3C]" />
+                <div className="w-16 h-16 rounded-full bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C] font-bold text-2xl mb-4">
+                  {member.name.split(" ").map((n) => n[0]).join("")}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{t("nos.mission")}</h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  {t("nos.missionText")}
-                </p>
+                <h3 className="text-base font-bold text-white">{member.name}</h3>
+                <span className="text-xs text-[#C89B3C] font-medium tracking-wide">{member.role}</span>
+                <p className="mt-3 text-sm text-white/50 leading-relaxed">{member.bio}</p>
               </motion.div>
-              <motion.div
-                className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
-                variants={fadeUp}
-                viewport={{ once: true, amount: 0.3 }}
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
-                  <Star className="w-6 h-6 text-[#C89B3C]" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{t("nos.vision")}</h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  {t("nos.visionText")}
-                </p>
-              </motion.div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* ── CTA ── */}
+      {/* ═══ MISSION & VISION ═══ */}
+      <section id="nosotros-mision" className="py-20 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="inline-block text-xs tracking-[0.3em] text-[#C89B3C] uppercase font-medium mb-3">{t("nos.mvBadge")}</span>
+            <h2 className="text-2xl md:text-4xl font-bold tracking-wide text-white">{t("nos.mvTitle")}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
+                <ChakanaIcon className="text-[#D4AF37]" size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">{t("nos.mission")}</h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                {t("nos.missionText")}
+              </p>
+            </motion.div>
+            <motion.div
+              className="p-8 rounded-2xl bg-[#1C1C1C]/60 border border-[#C89B3C]/20"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#C89B3C]/10 flex items-center justify-center mb-4">
+                <Star className="w-6 h-6 text-[#C89B3C]" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">{t("nos.vision")}</h3>
+              <p className="text-sm text-white/50 leading-relaxed">
+                {t("nos.visionText")}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CTA ═══ */}
+      <section id="nosotros-cta" className="py-20 md:py-24 px-4">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             className="p-8 sm:p-12 md:p-16 rounded-3xl bg-[#1C1C1C] border border-[#C89B3C]/20 relative overflow-hidden"
             variants={fadeUp}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useState, useEffect, useMemo, type ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Clock,
-  Mountain,
   MapPin,
   CalendarDays,
   Users,
@@ -19,8 +18,11 @@ import {
   Star,
   ChevronRight,
   Backpack,
+  Mountain,
 } from "lucide-react";
+import { ChakanaIcon } from "@/components/chakana-icon";
 import { useI18n } from "@/lib/i18n-context";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { getTourBySlug, localizeTour, TOURS } from "@/lib/tours-data";
 import { ImageLightbox, useLightbox } from "@/components/image-lightbox";
 
@@ -53,6 +55,18 @@ export default function TourPage() {
   const [travelDate, setTravelDate] = useState("");
   const [travelers, setTravelers] = useState(1);
   const lightbox = useLightbox();
+
+  const sectionIds = useMemo(() => [
+    "tour-hero",
+    "tour-description",
+    "tour-gallery",
+    "tour-highlights",
+    "tour-itinerary",
+    "tour-includes",
+    "tour-booking",
+    "tour-relacionados",
+  ], []);
+  useScrollSpy({ sectionIds });
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -104,7 +118,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           1 · FULL-BLEED HERO
          ═══════════════════════════════════════════ */}
-      <section className="relative w-full min-h-[65vh] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
+      <section id="tour-hero" className="relative w-full min-h-[65vh] overflow-hidden -mt-12 md:-mt-14 pt-12 md:pt-14">
         {/* hero image — clickable to lightbox */}
         <div
           className="absolute inset-0 cursor-zoom-in"
@@ -205,7 +219,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           2 · DESCRIPTION
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4">
+      <section id="tour-description" className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -238,7 +252,7 @@ export default function TourPage() {
           3 · HORIZONTAL GALLERY STRIP
          ═══════════════════════════════════════════ */}
       {lt.gallery.length > 0 && (
-        <section className="py-8 md:py-12 px-4">
+        <section id="tour-gallery" className="py-8 md:py-12 px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial="hidden"
@@ -295,7 +309,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           4 · HIGHLIGHTS MARQUEE
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4">
+      <section id="tour-highlights" className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial="hidden"
@@ -336,7 +350,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           5 · ITINERARY TIMELINE
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4 bg-[#171717]/20 relative overflow-hidden">
+      <section id="tour-itinerary" className="py-16 md:py-24 px-4 bg-[#171717]/20 relative overflow-hidden">
         {/* Top gradient fade */}
         <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#111111] to-transparent pointer-events-none" />
         {/* Bottom gradient fade */}
@@ -398,7 +412,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           6 · INCLUSIONS / EXCLUSIONS / WHAT TO BRING
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4">
+      <section id="tour-includes" className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
             {/* Includes */}
@@ -473,7 +487,7 @@ export default function TourPage() {
       {/* ═══════════════════════════════════════════
           7 · BOOKING SECTION
          ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-24 px-4">
+      <section id="tour-booking" className="py-16 md:py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -501,7 +515,7 @@ export default function TourPage() {
                     {lt.durationDays}
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <Mountain className="w-4 h-4 text-[#C89B3C]/60" />
+                    <ChakanaIcon className="text-[#C89B3C]/60" size={16} />
                     {t("tour.difficulty")}: {lt.difficulty}
                   </span>
                   <span className="flex items-center gap-1.5">
@@ -602,7 +616,7 @@ export default function TourPage() {
           8 · RELATED TOURS
          ═══════════════════════════════════════════ */}
       {relatedTours.length > 0 && (
-        <section className="py-16 md:py-24 px-4 bg-[#171717]/20 relative overflow-hidden">
+        <section id="tour-relacionados" className="py-16 md:py-24 px-4 bg-[#171717]/20 relative overflow-hidden">
           {/* Top gradient fade */}
           <div className="absolute top-0 inset-x-0 h-5 bg-gradient-to-b from-[#111111] to-transparent pointer-events-none" />
           {/* Bottom gradient fade */}

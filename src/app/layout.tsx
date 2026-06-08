@@ -16,22 +16,50 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Intiquilla Adventures | Turismo de Aventura en Huaraz, Peru",
+  title: "IntiQuilla Adventures | Luxury Amazon & Andean Experiences",
   description:
-    "Descubre las montanas mas altas del Peru con Intiquilla Adventures. Trekking, tours astronomicos y expediciones en la Cordillera Blanca y Huayhuash. Reserva directa en Huaraz.",
+    "Descubre las montañas más altas del Perú con IntiQuilla Adventures. Trekking, tours astronómicos y expediciones en la Cordillera Blanca y Huayhuash. Reserva directa en Huaraz.",
   keywords: [
     "Huaraz",
     "Cordillera Blanca",
     "Laguna 69",
     "Santa Cruz trek",
     "Huayhuash",
-    "turismo aventura Peru",
-    "Chavin",
-    "Intiquilla Adventures",
+    "turismo aventura Perú",
+    "Chavín",
+    "IntiQuilla Adventures",
+    "Peru luxury travel",
+    "Amazon Rainforest",
+    "Andean expeditions",
+    "Machu Picchu",
+    "Sustainable tourism",
   ],
   icons: {
-    icon: "/favicon.ico",
+    icon: "/images/chakana-icon.png",
   },
+  openGraph: {
+    type: "website",
+    siteName: "IntiQuilla Adventures",
+    title: "IntiQuilla Adventures | Luxury Amazon & Andean Experiences",
+    description:
+      "Discover extraordinary journeys through Peru, the Amazon rainforest, and the Andes with curated luxury travel experiences.",
+    url: "https://www.intiquilladventures.com/",
+    images: [
+      {
+        url: "https://www.intiquilladventures.com/images/intiquilla-open-graph.jpg",
+        width: 1200,
+        height: 630,
+        alt: "IntiQuilla Adventures Open Graph Image",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "IntiQuilla Adventures",
+    description: "Luxury Amazon & Andean Experiences",
+    images: ["https://www.intiquilladventures.com/images/intiquilla-open-graph.jpg"],
+  },
+  metadataBase: new URL("https://www.intiquilladventures.com"),
 };
 
 export default function RootLayout({
@@ -45,7 +73,7 @@ export default function RootLayout({
         {/* Preload first hero slide for instant display */}
         <link rel="preload" as="image" href="/images/hero-slide-nightcamp.webp" type="image/webp" />
         <link rel="preload" as="image" href="/images/hero-slide-nightcamp-sm.webp" type="image/webp" media="(max-width: 767px)" />
-        <link rel="preload" as="image" href="/images/hero-slide-chakana.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/images/hero-slide-mountain.webp" type="image/webp" />
         <link rel="preload" as="image" href="/images/hero-slide-mountainlake.webp" type="image/webp" />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-[#111111] text-white`}>
