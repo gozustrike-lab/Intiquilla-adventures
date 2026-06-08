@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { BookingProvider } from "@/lib/booking-context";
+import { FavoritesProvider } from "@/lib/favorites-context";
 import { I18nProvider } from "@/lib/i18n-context";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -85,7 +86,8 @@ export default function RootLayout({
         {/* Subtle ambient background glow */}
         <div className="ambient-glow" aria-hidden="true" />
         <I18nProvider>
-          <BookingProvider>
+          <FavoritesProvider>
+            <BookingProvider>
             <Preloader />
             <Navbar />
             <main className="pt-12 md:pt-14">{children}</main>
@@ -94,6 +96,7 @@ export default function RootLayout({
             <WhatsAppWidget />
             <SocialSidebar />
           </BookingProvider>
+          </FavoritesProvider>
         </I18nProvider>
       </body>
     </html>

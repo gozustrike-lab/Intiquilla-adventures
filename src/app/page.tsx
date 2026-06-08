@@ -12,10 +12,12 @@ import {
   CheckCircle,
   Sparkles,
   MapPin,
+  Heart,
 } from "lucide-react";
 import { ChakanaIcon } from "@/components/chakana-icon";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
+import { useFavorites } from "@/lib/favorites-context";
 import { useI18n } from "@/lib/i18n-context";
 import { TOURS } from "@/lib/tours-data";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
@@ -75,6 +77,7 @@ function InteractiveTipsModule() {
 
 export default function HomePage() {
   const { bookingOpen, setBookingOpen, selectedTour, setSelectedTour, travelDate, setTravelDate, travelers, setTravelers } = useBooking();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const { t, lang } = useI18n();
   const [activeSlide, setActiveSlide] = useState(0);
   const [localTour, setLocalTour] = useState("");
@@ -356,7 +359,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {TOURS.map((tour) => (
-              <div key={tour.id} className="group rounded-2xl overflow-hidden bg-[#1C1C1C] border border-[#C89B3C]/20 hover:border-[#C89B3C]/50 transition-all duration-500 hover:shadow-xl hover:shadow-[#C89B3C]/5">
+              <div key={tour.id} id={`tour-card-${tour.id}`} className="group rounded-2xl overflow-hidden bg-[#1C1C1C] border border-[#C89B3C]/20 hover:border-[#C89B3C]/50 transition-all duration-500 hover:shadow-xl hover:shadow-[#C89B3C]/5">
                 <Link href={`/tours/${tour.slug}`}>
                   <div className="relative h-56 sm:h-64 overflow-hidden">
                     <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${tour.image})` }} />
@@ -369,6 +372,14 @@ export default function HomePage() {
                         <ChakanaIcon className="text-[#C89B3C]" size={12} />{tour.difficulty}
                       </span>
                     </div>
+                    {/* Favorite heart button */}
+                    <button
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFavorite(tour.id); }}
+                      className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 ${isFavorite(tour.id) ? 'bg-[#C89B3C]/20 backdrop-blur-sm' : 'bg-[#111111]/50 backdrop-blur-sm hover:bg-[#111111]/70'}`}
+                      aria-label={isFavorite(tour.id) ? (lang === "es" ? "Quitar de favoritos" : "Remove from favorites") : (lang === "es" ? "Agregar a favoritos" : "Add to favorites")}
+                    >
+                      <Heart className={`w-4.5 h-4.5 transition-all duration-300 ${isFavorite(tour.id) ? 'text-[#D4AF37] fill-[#D4AF37] scale-110' : 'text-white/70'}`} />
+                    </button>
                     <div className="absolute bottom-4 right-4">
                       <span className="text-2xl sm:text-3xl font-bold text-[#C89B3C]">$ {tour.price}</span>
                     </div>

@@ -1,19 +1,24 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { X, Phone, Globe, ChevronRight, Search, Heart, Facebook, Instagram } from "lucide-react";
+import { X, Phone, Globe, ChevronRight, Search, Heart, Facebook, Instagram, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useBooking } from "@/lib/booking-context";
+import { useFavorites } from "@/lib/favorites-context";
 import { useI18n } from "@/lib/i18n-context";
+import { TOURS } from "@/lib/tours-data";
 
 export function Navbar() {
   const { setBookingOpen, drawerOpen, setDrawerOpen } = useBooking();
+  const { favorites, toggleFavorite } = useFavorites();
   const { lang, setLang, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showFavDropdown, setShowFavDropdown] = useState(false);
+  const favDropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -32,6 +37,17 @@ export function Navbar() {
 
   const handleBookingFromDrawer = () => { closeDrawer(); setBookingOpen(true); };
   const toggleLang = () => { setLang(lang === "es" ? "en" : "es"); };
+
+  // Close fav dropdown on outside click
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (favDropdownRef.current && !favDropdownRef.current.contains(e.target as Node)) {
+        setShowFavDropdown(false);
+      }
+    };
+    if (showFavDropdown) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showFavDropdown]);
 
   const navLinks = [
     { label: t("nav.destinos"), href: "/#destinos" },
@@ -103,20 +119,87 @@ export function Navbar() {
               </span>
             </button>
 
-            {/* FAVORITES — coming soon toast */}
-            <button
-              onClick={() => {
-                const el = document.getElementById("fav-toast");
-                if (el) { el.classList.remove("opacity-0", "translate-y-2"); el.classList.add("opacity-100", "translate-y-0"); setTimeout(() => { el.classList.remove("opacity-100", "translate-y-0"); el.classList.add("opacity-0", "translate-y-2"); }, 2500); }
-              }}
-              className="p-2 text-gray-300 hover:text-[#C89B3C] transition-colors focus:outline-none group relative"
-              aria-label="Mis favoritos"
-            >
-              <Heart className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
-                {lang === "es" ? "Favoritos" : "Favorites"}
-              </span>
-            </button>
+            {/* FAVORITES — real dropdown */}
+            <div className="relative" ref={favDropdownRef}>
+              <button
+                onClick={() => setShowFavDropdown((v) => !v)}
+                className={`p-2 transition-colors focus:outline-none group relative ${showFavDropdown ? "text-[#C89B3C]" : "text-gray-300 hover:text-[#C89B3C]"}`}
+                aria-label="Mis favoritos"
+              >
+                <Heart className={`w-5 h-5 group-hover:scale-110 transition-transform ${favorites.length > 0 ? "text-[#C89B3C] fill-[#C89B3C]" : ""}`} />
+                {favorites.length > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center">
+                    {favorites.length}
+                  </span>
+                )}
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-[#1C1C1C] text-white text-[10px] px-2 py-0.5 rounded border border-[#C89B3C]/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden md:block whitespace-nowrap">
+                  {lang === "es" ? "Favoritos" : "Favorites"}
+                </span>
+              </button>
+
+              {/* Dropdown panel */}
+              <AnimatePresence>
+                {showFavDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute right-0 mt-3 w-72 bg-[#1C1C1C]/95 backdrop-blur-xl border border-[#C89B3C]/20 rounded-xl shadow-2xl shadow-black/40 z-[55] overflow-hidden"
+                  >
+                    <div className="px-4 pt-3 pb-2 border-b border-white/[0.06]">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-[10px] font-bold text-[#C89B3C] uppercase tracking-widest">
+                          {lang === "es" ? "Mis Tours Favoritos" : "My Favorite Tours"}
+                        </h4>
+                        {favorites.length > 0 && (
+                          <span className="text-[9px] text-gray-500 font-medium">{favorites.length} {favorites.length === 1 ? (lang === "es" ? "tour" : "tour") : (lang === "es" ? "tours" : "tours")}</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="max-h-64 overflow-y-auto">
+                      {favorites.length === 0 ? (
+                        <div className="px-4 py-6 text-center">
+                          <Heart className="w-6 h-6 text-gray-600 mx-auto mb-2" />
+                          <p className="text-gray-500 text-xs">
+                            {lang === "es" ? "Aún no guardaste ningún tour" : "No tours saved yet"}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="py-1">
+                          {favorites.map((id) => {
+                            const tour = TOURS.find((t) => t.id === id);
+                            if (!tour) return null;
+                            return (
+                              <div
+                                key={id}
+                                className="group/fav flex items-center gap-2 px-3 py-2 hover:bg-white/[0.03] transition-colors"
+                              >
+                                <Link
+                                  href={`/tours/${tour.slug}`}
+                                  onClick={() => setShowFavDropdown(false)}
+                                  className="flex-1 min-w-0"
+                                >
+                                  <p className="text-xs text-gray-200 group-hover/fav:text-white truncate transition-colors">{tour.name}</p>
+                                  <p className="text-[10px] text-gray-500 mt-0.5">{tour.duration} &middot; ${tour.price}</p>
+                                </Link>
+                                <button
+                                  onClick={() => toggleFavorite(id)}
+                                  className="p-1.5 text-gray-600 hover:text-red-400 transition-colors shrink-0 rounded-lg hover:bg-white/[0.05]"
+                                  aria-label={lang === "es" ? "Quitar de favoritos" : "Remove from favorites"}
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* PHONE — native tel: link for real calls */}
             <a
@@ -143,17 +226,6 @@ export function Navbar() {
           </div>
         </div>
       </header>
-
-      {/* ═══ FAVORITES TOAST ═══ */}
-      <div
-        id="fav-toast"
-        className="fixed top-20 left-1/2 -translate-x-1/2 z-[80] px-5 py-2.5 rounded-xl bg-[#1C1C1C] border border-[#C89B3C]/30 shadow-xl shadow-black/30 opacity-0 translate-y-2 transition-all duration-300 pointer-events-none flex items-center gap-2"
-      >
-        <Heart className="w-4 h-4 text-[#C89B3C] fill-[#C89B3C]" />
-        <span className="text-sm text-white/80 font-medium whitespace-nowrap">
-          {lang === "es" ? "Favoritos disponible proximamente" : "Favorites coming soon"}
-        </span>
-      </div>
 
       {/* ═══ MOBILE DRAWER BACKDROP ═══ */}
       <div

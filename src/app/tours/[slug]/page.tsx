@@ -18,9 +18,11 @@ import {
   Star,
   ChevronRight,
   Backpack,
+  Heart,
 } from "lucide-react";
 import { ChakanaIcon } from "@/components/chakana-icon";
 import { useI18n } from "@/lib/i18n-context";
+import { useFavorites } from "@/lib/favorites-context";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import { getTourBySlug, localizeTour, TOURS } from "@/lib/tours-data";
 import { ImageLightbox, useLightbox } from "@/components/image-lightbox";
@@ -49,6 +51,7 @@ export default function TourPage() {
   const slug = params.slug as string;
   const rawTour = getTourBySlug(slug);
   const { t, lang } = useI18n();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const lt = rawTour ? localizeTour(rawTour, lang) : null;
 
   const [travelDate, setTravelDate] = useState("");
@@ -143,6 +146,15 @@ export default function TourPage() {
             <ArrowLeft className="w-4 h-4" />
             <span>{t("tour.back")}</span>
           </Link>
+
+          {/* favorite button — top right */}
+          <button
+            onClick={() => toggleFavorite(rawTour!.id)}
+            className={`absolute top-20 md:top-24 right-4 sm:right-8 z-20 p-2.5 rounded-full transition-all duration-300 ${isFavorite(rawTour!.id) ? 'bg-[#C89B3C]/20 backdrop-blur-sm' : 'bg-[#111111]/50 backdrop-blur-sm hover:bg-[#111111]/70'}`}
+            aria-label={isFavorite(rawTour!.id) ? (lang === "es" ? "Quitar de favoritos" : "Remove from favorites") : (lang === "es" ? "Agregar a favoritos" : "Add to favorites")}
+          >
+            <Heart className={`w-5 h-5 transition-all duration-300 ${isFavorite(rawTour!.id) ? 'text-[#D4AF37] fill-[#D4AF37] scale-110' : 'text-white/70'}`} />
+          </button>
 
           {/* tags */}
           <motion.div
