@@ -40,7 +40,7 @@ export function Footer() {
               <a href="https://www.facebook.com/share/1BmkSZU97A/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Facebook">
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="mailto:info@intiquillaadventures.com" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Email">
+              <a href="mailto:info@intiquilladventures.com" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#C89B3C]/10 flex items-center justify-center text-[#C89B3C]/60 hover:text-[#C89B3C] hover:bg-[#C89B3C]/20 transition-all" aria-label="Email">
                 <Mail className="w-4 h-4" />
               </a>
             </div>
@@ -79,24 +79,33 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#C89B3C]/50 mt-0.5 shrink-0" />
-                <span className="text-sm text-white/40">Jr. Jose de la Riva Aguero 682, Huaraz, Peru</span>
+                <span className="text-sm text-white/40">Jr. Los Rayos Mz H Lt 3 El Mirador Huaraz, Perú</span>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="w-4 h-4 text-[#C89B3C]/50 mt-0.5 shrink-0" />
-                <span className="text-sm text-white/40">+51 999 999 999</span>
+                <a href="tel:+51943606789" className="text-sm text-white/40 hover:text-[#C89B3C] transition-colors">+51 943 606 789</a>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="w-4 h-4 text-[#C89B3C]/50 mt-0.5 shrink-0" />
-                <span className="text-sm text-white/40">info@intiquillaadventures.com</span>
+                <a href="mailto:info@intiquilladventures.com" className="text-sm text-white/40 hover:text-[#C89B3C] transition-colors">info@intiquilladventures.com</a>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-center px-2 md:px-0 gap-2">
-          <p className="text-gray-500 text-xs">
-            &copy; {new Date().getFullYear()} Intiquilla Adventures. {t("footer.rights")}
-          </p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <p className="text-gray-500 text-xs">
+              &copy; {new Date().getFullYear()} Intiquilla Adventures. {t("footer.rights")}
+            </p>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-reclamaciones'))}
+              className="text-[11px] text-[#D4AF37]/60 hover:text-[#D4AF37] hover:underline transition-colors uppercase tracking-wider font-semibold flex items-center gap-1 focus:outline-none cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              Libro de Reclamaciones
+            </button>
+          </div>
           <a
             href="https://fastpagepro.com"
             target="_blank"

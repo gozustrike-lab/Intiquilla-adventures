@@ -264,15 +264,15 @@ export default function NosotrosPage() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
                 <div className="flex items-center gap-2 text-sm text-white/50">
                   <MapPin className="w-4 h-4 text-[#C89B3C]" />
-                  Jr. Jose de la Riva Aguero 682, Huaraz
+                  Jr. Los Rayos Mz H Lt 3 El Mirador Huaraz, Perú
                 </div>
                 <div className="flex items-center gap-2 text-sm text-white/50">
                   <Phone className="w-4 h-4 text-[#C89B3C]" />
-                  +51 999 999 999
+                  +51 943 606 789
                 </div>
                 <div className="flex items-center gap-2 text-sm text-white/50">
                   <Mail className="w-4 h-4 text-[#C89B3C]" />
-                  info@intiquillaadventures.com
+                  info@intiquilladventures.com
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

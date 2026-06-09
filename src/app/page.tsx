@@ -79,6 +79,7 @@ export default function HomePage() {
   const { bookingOpen, setBookingOpen, selectedTour, setSelectedTour, travelDate, setTravelDate, travelers, setTravelers } = useBooking();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { t, lang } = useI18n();
+  const [isReclamacionesOpen, setIsReclamacionesOpen] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const [localTour, setLocalTour] = useState("");
   const [localDate, setLocalDate] = useState("");
@@ -124,6 +125,12 @@ export default function HomePage() {
       setActiveSlide((prev) => (prev + 1) % heroSlides.length);
     }, 6000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setIsReclamacionesOpen(true);
+    window.addEventListener('open-reclamaciones', handler);
+    return () => window.removeEventListener('open-reclamaciones', handler);
   }, []);
 
   const handleScrollToBooking = () => {
@@ -499,6 +506,91 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
+
+      {/* ═══ LIBRO DE RECLAMACIONES — Ley N° 29571 ═══ */}
+      {isReclamacionesOpen && (
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#1A332B] border border-[#D4AF37]/30 rounded-2xl w-full max-w-lg p-6 relative my-8 text-white max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setIsReclamacionesOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white font-bold text-lg focus:outline-none"
+            >
+              ✕
+            </button>
+
+            <div className="text-center mb-6 border-b border-white/5 pb-3">
+              <span className="text-[#D4AF37] text-[10px] uppercase font-bold tracking-widest bg-[#0B1311] px-3 py-1 rounded-full border border-[#D4AF37]/20">
+                Conforme a la Ley N&#176; 29571
+              </span>
+              <h2 className="text-xl font-black uppercase mt-2 text-white">Libro de Reclamaciones</h2>
+              <p className="text-gray-400 text-xs mt-1">Intiquilla Adventures</p>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const data = new FormData(e.currentTarget);
+                const cuerpoMail = `HOJA DE RECLAMACION VIRTUAL\n\n` +
+                  `Cliente: ${data.get('nombre')} (DNI: ${data.get('dni')})\n` +
+                  `Contacto: ${data.get('email')} | Telf: ${data.get('telf')}\n` +
+                  `Tipo de Bien: ${data.get('bien')}\n` +
+                  `Tipo de Incidencia: ${data.get('tipo')}\n` +
+                  `Detalle del Hecho: ${data.get('detalle')}\n\n` +
+                  `Esta queja/reclamo requiere una respuesta formal en un plazo maximo de 15 dias habiles.`;
+
+                window.location.href = `mailto:reclamaciones@intiquilladventures.com?subject=HOJA%20DE%20RECLAMACION%20-%20INTIQUILLA%20ADVENTURES&body=${encodeURIComponent(cuerpoMail)}`;
+                setIsReclamacionesOpen(false);
+              }}
+              className="space-y-4 text-xs text-left"
+            >
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">Nombre Completo</label>
+                  <input required name="nombre" type="text" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 focus:border-[#D4AF37] text-white focus:outline-none" />
+                </div>
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">DNI / CE</label>
+                  <input required name="dni" type="text" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 focus:border-[#D4AF37] text-white focus:outline-none" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">E-mail de Contacto</label>
+                  <input required name="email" type="email" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 focus:border-[#D4AF37] text-white focus:outline-none" />
+                </div>
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">Telefono Movil</label>
+                  <input required name="telf" type="tel" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 focus:border-[#D4AF37] text-white focus:outline-none" />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">Bien Contratado</label>
+                  <select name="bien" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 text-white focus:outline-none">
+                    <option value="Servicio Turistico / Trekking">Servicio Turistico</option>
+                    <option value="Producto / Equipamiento">Producto</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">Tipo de Reclamacion</label>
+                  <select name="tipo" className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 text-white focus:outline-none">
+                    <option value="Reclamo (Disconformidad con el servicio)">Reclamo</option>
+                    <option value="Queja (Malestar directo o descontento)">Queja</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className="block text-[#D4AF37] mb-1 uppercase font-semibold text-[10px]">Detalle del Reclamo o Queja</label>
+                <textarea required name="detalle" rows={3} className="w-full bg-[#0B1311] border border-gray-800 rounded-lg p-2 focus:border-[#D4AF37] text-white resize-none focus:outline-none"></textarea>
+              </div>
+
+              <button type="submit" className="w-full bg-[#D4AF37] hover:bg-amber-500 text-[#0B1311] py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all shadow-lg focus:outline-none">
+                Enviar Reclamacion Oficial
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }
