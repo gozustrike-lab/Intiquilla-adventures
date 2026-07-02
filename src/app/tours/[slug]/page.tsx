@@ -296,7 +296,6 @@ export default function TourPage() {
                     className="object-cover"
                     sizes="(min-width: 768px) 420px, 75vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                   {/* zoom icon hint */}
                   <div className="absolute bottom-3 right-3 p-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-white/60">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
