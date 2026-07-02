@@ -114,9 +114,9 @@ export default function HomePage() {
   ];
 
   const destinos = [
-    { name: "Cordillera Blanca", desc: t("destinos.blanca"), image: "/images/hero-1.webp", href: "/tours/santa-cruz" },
-    { name: "Laguna 69", desc: t("destinos.laguna"), image: "/images/tour-laguna69.webp", href: "/tours/laguna-69" },
-    { name: "Cordillera Huayhuash", desc: t("destinos.huayhuash"), image: "/images/hero-3.webp", href: "/tours/cordillera-huayhuash" },
+    { name: "Cordillera Blanca", desc: t("destinos.blanca"), image: "/images/tours/santa-cruz/santa-cruz-new-1.webp", href: "/tours/santa-cruz" },
+    { name: "Laguna 69", desc: t("destinos.laguna"), image: "/images/tours/laguna-69/laguna69-new-1.webp", href: "/tours/laguna-69" },
+    { name: "Cordillera Huayhuash", desc: t("destinos.huayhuash"), image: "/images/tours/huayhuash/huayhuash-new-01.webp", href: "/tours/cordillera-huayhuash" },
     { name: "Chavin de Huantar", desc: t("destinos.chavin"), image: "/images/tour-chavin.webp", href: "/tours/tour-astronomico" },
   ];
 
