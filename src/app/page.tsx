@@ -409,8 +409,8 @@ export default function HomePage() {
                       </div>
                     ))}
                   </div>
-                  <div className="mt-5 flex gap-3">
-                    <Link href={`/tours/${tour.slug}`} className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#C89B3C]/10 border border-[#C89B3C]/30 text-[#C89B3C] text-sm font-medium tracking-wide hover:bg-[#C89B3C]/20 hover:border-[#C89B3C]/50 transition-all duration-300">
+                  <div className="mt-5 grid grid-cols-2 gap-3">
+                    <Link href={`/tours/${tour.slug}`} className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-[#C89B3C]/10 border border-[#C89B3C]/30 text-[#C89B3C] text-sm font-medium tracking-wide hover:bg-[#C89B3C]/20 hover:border-[#C89B3C]/50 transition-all duration-300">
                       {t("tours.details")} <ArrowRight className="w-4 h-4" />
                     </Link>
                     <button
